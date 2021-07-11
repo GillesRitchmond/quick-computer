@@ -8,7 +8,7 @@
 // $conn = new mysqli($servername, $username, $password, $dbname);
 
 $servername = 'mysql-36994-0.cloudclusters.net';
-$dbname   = 'quick-computer-db';
+$dbname   = 'quick_computer_db';
 $username = 'admin';
 $password = '4vae6PyH';
 $dbServerPort = "36994";
