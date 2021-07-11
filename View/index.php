@@ -74,145 +74,46 @@
                 <hr>
             </span>
             <div class="list-content mt-3">
-                <div class="bg-white">
-                    <div class="img-size">
-                        <img src="images/code-promo-abeille-heureuse@2x.png" class="img-content" alt="">
-                    </div>
-                    <div class="name-and-details">
-                        <div class="name">Bonus Card</div>
-                        <div class="details">Contain : 5 groupes | Created : 24/6/2021 by : JohnDoe1234</div>
-                    </div>
-                    <div class="more-details">
-                        <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
+                <?php
+                
+                $query = "SELECT * FROM program, users WHERE users.code_user = program.code_user ORDER BY id_program DESC";
+                $result = $conn->query($query);
 
-                <div class="bg-white">
-                    <div class="img-size">
-                        <img src="images/collection-logo-miel-design-plat_23-2147659652@2x.png" class="img-content" alt="">
-                    </div>
-                    <div class="name-and-details">
-                        <div class="name">Bonus Card</div>
-                        <div class="details">Contain : 5 groupes | Created : 24/6/2021 by : JohnDoe1234</div>
-                    </div>
-                    <div class="more-details">
-                        <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
+                if(mysqli_num_rows($result) > 0)
+                {
+                    while($row = mysqli_fetch_assoc($result))
+                    {
+                        echo '<a href="program-details.php" class="nav-link">
+                            <div class="bg-white">
+                                <div class="img-size">
+                                    <img src="../Assets/images/'.$row["image"].'" class="img-content" alt="">
+                                </div>
+                                <div class="name-and-details">
+                                    <div class="name">'.$row["program_name"].'</div>
+                                    <div class="details">
+                                     Created : '.$row["date_creation"].'<br> 
+                                     user : '.$row["nom"]. ' ' .$row["prenom"].'</div>
+                                </div>
+                                <div class="more-details">
+                                    <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </a>';
+                    }
+                }
 
-                <div class="bg-white">
-                    <div class="img-size">
-                        <img src="images/download@2x.png" class="img-content" alt="">
-                    </div>
-                    <div class="name-and-details">
-                        <div class="name">Bonus Card</div>
-                        <div class="details">Contain : 5 groupes | Created : 24/6/2021 by : JohnDoe1234</div>
-                    </div>
-                    <div class="more-details">
-                        <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
+                ?>
 
-
-                <div class="bg-white">
-                    <div class="img-size">
-                        <img src="images/istockphoto-1042533778-612x612@2x.png" class="img-content" alt="">
-                    </div>
-                    <div class="name-and-details">
-                        <div class="name">Bonus Card</div>
-                        <div class="details">Contain : 5 groupes | Created : 24/6/2021 by : JohnDoe1234</div>
-                    </div>
-                    <div class="more-details">
-                        <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="bg-white">
-                    <div class="img-size">
-                        <img src="images/code-promo-abeille-heureuse.png" class="img-content" alt="">
-                    </div>
-                    <div class="name-and-details">
-                        <div class="name">Bonus Card</div>
-                        <div class="details">Contain : 5 groupes | Created : 24/6/2021 by : JohnDoe1234</div>
-                    </div>
-                    <div class="more-details">
-                        <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="bg-white">
-                    <div class="img-size">
-                        <img src="images/code-promo-abeille-heureuse.png" class="img-content" alt="">
-                    </div>
-                    <div class="name-and-details">
-                        <div class="name">Bonus Card</div>
-                        <div class="details">Contain : 5 groupes | Created : 24/6/2021 by : JohnDoe1234</div>
-                    </div>
-                    <div class="more-details">
-                        <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="bg-white">
-                    <div class="img-size">
-                        <img src="images/code-promo-abeille-heureuse.png" class="img-content" alt="">
-                    </div>
-                    <div class="name-and-details">
-                        <div class="name">Bonus Card</div>
-                        <div class="details">Contain : 5 groupes | Created : 24/6/2021 by : JohnDoe1234</div>
-                    </div>
-                    <div class="more-details">
-                        <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="bg-white">
-                    <div class="img-size">
-                        <img src="images/code-promo-abeille-heureuse.png" class="img-content" alt="">
-                    </div>
-                    <div class="name-and-details">
-                        <div class="name">Bonus Card</div>
-                        <div class="details">Contain : 5 groupes | Created : 24/6/2021 by : JohnDoe1234</div>
-                    </div>
-                    <div class="more-details">
-                        <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="bg-white">
-                    <div class="img-size">
-                        <img src="images/code-promo-abeille-heureuse.png" class="img-content" alt="">
-                    </div>
-                    <div class="name-and-details">
-                        <div class="name">Bonus Card</div>
-                        <div class="details">Contain : 5 groupes | Created : 24/6/2021 by : JohnDoe1234</div>
-                    </div>
-                    <div class="more-details">
-                        <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="bg-white">
-                    <div class="img-size">
-                        <img src="images/code-promo-abeille-heureuse.png" class="img-content" alt="">
-                    </div>
-                    <div class="name-and-details">
-                        <div class="name">Bonus Card</div>
-                        <div class="details">Contain : 5 groupes | Created : 24/6/2021 by : JohnDoe1234</div>
-                    </div>
-                    <div class="more-details">
-                        <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
 
-    <div class="footer container">
+    <!-- <div class="footer container">
         <a href="#" class="add-button">
             <i class="bi bi-plus-square-fill"></i>
         </a>
-    </div>
+    </div> -->
 </body>
 
 </html>
