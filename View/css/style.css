@@ -229,7 +229,8 @@ body,
 .login-card{
     width: 500px;
     margin: 100px auto;
-    box-shadow: 0 4px 8px 0 rgba(117, 117, 117, 0.5);
+    /* box-shadow: 0 4px 8px 0 rgba(117, 117, 117, 0.5); */
+    box-shadow: none;
 }
 .form-card{
     width: auto;
