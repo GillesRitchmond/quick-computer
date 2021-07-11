@@ -73,7 +73,7 @@ if (isset($_POST["submit"])) {
 
                                 $_SESSION["loggedin"] = true;
                                 $_SESSION["code_entreprise"] = $code_entreprise;
-                                $_SESSION["code_user"] = $user;
+                                $_SESSION["code_user"] = $code_user;
                                 $_SESSION["nom"] = $nom;
                                 $_SESSION["prenom"] = $prenom;
                                 $_SESSION["role"] = $id_role;

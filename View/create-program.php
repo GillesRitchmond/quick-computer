@@ -59,18 +59,22 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <hr>
         </div>
 
-        <form action="" method="post" class="container mb-4">
+        <form id="uploadForm" action="" method="post"  enctype= "multipart/form-data" class="container mb-4">
             <?php
+            
+            
             if (isset($_POST["submit"])) {
+                
                 $nom = $_POST["name"];
                 $description = $_POST["description"];
-                $date_creation = date("d/m/Y");
+                $date_creation = date("d-m-y");
                 $date_expiration = $_POST["date_expiration"];
 
                 $code_entreprise = $_SESSION["code_entreprise"];
                 $code_user = $_SESSION["code_user"];
-
-                $file = rand(1000, 100000) . "-" . $_FILES['fileToUpload']['name'];
+                
+                $file_name = $_FILES['fileToUpload']['name'];
+                $file = rand(1000, 100000) . "-" . $file_name;
                 $file_loc = $_FILES['fileToUpload']['tmp_name'];
                 $file_size = $_FILES['fileToUpload']['size'];
                 $file_type = $_FILES['fileToUpload']['type'];
@@ -87,15 +91,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 $final_file = str_replace(' ', '-', $new_file_name);
 
                 if (move_uploaded_file($file_loc, $folder . $final_file)) {
-                    $query = $conn->prepare("INSERT INTO program (program_name, date_creation, date_expiration, description, image, code_entreprise, code_user)");
-                    $query->bind_param("sssssss", $nom, $date_creation, $date_expiration, $final_file, $code_entreprise, $code_user);
+                    $query = $conn->prepare("INSERT INTO program (program_name, date_creation, date_expiration, description, image, code_entreprise, code_user)
+                                            VALUES (?, ?, ?, ?, ?, ?, ?)");
+                    $query->bind_param("sssssss", $nom, $date_creation, $date_expiration, $description, $final_file, $code_entreprise, $code_user);
 
                     if ($query->execute()) {
                         // echo "File sucessfully upload";
                         echo '<div class="alert alert-success" role="alert"> Enregistrement réussi ! </div>';
                     }
                 } else {
-                    echo '<div class="alert alert-danger" role="alert"> Enregistrement échoué ! </div>';
+                    echo '<div class="alert alert-danger" role="alert"> Echec d\'enregistrement ! </div>';
                 }
             }
 
@@ -115,7 +120,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
             <div class="mb-3 form_field">
                 <label for="fileSelect">Filename:</label>
-                <input type="file" name="fileToUpload" class="form-control-file" id="fileToUpload" required>
+                <input type="file" name="fileToUpload" class="form-control-file" required>
             </div>
             <div class="mb-3">
                 <div class="form-check">
