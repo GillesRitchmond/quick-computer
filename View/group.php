@@ -18,7 +18,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- TITLE -->
-    <title>Program details</title>
+    <title>Group list</title>
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -43,12 +43,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <i class="bi bi-three-dots-vertical"></i>
         </div>
         <?php
-            $id = $_GET['program'];
-            $query = "SELECT * FROM users, program WHERE users.code_user = program.code_user AND id_program = $id LIMIT 1";
+            $id = $_GET['group-details'];
+            $query = "SELECT * FROM users, program, groupe WHERE users.code_user = program.code_user AND groupe.id_program = program.id_program AND id_group = $id LIMIT 1";
             $result = $conn->query($query);
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<div class="title">'.$row["program_name"].'</div>
+                    echo '<div class="title">'.$row["nom_groupe"].'</div>
                     <span class="subtitle">Created : '.$row["date_creation"].' by : '.$row["nom"].' '.$row["prenom"].'</span>';
                 }
             }
@@ -68,20 +68,20 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <ul>
                     <li>
                         <?php
-                            $id = $_GET["program"];
+                            $id = $_GET["group-details"];
                             // $code_entreprise = $_SESSION["code_entreprise"];
             
-                            $query = "SELECT * FROM program WHERE program.id_program = $id";
+                            $query = "SELECT * FROM groupe WHERE groupe.id_group = $id";
                             $result = $conn->query($query);
             
                             if (mysqli_num_rows($result) > 0) {
                                 while ($row = mysqli_fetch_assoc($result)) { 
-                                    echo '<a href="add-group.php?program='.$row["id_program"].'" class="btn btn-outline-primary">New group</a>'; 
+                                    echo '<a href="add-person.php?group-details='.$row["id_group"].'" class="btn btn-outline-primary">New person</a>'; 
                                 }
                             }
                         ?>
                     </li>
-                    <li><a href="create-program.php" class="btn btn-outline-secondary">New program</a></li>
+                    <!-- <li><a href="add-group.php" class="btn btn-outline-secondary">New group</a></li> -->
                     <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>
                 </ul>
             </div>
@@ -91,32 +91,44 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <div class="third-part-content">
         <div class="container mt-3">
             <span class="title-page-list">
-                <a href="index.php">
-                    <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span> Back
-                </a>
+            <?php
+
+            $id = $_GET["group-details"];
+            // $code_entreprise = $_SESSION["code_entreprise"];
+
+            $query = "SELECT * FROM program, groupe WHERE groupe.id_group = $id AND program.id_program = groupe.id_program";
+            $result = $conn->query($query);
+
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<a href="program-details.php?program='.$row["id_program"].'" class="nav-link">
+                        <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
+                    </a>';
+                }
+            }
+            ?>
                 <hr>
             </span>
             <div class="list-content mt-3">
 
                 <?php
-                $id = $_GET["program"];
+                $id = $_GET["group-details"];
                 $code_entreprise = $_SESSION["code_entreprise"];
 
-                $query = "SELECT * FROM program, groupe, users WHERE program.id_program = $id AND groupe.id_program = $id AND users.code_user = groupe.code_user ORDER BY groupe.id_group DESC";
+                $query = "SELECT * FROM program, groupe, personne WHERE personne.id_program = program.id_program AND personne.id_group = groupe.id_group AND groupe.id_program = program.id_program AND personne.id_group = $id ORDER BY personne.nom ASC";
                 $result = $conn->query($query);
 
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<a href="group.php?group-details=' . $row["id_group"] . '" class="nav-link">
+                        echo '<a href="person-details.php?person-details=' . $row["id_person"] . '" class="nav-link">
                             <div class="bg-white">
                                 <div class="group-name-and-details">
-                                    <div class="group-name">'.$row["nom_groupe"].'</div>
+                                    <div class="group-name">'.$row["nom"].' '. $row["prenom"].'</div>
                                     <div class="group-details">
-                                    <b>Expire</b> : '.$row["date_expiration"].' '. '<br> 
-                                        <b>Created :</b>'.$row["date_creation"].' <b>By : </b>'.$row["nom"]. ' ' .$row["prenom"].'</div>
+                                        Email  : '.$row["email"].'</div>
                                     </div>
-                                    <div class="more-details">
-                                        <a href="group.php?group-details=' . $row["id_group"] . '"><i class="bi bi-chevron-right"></i></a>
+                                    <div class="group-more-details">
+                                        <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>
                                     </div>
                             </div>
                         </a>';
@@ -124,8 +136,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 } else {
                     echo '<div class="bg-white">
                         <div class="group-name-and-details">
-                            <div class="group-name">There is no group here...</div>
-                            <div class="group-details">Please create a new group in this program !</div>
+                            <div class="group-name">There is no person here...</div>
+                            <div class="group-details">Please add a new person in this group !</div>
                         </div>
                     </div>';
                 }

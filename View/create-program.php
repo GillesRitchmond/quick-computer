@@ -44,7 +44,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <i class="bi bi-three-dots-vertical"></i>
         </div>
         <div class="title program">
-            New a program
+            New program
         </div>
     </div>
 

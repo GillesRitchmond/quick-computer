@@ -25,10 +25,10 @@ body,
 }
 .header-content{
     background-image: linear-gradient(to bottom right, rgb(1, 64, 172), rgb(103, 198, 185));
-    height: 150px;
+    height: auto;
     width: 100%;
     color: var(--white);
-    padding: 15px 0;
+    padding: 18px 0;
     position: sticky;
 }
 .bullet-menu{
@@ -41,7 +41,7 @@ body,
     margin-left: 30px;
 }
 .title{
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-top: 60px;
     text-transform: uppercase;
@@ -151,12 +151,12 @@ body,
     padding: 0 3px;
 }
 .bg-white{
-    height: 80px;
+    height: auto;
     width: 800px;
     border-radius: 15px;
     box-shadow: 1px 1px 8px rgba(65, 65, 65, 0.247);
     background-color: var(--white);
-    padding: 10px 30px;
+    padding: 20px 10px;
     margin-bottom: 10px;
 }
 .img-size{
@@ -164,6 +164,7 @@ body,
     width: 80px;
     padding-right: 6px;
     border-right: 1px solid rgb(126, 126, 126);
+    margin-top: -15px;
 }
 .img-content{
     width: 80px;
@@ -172,10 +173,10 @@ body,
 }
 .name-and-details{
     position: relative;
-    margin-top: -65px;
+    margin-top: -70px;
     margin-left: 120px;
 }
-.name{
+.name, .group-name{
     font-weight: 500;
     color: var(--primary);
     margin-bottom: 4px;
@@ -185,18 +186,34 @@ body,
     font-size: 0.8rem;
     color: gray;
 }
+.group-name-and-details{
+    position: relative;
+    margin-top: 0;
+    margin-left: 10px;
+}
+.group-details{
+    font-weight: lighter;
+    font-size: 0.8rem;
+    color: gray;
+}
 .more-details a{
     font-size: 2rem;
     color: var(--secondary);
     position: relative;
     float: right;
-    margin-top: -45px;
+    margin-top: -50px;
+}
+.group-more-details a{
+    font-size: 2rem;
+    color: var(--secondary);
+    position: relative;
+    float: right;
+    margin-top: -50px;
 }
 .footer{
     position: sticky;
     margin-left: 20px;
     margin-top: -90px;
-    
 }
 .footer .add-button{
     display: none;
@@ -250,6 +267,9 @@ body,
     body{
         background-color: var(--background-color);
     }
+    .header-content{
+        height: auto;
+    }
     .program{
         width: 200px;
         margin-top: 0;
@@ -298,9 +318,9 @@ body,
         margin-left: -40px;
     }
     .bg-white{
-        height: 80px;
+        height: auto;
         width: auto;
-        padding: 8px 5px;
+        padding: 10px 5px;
         box-shadow: 1px 1px 8px rgba(65, 65, 65, 0.247);
         background-color: var(--white);
         border-radius: 15px;
@@ -311,6 +331,8 @@ body,
         width: 70px;
         padding-right: 6px;
         border-right: 1px solid rgb(126, 126, 126);
+        margin-bottom: 12px;
+        margin-top: -10px;
     }
     .img-content{
         width: 70px;
@@ -319,8 +341,15 @@ body,
     }
     .name-and-details{
         position: relative;
-        margin-top: -70px;
+        margin-top: -80px;
         margin-left: 90px;
+    }
+    .group-more-details a{
+        font-size: 2rem;
+        color: var(--secondary);
+        position: relative;
+        float: right;
+        margin-top: -45px;
     }
     .name{
         font-weight: 500;
@@ -359,6 +388,9 @@ body,
     .program{
         width: 200px;
         margin-top: 0;
+    }
+    .header-content{
+        height: auto;
     }
     .second-part-content{
         padding: 15px 0 0 0;
@@ -404,9 +436,9 @@ body,
         margin-left: -40px;
     }
     .bg-white{
-        height: 80px;
+        height: auto;
         width: auto;
-        padding: 10px 10px;
+        padding: 20px 10px;
         box-shadow: 1px 1px 8px rgba(65, 65, 65, 0.247);
         background-color: var(--white);
         border-radius: 15px;
@@ -417,6 +449,8 @@ body,
         width: 80px;
         padding-right: 6px;
         border-right: 1px solid rgb(126, 126, 126);
+        margin-bottom: 12px;
+        margin-top: -10px;
     }
     .img-content{
         width: 80px;
@@ -425,7 +459,7 @@ body,
     }
     .name-and-details{
         position: relative;
-        margin-top: -75px;
+        margin-top: -85px;
         margin-left: 100px;
     }
     .name{
@@ -440,6 +474,13 @@ body,
         width: 200px;
     }
     .more-details a{
+        font-size: 2rem;
+        color: var(--secondary);
+        position: relative;
+        float: right;
+        margin-top: -45px;
+    }
+    .group-more-details a{
         font-size: 2rem;
         color: var(--secondary);
         position: relative;

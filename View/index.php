@@ -69,7 +69,7 @@
         <div class="container mt-3">
             <span class="title-page-list">
                 <a href="">
-                    <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span> Programs List
+                    <!-- <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>  --> Programs List
                 </a>
                 <hr>
             </span>
@@ -83,7 +83,7 @@
                 {
                     while($row = mysqli_fetch_assoc($result))
                     {
-                        echo '<a href="program-details.php" class="nav-link">
+                        echo '<a href="program-details.php?program='.$row["id_program"].'" class="nav-link">
                             <div class="bg-white">
                                 <div class="img-size">
                                     <img src="../Assets/images/'.$row["image"].'" class="img-content" alt="">
@@ -92,10 +92,10 @@
                                     <div class="name">'.$row["program_name"].'</div>
                                     <div class="details">
                                      Created : '.$row["date_creation"].'<br> 
-                                     user : '.$row["nom"]. ' ' .$row["prenom"].'</div>
+                                     By : '.$row["nom"]. ' ' .$row["prenom"].'</div>
                                 </div>
                                 <div class="more-details">
-                                    <a href="program-details.php"><i class="bi bi-chevron-right"></i></a>
+                                    <a href="program-details.php?program='.$row["id_program"].'"><i class="bi bi-chevron-right"></i></a>
                                 </div>
                             </div>
                         </a>';
