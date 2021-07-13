@@ -1,16 +1,17 @@
 <?php
-    include_once('../Model/connection.php');
-    session_start();
+include_once('../Model/connection.php');
+session_start();
 
-    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-        header("location: ../index.php");
-        exit;
-    }
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: ../index.php");
+    exit;
+}
 ?>
 
 <!Doctype html>
 
 <html>
+
 <head>
     <!-- META -->
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -37,14 +38,40 @@
 </head>
 
 <body>
+
+    <!-- <div class="modal">
+        <div class="modal-box">
+            <div class="header-section">
+                Menu <hr>
+                <span></span>
+            </div>
+            <div class="middle-section">
+                <ul class="nav-link">
+                    <li class="link"><a href="#">Report</a></li>
+                    <li class="link"><a href="#">Manage users</a></li>
+                    <li class="link"><a href="#">Settings</a></li>
+                    <li class="link"><a href="#">Logout</a></li>
+                </ul>
+
+            </div>
+            <div class="bottom-section">
+
+            </div>
+        </div>
+    </div> -->
+    
     <div class="header-content">
         <div class="bullet-menu text-white">
-            <a href="../Controller/logout.php" class="text-white nav-link"><i class="bi bi-three-dots-vertical"></i></a>
+            <a href="../Controller/logout.php" class="text-white nav-link"><i class="bi bi-list"></i></a>
         </div>
         <div class="title">
             Dashboard
         </div>
-        <span class="subtitle">User: <?php $nom = $_SESSION["nom"]; $prenom = $_SESSION["prenom"]; echo $nom . ' ' . $prenom?></span>
+        <span class="subtitle">User: 
+            <?php $nom = $_SESSION["nom"];
+            $prenom = $_SESSION["prenom"];
+            echo $nom . ' ' . $prenom; ?>
+        </span>
     </div>
 
     <div class="second-part-content">
@@ -75,27 +102,25 @@
             </span>
             <div class="list-content mt-3">
                 <?php
-                
+
                 $query = "SELECT * FROM program, users WHERE users.code_user = program.code_user ORDER BY id_program DESC";
                 $result = $conn->query($query);
 
-                if(mysqli_num_rows($result) > 0)
-                {
-                    while($row = mysqli_fetch_assoc($result))
-                    {
-                        echo '<a href="program-details.php?program='.$row["id_program"].'" class="nav-link">
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<a href="program-details.php?program=' . $row["id_program"] . '" class="nav-link">
                             <div class="bg-white">
                                 <div class="img-size">
-                                    <img src="../Assets/images/'.$row["image"].'" class="img-content" alt="">
+                                    <img src="../Assets/images/' . $row["image"] . '" class="img-content" alt="">
                                 </div>
                                 <div class="name-and-details">
-                                    <div class="name">'.$row["program_name"].'</div>
+                                    <div class="name">' . $row["program_name"] . '</div>
                                     <div class="details">
-                                     Created : '.$row["date_creation"].'<br> 
-                                     By : '.$row["nom"]. ' ' .$row["prenom"].'</div>
+                                     Created : ' . $row["date_creation"] . '<br> 
+                                     By : ' . $row["nom"] . ' ' . $row["prenom"] . '</div>
                                 </div>
                                 <div class="more-details">
-                                    <a href="program-details.php?program='.$row["id_program"].'"><i class="bi bi-chevron-right"></i></a>
+                                    <a href="program-details.php?program=' . $row["id_program"] . '"><i class="bi bi-chevron-right"></i></a>
                                 </div>
                             </div>
                         </a>';
@@ -104,7 +129,7 @@
 
                 ?>
 
-                
+
             </div>
         </div>
     </div>

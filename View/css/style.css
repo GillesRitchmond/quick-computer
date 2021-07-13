@@ -88,6 +88,10 @@ body,
     border-radius: 10px;
     padding: 0 50px;
 }
+.nav-link{
+    color:var(--white);
+    text-decoration: none;
+}
 .link{
     position: relative;
     float: right;
@@ -260,6 +264,17 @@ body,
 }
 .form-card .link{
     text-align: center;
+}
+
+.modal .modal-box{
+    background-color: var(--white);
+    padding: 10px 0;
+    border-radius: 10px;
+}
+.modal .modal-box .header-section{
+    padding: 5px 10px;
+    font-size: 1.2rem;
+    color: var(--gray);
 }
 
 @media (min-width: 320px) and (max-width: 379px)
