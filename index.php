@@ -1,5 +1,5 @@
 <?php
-include_once('Model/Connection.php');
+include_once('Model/connection.php');
 
 // Initialize the session
 session_start();
