@@ -347,7 +347,7 @@ body,
         padding-right: 6px;
         border-right: 1px solid rgb(126, 126, 126);
         margin-bottom: 12px;
-        margin-top: -10px;
+        margin-top: -5px;
     }
     .img-content{
         width: 70px;
@@ -466,7 +466,7 @@ body,
         padding-right: 6px;
         border-right: 1px solid rgb(126, 126, 126);
         margin-bottom: 12px;
-        margin-top: -10px;
+        margin-top: -5px;
     }
     .img-content{
         width: 80px;
@@ -477,6 +477,7 @@ body,
         position: relative;
         margin-top: -85px;
         margin-left: 100px;
+        padding: 10px 0;
     }
     .name{
         font-weight: 500;
