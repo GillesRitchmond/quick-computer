@@ -235,16 +235,8 @@ body,
     float: right;
     margin-top: -50px;
 }
-.footer{
-    position: sticky;
-    margin-left: 20px;
-    margin-top: -90px;
-}
-.footer .add-button{
+.footer-bg-white{
     display: none;
-    font-size: 3rem;
-    color: var(--secondary);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.788);
 }
 .btn-brand{
     background-image: linear-gradient(to right, rgb(1, 64, 172), rgb(103, 198, 185));
@@ -594,6 +586,9 @@ body,
 }
 
 @media screen and (max-width: 480px) {
+    .footer-bg-white{
+        display: contents;
+    }
     .footer-bg-white .list{
         background-color: white;
         box-shadow: 3px 3px 12px var(--gray);
