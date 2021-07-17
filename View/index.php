@@ -22,6 +22,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 
     <!-- BOOTSTRAP CSS & JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -84,9 +85,23 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
             <div class="link">
                 <ul>
-                    <li><a href="add-user.php" class="btn btn-outline-primary">New user</a></li>
-                    <li><a href="create-program.php" class="btn btn-outline-secondary">New program</a></li>
-                    <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>
+                    <?php
+                        if(isset($_SESSION["role"]) && $_SESSION["role"] === 3)
+                        {
+                            echo '<li><a href="add-user.php" class="btn btn-outline-primary">New user</a></li>
+                            <li><a href="create-program.php" class="btn btn-outline-secondary">New program</a></li>
+                            <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
+                        }
+                        elseif(isset($_SESSION["role"]) && $_SESSION["role"] === 2)
+                        {
+                            echo '<li><a href="add-user.php" class="btn btn-outline-primary">New user</a></li>
+                            <li><a href="create-program.php" class="btn btn-outline-secondary">New program</a></li>';
+                        }
+                        elseif(isset($_SESSION["role"]) && $_SESSION["role"] === 1)
+                        {
+                            echo '<li><a href="report.php" class="col-md btn btn-outline-muted">Report</a></li>';
+                        }
+                    ?>
                 </ul>
             </div>
         </div>
@@ -95,8 +110,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <div class="third-part-content">
         <div class="container mt-3">
             <span class="title-page-list">
-                <a href="">
-                    <!-- <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>  --> Programs List
+                <a>
+                   Programs List
                 </a>
                 <hr>
             </span>
@@ -112,7 +127,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             <div class="bg-white">
                                 <div class="img-size">
                                     <img src="../Assets/images/' . $row["image"] . '" class="img-content" alt="">
-                                </div>
+                                </div> 
                                 <div class="name-and-details">
                                     <div class="name">' . $row["program_name"] . '</div>
                                     <div class="details">
@@ -134,11 +149,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
     </div>
 
-    <!-- <div class="footer container">
-        <a href="#" class="add-button">
-            <i class="bi bi-plus-square-fill"></i>
-        </a>
-    </div> -->
+    <?php
+        include_once('footer.php');
+    ?>
 </body>
 
 </html>

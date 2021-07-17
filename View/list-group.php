@@ -18,7 +18,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- TITLE -->
-    <title>Program details</title>
+    <title>List group</title>
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -44,15 +44,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <i class="bi bi-list"></i>
         </div>
         <?php
-            $id = $_GET['program'];
-            $query = "SELECT * FROM users, program WHERE users.code_user = program.code_user AND id_program = $id LIMIT 1";
-            $result = $conn->query($query);
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<div class="title">'.$row["program_name"].'</div>
-                    <span class="subtitle">Created : '.$row["date_creation"].'</span>';
-                }
-            }
+            echo '<div class="title">List of groups</div>';
+            // $id = $_GET['program'];
+            // $query = "SELECT * FROM users, program WHERE users.code_user = program.code_user AND id_program = $id LIMIT 1";
+            // $result = $conn->query($query);
+            // if (mysqli_num_rows($result) > 0) {
+            //     while ($row = mysqli_fetch_assoc($result)) {
+            //         echo '<div class="title">'.$row["program_name"].'</div>
+            //         <span class="subtitle">Created : '.$row["date_creation"].'</span>';
+            //     }
+            // }
         ?>
     </div>
 
@@ -65,33 +66,33 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     <input type="text" name="searchAll" id="" placeholder="Search" class="search-main">
                 </form>
             </div>
-            <div class="link">
-                <ul>
+            <!-- <div class="link">
+                <ul> -->
                 <?php
-                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2) {
-                        echo '<li>';
-                            $id = $_GET["program"];
+                    // if (isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2) {
+                    //     echo '<li>';
+                            // $id = $_GET["program"];
                             // $code_entreprise = $_SESSION["code_entreprise"];
             
-                            $query = "SELECT * FROM program WHERE program.id_program = $id";
-                            $result = $conn->query($query);
+                        //     $query = "SELECT * FROM program";
+                        //     $result = $conn->query($query);
             
-                            if (mysqli_num_rows($result) > 0) {
-                                while ($row = mysqli_fetch_assoc($result)) { 
-                                    echo '<a href="add-group.php?program='.$row["id_program"].'" class="btn btn-outline-primary">New group</a>'; 
-                                }
-                            }
-                            echo '</li> <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
+                        //     if (mysqli_num_rows($result) > 0) {
+                        //         while ($row = mysqli_fetch_assoc($result)) { 
+                        //             echo '<a href="add-group.php?program='.$row["id_program"].'" class="btn btn-outline-primary">New group</a>'; 
+                        //         }
+                        //     }
+                        //     echo '</li> <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
                     
-                        }
-                        elseif(isset($_SESSION["role"]) && $_SESSION["role"] === 1)
-                        {
-                            echo '<li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
-                        }
+                        // }
+                        // elseif(isset($_SESSION["role"]) && $_SESSION["role"] === 1)
+                        // {
+                        //     echo '<li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
+                        // }
     
                         ?>
-                </ul>
-            </div>
+                <!-- </ul>
+            </div> -->
         </div>
     </div>
 
@@ -106,10 +107,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <div class="list-content mt-3">
 
                 <?php
-                $id = $_GET["program"];
+                // $id = $_GET["program"];
                 $code_entreprise = $_SESSION["code_entreprise"];
 
-                $query = "SELECT * FROM program, groupe, users WHERE program.id_program = $id AND groupe.id_program = $id AND users.code_user = groupe.code_user ORDER BY groupe.id_group DESC";
+                $query = "SELECT * FROM program, groupe, users WHERE program.id_program = groupe.id_program AND users.code_user = groupe.code_user ORDER BY groupe.id_group DESC";
                 $result = $conn->query($query);
 
                 if (mysqli_num_rows($result) > 0) {
@@ -132,7 +133,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     echo '<div class="bg-white">
                         <div class="group-name-and-details">
                             <div class="group-name">There is no group here...</div>
-                            <div class="group-details">Please create a new group in this program !</div>
+                            <div class="group-details">Please create a new group !</div>
                         </div>
                     </div>';
                 }
@@ -145,7 +146,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </div>
 
     <?php
-        include_once('footer.php');
+        include_once("footer.php");
     ?>
 </body>
 

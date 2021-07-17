@@ -41,7 +41,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <body class="body">
     <div class="header-content">
         <div class="bullet-menu">
-            <i class="bi bi-three-dots-vertical"></i>
+            <i class="bi bi-list"></i>
         </div>
         <div class="title program">
             New person
@@ -61,7 +61,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<a href="group.php?group-details='.$row["id_group"].'" class="nav-link">
+                        echo '<a href="group.php?group-details=' . $row["id_group"] . '" class="nav-link">
                     <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
                 </a>';
                     }
@@ -72,9 +72,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
 
 
-        <form action="" method="post" class="container mb-4">
+        <form id="uploadForm" action="" method="post" enctype="multipart/form-data" class="container mb-4">
             <div id="alert_message">
                 <?php
+
                 if (isset($_POST["submit"])) {
                     try {
                         $nom = $_POST["nom"];
@@ -86,32 +87,66 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         $tel_1 = $_POST["tel_1"];
                         $tel_2 = $_POST["tel_2"];
                         $id_group = $_GET["group-details"];
+                        $id_program = $_GET["program-details"];
+                        $id_statut = $_POST["id_statut"];
 
                         // $code_entreprise = $_SESSION["code_entreprise"];
                         // $code_entreprise = "ckhardware.qc";
 
                         // $h_password = password_hash($password, PASSWORD_DEFAULT);
+                        $file_name = $_FILES['fileToUpload']['name'];
+                        $file = rand(1000, 100000) . "-" . $file_name;
+                        $file_loc = $_FILES['fileToUpload']['tmp_name'];
+                        $file_size = $_FILES['fileToUpload']['size'];
+                        $file_type = $_FILES['fileToUpload']['type'];
+                        $folder = "../Assets/profile/";
 
-                        $stmt_user = $conn->prepare("INSERT INTO personne (nom, prenom, date_naissance, lieu_naissance, telephone_1, telephone_2, adresse, email, id_group )
-                                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                        $stmt_user->bind_param('ssssssssi', $nom, $prenom, $date_naissance, $lieu_naissance, $tel_1, $tel_2, $adresse, $email, $id_group);
+                        /* new file size in KB */
+                        $new_size = $file_size / 1024;
+                        /* new file size in KB */
 
-                        if ($stmt_user->execute()) {
-                            echo '<div class="alert alert-success" role="alert">
-                            Enregistrement réussi !
-                        </div>';
+                        /* make file name in lower case */
+                        $new_file_name = strtolower($file);
+                        /* make file name in lower case */
+
+                        $final_file = str_replace(' ', '-', $new_file_name);
+
+                        if (move_uploaded_file($file_loc, $folder . $final_file)) {
+                            $stmt_user = $conn->prepare("INSERT INTO personne (nom, prenom, date_naissance, lieu_naissance, telephone_1, telephone_2, 
+                                        adresse, email, profile_image, id_statut, id_group, id_program)
+                                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            $stmt_user->bind_param(
+                                'sssssssssiii',
+                                $nom,
+                                $prenom,
+                                $date_naissance,
+                                $lieu_naissance,
+                                $tel_1,
+                                $tel_2,
+                                $adresse,
+                                $email,
+                                $final_file,
+                                $id_statut,
+                                $id_group,
+                                $id_program
+                            );
+
+                            if ($stmt_user->execute()) {
+                                echo '<div class="alert alert-success" role="alert">
+                                    Enregistrement réussi !
+                                </div>';
+                            }
                         }
                     } catch (PDOException $e) {
 
                         echo '<div class="alert alert-danger" role="alert">
-                    L\' enregistrement n\'a pas été faite  !
-                    </div>';
+                        L\' enregistrement n\'a pas été faite  !
+                        </div>';
                         echo "Error: " . $e->getMessage();
                     }
                 }
                 ?>
             </div>
-
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Lastname</label>
                 <input type="text" class="form-control" name="nom" id="exampleFormControlInput1" required>
@@ -141,12 +176,122 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <input type="number" class="form-control" name="tel_1" id="exampleFormControlInput1" required>
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Phone 2</label>
+                <label for="exampleFormControlInput1" class="form-label">Phone 2 <span class="details">(Optionnal)</span></label>
                 <input type="number" class="form-control" name="tel_2" id="exampleFormControlInput1">
+            </div>
+            <div class="mb-3 form_field">
+                <label for="fileSelect">Profile picture:</label>
+                <input type="file" name="fileToUpload" class="form-control-file" required>
+            </div>
+            <div class="mb-3">
+
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="hidden" name="id_statut" value="2" id="flexSwitchCheckChecked">
+                    <input class="form-check-input" type="checkbox" name="id_statut" value="1" id="flexSwitchCheckChecked">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Enable <span class="details">(Default value : Disable)</span>
+                    </label>
+                </div>
+
+                <!-- <div class="form-check">
+                    <input class="form-check-input" type="hidden" name="id_statut" value="2" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox" name="id_statut" value="1" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Activate <span class="details">(Check it to activate this person in the program)</span>
+                    </label>
+                </div> -->
+            </div>
+            <div class="mb-3">
+                <div class="form-check">
+                    <a class="" onclick="dependant(); return false;"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" ondblclick="hide_dependant(); return false" onclick="dependant(); return false;"></a>
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Add Dependant <span class="details">(Optionnal)</span>
+                    </label>
+                </div>
+            </div>
+            <div class="dependant" id="dependant-list-field">
+                <label class="form-label">Information about dependant(s)</label>
+                <hr>
+                <b>First Dependant</b> <br>
+                <div class="mb-3" id="first-dependant">
+                    <label for="exampleFormControlInput1" class="form-label">Lastname</label>
+                    <input type="text" class="form-control" name="nom_dependant" id="exampleFormControlInput1">
+                </div>
+                <div class="mb-3" id="first-dependant">
+                    <label for="exampleFormControlInput1" class="form-label">Firstname</label>
+                    <input type="text" class="form-control" name="prenom_dependant" id="exampleFormControlInput1">
+                </div>
+                <hr>
+                <a href="" onclick="second_dependant(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
+                <div class="second-dependant" id="second-dependant">
+                    <b>Second dependant</b> <br>
+                    <div class="mb-3" id="second-dependant">
+                        <label for="exampleFormControlInput1" class="form-label">Lastname</label>
+                        <input type="text" class="form-control" name="nom_dependant_2" id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3" id="first-dependant">
+                        <label for="exampleFormControlInput1" class="form-label">Firstname</label>
+                        <input type="text" class="form-control" name="prenom_dependant_2" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="third_dependant(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
+                </div>
+                <div class="third-dependant" id="third-dependant">
+                    <b>Third dependant</b> <br>
+                    <div class="mb-3" id="third-dependant">
+                        <label for="exampleFormControlInput1" class="form-label">Lastname</label>
+                        <input type="text" class="form-control" name="nom_dependant_3" id="exampleFormControlInput1">
+                    </div>
+                    <div class="mb-3" id="thid=rd-dependant">
+                        <label for="exampleFormControlInput1" class="form-label">Firstname</label>
+                        <input type="text" class="form-control" name="prenom_dependant_3" id="exampleFormControlInput1">
+                    </div>
+                </div>
             </div>
             <button type="submit" name="submit" class="text-white btn btn-brand">Save person</button>
         </form>
     </div>
+
+    <?php
+        include_once('footer.php');
+    ?>
 </body>
+
+<script>
+    hide(document.getElementById('dependant-list-field'));
+
+    function dependant() {
+        show(document.getElementById('dependant-list-field'));
+        hide(document.getElementById('second-dependant'));
+        hide(document.getElementById('third-dependant'));
+    }
+
+    function second_dependant() {
+        show(document.getElementById('dependant-list-field'));
+        show(document.getElementById('second-dependant'));
+        hide(document.getElementById('third-dependant'));
+
+    }
+
+    function third_dependant() {
+        show(document.getElementById('dependant-list-field'));
+        show(document.getElementById('second-dependant'));
+        show(document.getElementById('third-dependant'));
+    }
+
+    function hide(elements) {
+        elements = elements.length ? elements : [elements];
+        for (var index = 0; index < elements.length; index++) {
+            elements[index].style.display = 'none';
+        }
+    }
+
+    function show(elements, specifiedDisplay) {
+        elements = elements.length ? elements : [elements];
+        for (var index = 0; index < elements.length; index++) {
+            elements[index].style.display = specifiedDisplay || 'block';
+        }
+    }
+</script>
 
 </html>

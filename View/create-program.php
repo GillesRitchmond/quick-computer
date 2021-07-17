@@ -122,18 +122,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <label for="fileSelect">Filename:</label>
                 <input type="file" name="fileToUpload" class="form-control-file" required>
             </div>
-            <div class="mb-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Dependant <span class="details">(Optionnal)</span>
-                    </label>
-                </div>
-            </div>
 
             <button type="submit" name="submit" class="text-white btn btn-brand">Save program</button>
         </form>
     </div>
+
+    <?php
+        include_once('footer.php');
+    ?>
 </body>
 
 </html>

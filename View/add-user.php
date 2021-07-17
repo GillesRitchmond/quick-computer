@@ -42,10 +42,9 @@
 <body class="body">
     <div class="header-content">
         <div class="bullet-menu">
-            <i class="bi bi-three-dots-vertical"></i>
+            <i class="bi bi-list"></i>
         </div>
         <div class="title program">
-        <br>
             New user
         </div>
     </div>
@@ -153,6 +152,10 @@
             <button type="submit" name="submit" class="text-white btn btn-brand">Save user</button>
         </form>
     </div>
+
+    <?php
+        include_once('footer.php');
+    ?>
 </body>
 
 </html>

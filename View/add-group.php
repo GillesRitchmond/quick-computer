@@ -115,6 +115,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <button type="submit" name="submit" class="text-white btn btn-brand">Save group</button>
         </form>
     </div>
+
+    <?php
+        include_once('footer.php');
+    ?>
 </body>
 
 </html>
