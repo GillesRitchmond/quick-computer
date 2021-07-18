@@ -39,32 +39,30 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </head>
 
 <body>
-    <nav class="footer-bg-white">
-        <div class="list">
-            <ul >
-                <li>
-                    <a class="disable" href="index.php"> <i class="bi bi-grid-fill"></i> <span class="tag-bottom">home</span> </a>
-                </li>
 
-                <li>
-                    <a class="disable" href="list-group.php"><i class="bi bi-menu-button-fill"></i> <span class="tag-bottom">Group</span> </a>
-                </li>
-                
-                <li>
-                    <a class="" href="create-program.php"> <i class="bi bi-plus-circle-fill"></i> <span class="add tag-bottom">Add</span></a>
-                </li>
-                
-                <li>
-                    <a class="disable" href="list-person.php"> <i class="bi bi-person-lines-fill"></i> <span class="tag-bottom">Persons</span> </a>
-                </li>
+    <nav class="nav">
+        <a href="#" class="nav__link">
+            <i class="bi bi-grid-fill nav__icon"></i> 
+            <span class="nav__text">Home</span> 
+        </a>
+        <a href="#" class="nav__link">
+            <i class="bi bi-menu-button-fill nav__icon"></i> 
+            <span class="nav__text">Group</span> 
+        </a>
+        <a href="#" class="nav__link nav__link--active">
+            <i class="bi bi-plus-circle-fill nav__icon"></i> 
+            <span class="nav__text">Add</span> 
+        </a>
+        <a href="#" class="nav__link">
+            <i class="bi bi-person-lines-fill nav__icon"></i> 
+            <span class="nav__text">Person</span> 
+        </a>
+        <a href="#" class="nav__link">
+            <i class="bi bi-gear-fill nav__icon"></i> 
+            <span class="nav__text">Settings</span> 
+        </a>
 
-                <li>
-                    <a class="disable" href="settings.php"> <i class="bi bi-gear-fill"></i> <span class="tag-bottom">Settings</span> </a>
-                </li>
-            </ul>
-        </div>
     </nav>
-
 </body>
 
 </html>
