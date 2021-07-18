@@ -41,23 +41,23 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 <body>
 
     <nav class="nav">
-        <a href="#" class="nav__link">
+        <a href="index.php" class="nav__link">
             <i class="bi bi-grid-fill nav__icon"></i> 
             <span class="nav__text">Home</span> 
         </a>
-        <a href="#" class="nav__link">
+        <a href="list-group.php" class="nav__link">
             <i class="bi bi-menu-button-fill nav__icon"></i> 
             <span class="nav__text">Group</span> 
         </a>
-        <a href="#" class="nav__link nav__link--active">
+        <a href="create-program.php" class="nav__link nav__link--active">
             <i class="bi bi-plus-circle-fill nav__icon"></i> 
             <span class="nav__text">Add</span> 
         </a>
-        <a href="#" class="nav__link">
+        <a href="list-person.php" class="nav__link">
             <i class="bi bi-person-lines-fill nav__icon"></i> 
             <span class="nav__text">Person</span> 
         </a>
-        <a href="#" class="nav__link">
+        <a href="settings.php" class="nav__link">
             <i class="bi bi-gear-fill nav__icon"></i> 
             <span class="nav__text">Settings</span> 
         </a>
