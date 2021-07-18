@@ -22,6 +22,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 
     <!-- BOOTSTRAP CSS & JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -83,8 +84,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <div class="link">
                 <ul>
                     <?php
-                    // if (isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2) {
-                    //     echo '<li>';
+                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2) {
+                        echo '<li>';
                     //     $id = $_GET["group-details"];
                         // $code_entreprise = $_SESSION["code_entreprise"];
 
@@ -96,10 +97,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     //             echo '<a href="add-person.php?group-details=' . $row["id_group"] . '&program-details=' . $row['id_program'] . '" class="btn btn-outline-primary">New person</a>';
                     //         }
                     //     }
-                    //     echo '</li> <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
-                    // } elseif (isset($_SESSION["role"]) && $_SESSION["role"] === 1) {
-                    //     echo '<li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
-                    // }
+                        echo '</li> <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
+                    } elseif (isset($_SESSION["role"]) && $_SESSION["role"] === 1) {
+                        echo '<li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
+                    }
 
                     ?>
                 </ul>
@@ -129,7 +130,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 
                 <hr>
             </span>
-            <div class="list-content mt-3">
+            <div class="list-content mt-3 mb-5">
 
                 <?php
                 // $id = $_GET["group-details"];

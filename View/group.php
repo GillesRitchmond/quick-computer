@@ -127,7 +127,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 ?>
                 <hr>
             </span>
-            <div class="list-content mt-3">
+            <div class="list-content mt-3 mb-5">
 
                 <?php
                 $id = $_GET["group-details"];

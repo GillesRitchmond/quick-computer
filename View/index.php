@@ -6,6 +6,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     header("location: ../index.php");
     exit;
 }
+
+http_response_code(404);
+include('404.php'); // provide your own HTML for the error page
+die();
+
 ?>
 
 <!Doctype html>
@@ -63,7 +68,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     
     <div class="header-content">
         <div class="bullet-menu text-white">
-            <a href="../Controller/logout.php" class="text-white nav-link"><i class="bi bi-list"></i></a>
+            <a href="../Controller/logout.php" class="text-white nav-link"><i class="bi bi-box-arrow-right"></i></a>
         </div>
         <div class="title">
             Dashboard
@@ -115,7 +120,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 </a>
                 <hr>
             </span>
-            <div class="list-content mt-3">
+            <div class="list-content mt-3 mb-5">
                 <?php
 
                 $query = "SELECT * FROM program, users WHERE users.code_user = program.code_user ORDER BY id_program DESC";

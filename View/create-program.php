@@ -48,7 +48,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
     </div>
 
-    <div class="third-part-content">
+    <div class="third-part-content mb-5">
         <div class="container mt-3">
             <span class="title-page-list">
                 <!-- <a href="index.php"><i class="bi bi-arrow-left-short fs-1"></i></a> -->
@@ -59,7 +59,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <hr>
         </div>
 
-        <form id="uploadForm" action="" method="post"  enctype= "multipart/form-data" class="container mb-4">
+        <form id="uploadForm" action="" method="post"  enctype= "multipart/form-data" class="container mb-5">
             <?php
             
             
@@ -123,7 +123,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <input type="file" name="fileToUpload" class="form-control-file" required>
             </div>
 
-            <button type="submit" name="submit" class="text-white btn btn-brand">Save program</button>
+            <button type="submit" name="submit" class="text-white mb-5 btn btn-brand">Save program</button>
         </form>
     </div>
 

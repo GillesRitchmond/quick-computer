@@ -84,7 +84,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
 
 
-        <form action="" method="post" class="container mb-4">
+        <form action="" method="post" class="container mb-5">
             <div id="alert_message">
                 <?php
 
@@ -132,7 +132,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 $editText = "";
             } else {
                 $edit = "";
-                $editText = '<button type="submit" name="submit" class="text-white btn btn-brand"> Save person</button>';
+                $editText = '<button type="submit" name="submit" class="mb-5 text-white btn btn-brand"> Save person</button>';
             }
 
             $id = $_GET["person-details"];
@@ -157,9 +157,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     }
 
                     echo '
-            <div class="profile-img-size mb-3">
-                <img scr="../Assets/profile/' . $row["profile_image"] . '" height="100%" width="auto" class="profile-img-content" alt="">
-            </div>
+                    <div class="profile-img-size mb-3">
+                        <img src="../Assets/profile/' . $row["profile_image"] . '" class="profile-img-content" alt="">
+                    </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Lastname</label>
                 <input type="text" class="form-control" name="nom" id="exampleFormControlInput1" value="' . $row["nom"] . '"' . $edit . ' required>
@@ -236,7 +236,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <label for="exampleFormControlInput1" class="form-label">Lastname</label>
                         <input type="text" class="form-control" name="nom_dependant_3" id="exampleFormControlInput1" ' . $edit . ' >
                     </div>
-                    <div class="mb-3"id="thid=rd-dependant">
+                    <div class="mb-3"id="third-dependant">
                         <label for="exampleFormControlInput1" class="form-label">Firstname</label>
                         <input type="text" class="form-control" name="prenom_dependant_3" id="exampleFormControlInput1" ' . $edit . ' >
                     </div>

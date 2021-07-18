@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div class="third-part-content">
+    <div class="third-part-content mb-5">
         <div class="container mt-3">
             <span class="title-page-list">
                 <!-- <a href="index.php"><i class="bi bi-arrow-left-short fs-1"></i></a>  -->
@@ -61,7 +61,7 @@
         </div>
         
 
-        <form action="" method="post" class="container mb-4">
+        <form action="" method="post" class="container mb-5">
         <div id="alert_message">
             <?php
             if (isset($_POST["submit"])) {
@@ -149,7 +149,7 @@
             </div>
             
 
-            <button type="submit" name="submit" class="text-white btn btn-brand">Save user</button>
+            <button type="submit" name="submit" class="text-white mb-5 btn btn-brand">Save user</button>
         </form>
     </div>
 

@@ -39,15 +39,14 @@
 }
 .profile-img-size{
     height: 200px;
-    width: auto;
+    width: 200px;
     padding-right: 6px;
-    border-right: 1px solid rgb(126, 126, 126);
     /* margin-bottom: 12px; */
     margin-top: -5px;
 }
 .profile-img-content{
     width: 200px;
-    height: auto;
+    height: 200px;
     object-fit: contain;
     margin-top: 3px;
 }
@@ -71,15 +70,14 @@
     }
     .profile-img-size{
         height: 200px;
-        width: auto;
+        width: 200px;
         padding-right: 6px;
-        border-right: 1px solid rgb(126, 126, 126);
         /* margin-bottom: 12px; */
         margin-top: -5px;
     }
     .profile-img-content{
         width: 200px;
-        height: auto;
+        height: 200px;
         object-fit: contain;
         margin-top: 3px;
     }

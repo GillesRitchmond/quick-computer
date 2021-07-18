@@ -103,7 +103,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 </a>
                 <hr>
             </span>
-            <div class="list-content mt-3">
+            <div class="list-content mt-3 mb-5">
 
                 <?php
                 $id = $_GET["program"];

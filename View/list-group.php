@@ -66,33 +66,33 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     <input type="text" name="searchAll" id="" placeholder="Search" class="search-main">
                 </form>
             </div>
-            <!-- <div class="link">
-                <ul> -->
+            <div class="link">
+                <ul>
                 <?php
-                    // if (isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2) {
-                    //     echo '<li>';
+                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2) {
+                        echo '<li>';
                             // $id = $_GET["program"];
                             // $code_entreprise = $_SESSION["code_entreprise"];
             
-                        //     $query = "SELECT * FROM program";
-                        //     $result = $conn->query($query);
+                            // $query = "SELECT * FROM program";
+                            // $result = $conn->query($query);
             
-                        //     if (mysqli_num_rows($result) > 0) {
-                        //         while ($row = mysqli_fetch_assoc($result)) { 
-                        //             echo '<a href="add-group.php?program='.$row["id_program"].'" class="btn btn-outline-primary">New group</a>'; 
-                        //         }
-                        //     }
-                        //     echo '</li> <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
+                            // if (mysqli_num_rows($result) > 0) {
+                            //     while ($row = mysqli_fetch_assoc($result)) { 
+                            //         echo '<a href="add-group.php?program='.$row["id_program"].'" class="btn btn-outline-primary">New group</a>'; 
+                            //     }
+                            // }
+                            echo '</li> <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
                     
-                        // }
-                        // elseif(isset($_SESSION["role"]) && $_SESSION["role"] === 1)
-                        // {
-                        //     echo '<li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
-                        // }
+                        }
+                        elseif(isset($_SESSION["role"]) && $_SESSION["role"] === 1)
+                        {
+                            echo '<li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
+                        }
     
                         ?>
-                <!-- </ul>
-            </div> -->
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -104,7 +104,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 </a>
                 <hr>
             </span>
-            <div class="list-content mt-3">
+            <div class="list-content mt-3 mb-5">
 
                 <?php
                 // $id = $_GET["program"];
