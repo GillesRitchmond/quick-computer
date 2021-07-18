@@ -7,9 +7,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
-http_response_code(404);
-include('404.php'); // provide your own HTML for the error page
-die();
+// http_response_code(404);
+// include('404.php'); // provide your own HTML for the error page
+// die();
 
 ?>
 
