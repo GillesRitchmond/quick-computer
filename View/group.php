@@ -168,6 +168,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     </div>';
                 }
 
+                include_once('sidebar.php');
                 ?>
 
 

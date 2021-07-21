@@ -43,7 +43,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 </head>
 
-<body>
+<body class="body">
 
     <!-- <div class="modal">
         <div class="modal-box">
@@ -148,9 +148,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 }
 
                 ?>
-
-
+                <?php
+                    include_once('sidebar.php');
+                ?>
             </div>
+
+            
         </div>
     </div>
 

@@ -86,17 +86,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     <?php
                     if (isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2) {
                         echo '<li>';
-                    //     $id = $_GET["group-details"];
+                        //     $id = $_GET["group-details"];
                         // $code_entreprise = $_SESSION["code_entreprise"];
 
-                    //     $query = "SELECT * FROM groupe WHERE groupe.id_group = $id";
-                    //     $result = $conn->query($query);
+                        //     $query = "SELECT * FROM groupe WHERE groupe.id_group = $id";
+                        //     $result = $conn->query($query);
 
-                    //     if (mysqli_num_rows($result) > 0) {
-                    //         while ($row = mysqli_fetch_assoc($result)) {
-                    //             echo '<a href="add-person.php?group-details=' . $row["id_group"] . '&program-details=' . $row['id_program'] . '" class="btn btn-outline-primary">New person</a>';
-                    //         }
-                    //     }
+                        //     if (mysqli_num_rows($result) > 0) {
+                        //         while ($row = mysqli_fetch_assoc($result)) {
+                        //             echo '<a href="add-person.php?group-details=' . $row["id_group"] . '&program-details=' . $row['id_program'] . '" class="btn btn-outline-primary">New person</a>';
+                        //         }
+                        //     }
                         echo '</li> <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
                     } elseif (isset($_SESSION["role"]) && $_SESSION["role"] === 1) {
                         echo '<li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
@@ -112,7 +112,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <div class="container mt-3">
             <span class="title-page-list">
                 <?php
-                
+
                 // $id = $_GET["group-details"];
                 // $code_entreprise = $_SESSION["code_entreprise"];
 
@@ -127,32 +127,33 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 //     }
                 // }
                 ?>
-                
-                <hr>
+
+                <!-- <hr> -->
             </span>
             <div class="list-content mt-3 mb-5">
 
                 <?php
-                // $id = $_GET["group-details"];
-                $code_entreprise = $_SESSION["code_entreprise"];
 
-                $query = "SELECT * FROM program, groupe, personne WHERE personne.id_program = program.id_program AND personne.id_group = groupe.id_group AND groupe.id_program = program.id_program ORDER BY personne.nom ASC";
-                $result = $conn->query($query);
+                if (isset($_POST["searchAll"])) {
+                    $search = $_POST["searchAll"];
 
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        if($row["id_statut"] == 1)
-                        {
-                            $color = "green-circle";
-                        }
-                        elseif($row["id_statut"] == 2)
-                        {
-                            $color = "red-circle";
-                        }
-                        echo '<a href="person-details.php?person-details=' . $row["id_person"] . '" class="nav-link">
+                    // $id = $_GET["group-details"];
+                    $code_entreprise = $_SESSION["code_entreprise"];
+
+                    $query = "SELECT * FROM personne WHERE nom LIKE '%$search%' OR prenom LIKE '%$search%' ORDER BY personne.nom ASC";
+                    $result = $conn->query($query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            if ($row["id_statut"] == 1) {
+                                $color = "green-circle";
+                            } elseif ($row["id_statut"] == 2) {
+                                $color = "red-circle";
+                            }
+                            echo '<a href="person-details.php?person-details=' . $row["id_person"] . '" class="nav-link">
                             <div class="bg-white">
                                 <div class="group-name-and-details">
-                                    <div class="group-name">' . $row["nom"] . ' ' . $row["prenom"] . '<span class="'.$color.'" ></span></div>
+                                    <div class="group-name">' . $row["nom"] . ' ' . $row["prenom"] . '<span class="' . $color . '" ></span></div>
                                     <div class="group-details">
                                         Email  : ' . $row["email"] . '</div>
                                     </div>
@@ -161,49 +162,89 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     </div>
                             </div>
                         </a>';
-                    }
-                } else {
-                    echo '<div class="bg-white">
+                        }
+                    } else {
+                        echo '<div class="bg-white">
                         <div class="group-name-and-details">
                             <div class="group-name">There is no person here...</div>
                             <div class="group-details">Please add a new person in this group !</div>
                         </div>
                     </div>';
+                    }
+                } else {
+
+                    // $id = $_GET["group-details"];
+                    $code_entreprise = $_SESSION["code_entreprise"];
+
+                    $query = "SELECT * FROM program, groupe, personne WHERE personne.id_program = program.id_program AND personne.id_group = groupe.id_group AND groupe.id_program = program.id_program ORDER BY personne.nom ASC";
+                    $result = $conn->query($query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            if ($row["id_statut"] == 1) {
+                                $color = "green-circle";
+                            } elseif ($row["id_statut"] == 2) {
+                                $color = "red-circle";
+                            }
+                            echo '<a href="person-details.php?person-details=' . $row["id_person"] . '" class="nav-link">
+                            <div class="bg-white">
+                                <div class="group-name-and-details">
+                                    <div class="group-name">' . $row["nom"] . ' ' . $row["prenom"] . '<span class="' . $color . '" ></span></div>
+                                    <div class="group-details">
+                                        Email  : ' . $row["email"] . '</div>
+                                    </div>
+                                    <div class="group-more-details">
+                                        <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>
+                                    </div>
+                            </div>
+                        </a>';
+                        }
+                    } else {
+                        echo '<div class="bg-white">
+                        <div class="group-name-and-details">
+                            <div class="group-name">There is no person here...</div>
+                            <div class="group-details">Please add a new person in this group !</div>
+                        </div>
+                    </div>';
+                    }
                 }
-
                 ?>
-
+                <?php
+                include_once('sidebar.php');
+                ?>
 
             </div>
         </div>
     </div>
-
-    <?php include_once("footer.php");?>
+    <?php
+    include_once('footer.php');
+    ?>
 </body>
 
 <script>
-        function main() {
-            show(document.getElementById('main'));
-        }
+    function main() {
+        show(document.getElementById('main'));
+    }
 
-        function close() {
-            hide(document.getElementById('main'));
-        }
-        
+    function close() {
         hide(document.getElementById('main'));
+    }
 
-        function hide(elements) {
-            elements = elements.length ? elements : [elements];
-            for (var index = 0; index < elements.length; index++) {
-                elements[index].style.display = 'none';
-            }
-        }
+    hide(document.getElementById('main'));
 
-        function show(elements, specifiedDisplay) {
-            elements = elements.length ? elements : [elements];
-            for (var index = 0; index < elements.length; index++) {
-                elements[index].style.display = specifiedDisplay || 'block';
-            }
+    function hide(elements) {
+        elements = elements.length ? elements : [elements];
+        for (var index = 0; index < elements.length; index++) {
+            elements[index].style.display = 'none';
         }
-    </script>
+    }
+
+    function show(elements, specifiedDisplay) {
+        elements = elements.length ? elements : [elements];
+        for (var index = 0; index < elements.length; index++) {
+            elements[index].style.display = specifiedDisplay || 'block';
+        }
+    }
+</script>
+
 </html>

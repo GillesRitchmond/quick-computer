@@ -52,7 +52,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<span class="fs-2 text-white details"><b>' . $row["program_name"] . ' - <i>' . $row["nom_groupe"] . '</i></b><hr>' . $row["nom"] . ' ' . $row["prenom"] . '</span>';
+                    echo '<span class="fs-2 text-white details"> <b>Pr : </b>' . $row["program_name"] . '<br> <b>Gp : </b>' . $row["nom_groupe"] . '</b> <br> <b>Pe : </b>' . $row["nom"] . ' ' . $row["prenom"] . '</span>';
                 }
             }
             ?>
@@ -199,7 +199,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
             <div class="form-check form-switch">
                 <input class="form-check-input" type="hidden" name="id_statut" value="2" id="flexSwitchCheckChecked">
-                <input class="form-check-input" type="checkbox" name="id_statut" value="'.$row["id_statut"].'" ' . $checked . ' ' . $edit . 'id="flexSwitchCheckChecked">
+                <input class="form-check-input" type="checkbox" name="id_statut" value="' . $row["id_statut"] . '" ' . $checked . ' ' . $edit . 'id="flexSwitchCheckChecked">
                 <label class="form-check-label" for="flexCheckDefault">
                     ' . $statut . '
                 </label>
@@ -246,11 +246,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 }
             }
             ?>
+            
         </form>
     </div>
 
     <?php
-        include_once('footer.php');
+    include_once('footer.php');
     ?>
 </body>
 

@@ -20,7 +20,6 @@ a{
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
 }
-
 body,
 .body{
     background-color: var(--background-color);
@@ -43,13 +42,15 @@ body,
 }
 .title, 
 .subtitle{
-    margin-left: 30px;
+    margin: 0 30px;
+    width: auto;
 }
 .title{
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
     margin-top: 60px;
     text-transform: uppercase;
+    width: auto;
 }
 .subtitle{
     font-weight: lighter;
@@ -92,6 +93,7 @@ body,
     border-style: none;
     border-radius: 10px;
     padding: 0 50px;
+    -webkit-tap-highlight-color: transparent;
 }
 .nav-link{
     color: inherit;
@@ -171,6 +173,35 @@ body,
     background-color: var(--white);
     padding: 20px 10px;
     margin-bottom: 10px;
+}
+.sidebar{
+    display: contents;
+    visibility: visible;
+}
+.sm-bg-white{
+    height: auto;
+    width: 350px;
+    border-radius: 15px;
+    box-shadow: 1px 1px 8px rgba(65, 65, 65, 0.247);
+    background-color: var(--white);
+    padding: 20px 10px;
+    margin: 0 0 10px 20px;
+    position: sticky;
+    top: 100px;
+    float: inline-end;
+    right: 0;
+    bottom: 20%;
+}
+.sm-bg-white .title-page-list{
+    margin-left: 15px;
+}
+.sm-bg-white nav{
+    margin: 0 15px;
+}
+.w-80{
+    width: 60%;
+    text-align: left;
+    margin-left: 0;
 }
 .img-size{
     height: 80px;
@@ -402,6 +433,7 @@ body,
         border-style: none;
         border-radius: 10px;
         padding: 0 50px;
+        -webkit-tap-highlight-color: transparent;
     }
     .link{
         float: none;
@@ -527,6 +559,7 @@ body,
         border-style: none;
         border-radius: 10px;
         padding: 0 50px;
+        -webkit-tap-highlight-color: transparent;
     }
     .link{
         float: none;
@@ -603,8 +636,36 @@ body,
     }
 }
 
+.nav__link{
+    font-size: 20px;
+    color: var(--primary);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.1s ease-in-out;
+}
+.nav__link:hover{
+    background-color: var(--bg-light-gray);
+}
+.nav__link--active{
+    color: var(--primary);
+}
+.nav__icon{
+    font-size: 22px;
+}
+
 
 @media screen and (max-width: 480px) {
+    .fs-5{
+        font-size: 1rem;
+    }
+    .sidebar{
+        display: none;
+        visibility: hidden;
+    }
+    .w-80
+    .sm-bg-white{
+        display: none;
+    }
     .nav{
         display: contents;
         position: fixed;
