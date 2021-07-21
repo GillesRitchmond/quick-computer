@@ -179,6 +179,8 @@ body,
     visibility: visible;
 }
 .sm-bg-white{
+    display: flexbox;
+    visibility: visible;
     height: auto;
     width: 350px;
     border-radius: 15px;
@@ -662,8 +664,8 @@ body,
         display: none;
         visibility: hidden;
     }
-    .w-80
     .sm-bg-white{
+        visibility: hidden;
         display: none;
     }
     .nav{
