@@ -128,10 +128,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     }
                 }
                 ?>
-                <hr>
+                <hr class="hr">
             </span>
             <div class="list-content mt-3 mb-5">
-
+                <div class="top"></div>
                 <?php
 
                 if (isset($_POST["searchAll"])) {

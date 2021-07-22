@@ -700,6 +700,9 @@ body,
     .hr{
         display: none;
     }
+    .more-details a, .group-more-details a{
+        position:inherit;
+    }
     .linked{
         float: none;
         text-align: center;
@@ -717,7 +720,7 @@ body,
         overflow-x: auto;
         top: 0;
         width: 100%;
-        padding: 10px 5px;
+        padding: 8px 4px;
     }
     .navbar ul li{
         display: inline;

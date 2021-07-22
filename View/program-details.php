@@ -101,10 +101,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <a href="index.php">
                     <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span> Back
                 </a>
-                <hr>
+                <hr classs="hr">
             </span>
             <div class="list-content mt-3 mb-5">
-
+            <div class="top"></div>
                 <?php
 
                 if (isset($_POST["searchAll"])) {
