@@ -39,10 +39,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </head>
 
 <body class="body">
+    <?php
+    include_once('header.php');
+    ?>
     <div class="header-content">
-        <div class="bullet-menu">
+        <!-- <div class="bullet-menu">
             <i class="bi bi-three-dots-vertical"></i>
-        </div>
+        </div> -->
         <div class="title program">
             New group
         </div>
@@ -62,7 +65,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<a href="program-details.php?program='.$row["id_program"].'" class="nav-link">
+                        echo '<a href="program-details.php?program=' . $row["id_program"] . '" class="nav-link">
                             <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
                         </a>';
                     }
@@ -117,7 +120,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </div>
 
     <?php
-        include_once('footer.php');
+    include_once('footer.php');
     ?>
 </body>
 

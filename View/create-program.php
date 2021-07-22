@@ -39,10 +39,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </head>
 
 <body class="body">
+    <?php
+    include_once('header.php');
+    ?>
+    
     <div class="header-content">
-        <div class="bullet-menu">
+        <!-- <div class="bullet-menu">
             <i class="bi bi-three-dots-vertical"></i>
-        </div>
+        </div> -->
         <div class="title program">
             New program
         </div>
@@ -59,12 +63,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <hr>
         </div>
 
-        <form id="uploadForm" action="" method="post"  enctype= "multipart/form-data" class="container mb-5">
+        <form id="uploadForm" action="" method="post" enctype="multipart/form-data" class="container mb-5">
             <?php
-            
-            
+
+
             if (isset($_POST["submit"])) {
-                
+
                 $nom = $_POST["name"];
                 $description = $_POST["description"];
                 $date_creation = date("d-m-y");
@@ -72,7 +76,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                 $code_entreprise = $_SESSION["code_entreprise"];
                 $code_user = $_SESSION["code_user"];
-                
+
                 $file_name = $_FILES['fileToUpload']['name'];
                 $file = rand(1000, 100000) . "-" . $file_name;
                 $file_loc = $_FILES['fileToUpload']['tmp_name'];
@@ -128,7 +132,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </div>
 
     <?php
-        include_once('footer.php');
+    include_once('footer.php');
     ?>
 </body>
 

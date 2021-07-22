@@ -1,12 +1,11 @@
-
 <?php
-    include_once('../Model/connection.php');
-    session_start();
+include_once('../Model/connection.php');
+session_start();
 
-    if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-        header("location: ../index.php");
-        exit;
-    }
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: ../index.php");
+    exit;
+}
 ?>
 
 <!Doctype html>
@@ -40,10 +39,13 @@
 </head>
 
 <body class="body">
+    <?php
+    include_once('header.php');
+    ?>
     <div class="header-content">
-        <div class="bullet-menu">
+        <!-- <div class="bullet-menu">
             <i class="bi bi-list"></i>
-        </div>
+        </div> -->
         <div class="title program">
             New user
         </div>
@@ -59,48 +61,47 @@
             </span>
             <hr>
         </div>
-        
+
 
         <form action="" method="post" class="container mb-5">
-        <div id="alert_message">
-            <?php
-            if (isset($_POST["submit"])) {
-                try {
-                    $nom = $_POST["nom"];
-                    $prenom = $_POST["prenom"];
-                    $email = $_POST["email"];
-                    $password = $_POST["password"];
-                    $adresse = $_POST["adresse"];
-                    $tel_1 = $_POST["tel_1"];
-                    $tel_2 = $_POST["tel_2"];
-                    $role = $_POST["role"];
-                    $id_statut = 1;
+            <div id="alert_message">
+                <?php
+                if (isset($_POST["submit"])) {
+                    try {
+                        $nom = $_POST["nom"];
+                        $prenom = $_POST["prenom"];
+                        $email = $_POST["email"];
+                        $password = $_POST["password"];
+                        $adresse = $_POST["adresse"];
+                        $tel_1 = $_POST["tel_1"];
+                        $tel_2 = $_POST["tel_2"];
+                        $role = $_POST["role"];
+                        $id_statut = 1;
 
-                    $code_entreprise = $_SESSION["code_entreprise"];
-                    // $code_entreprise = "ckhardware.qc";
-                    
-                    $h_password = password_hash($password, PASSWORD_DEFAULT);
+                        $code_entreprise = $_SESSION["code_entreprise"];
+                        // $code_entreprise = "ckhardware.qc";
 
-                    $stmt_user = $conn->prepare("INSERT INTO users (nom, prenom, email, password, adresse, telephone_1, telephone_2, code_entreprise, id_role, id_statut)
+                        $h_password = password_hash($password, PASSWORD_DEFAULT);
+
+                        $stmt_user = $conn->prepare("INSERT INTO users (nom, prenom, email, password, adresse, telephone_1, telephone_2, code_entreprise, id_role, id_statut)
                                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmt_user->bind_param('ssssssssii', $nom, $prenom, $email, $h_password, $adresse, $tel_1, $tel_2, $code_entreprise, $role, $id_statut);
+                        $stmt_user->bind_param('ssssssssii', $nom, $prenom, $email, $h_password, $adresse, $tel_1, $tel_2, $code_entreprise, $role, $id_statut);
 
-                    if ($stmt_user->execute()) {
-                        echo '<div class="alert alert-success" role="alert">
+                        if ($stmt_user->execute()) {
+                            echo '<div class="alert alert-success" role="alert">
                             Enregistrement réussi !
                         </div>';
-                    }
-                }
-                catch (PDOException $e) {
+                        }
+                    } catch (PDOException $e) {
 
-                    echo '<div class="alert alert-danger" role="alert">
+                        echo '<div class="alert alert-danger" role="alert">
                     L\' enregistrement n\'a pas été faite  !
                     </div>';
-                    echo "Error: " . $e->getMessage();
+                        echo "Error: " . $e->getMessage();
+                    }
                 }
-            }
-            ?>
-        </div>
+                ?>
+            </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Nom</label>
@@ -135,7 +136,7 @@
                 <select id="role" name="role" class="form-select" required>
 
                     <?php
-                    
+
                     $query = "SELECT * FROM role ORDER BY role_name ASC ";
                     $result = $conn->query($query);
 
@@ -147,14 +148,14 @@
                     ?>
                 </select>
             </div>
-            
+
 
             <button type="submit" name="submit" class="text-white mb-5 btn btn-brand">Save user</button>
         </form>
     </div>
 
     <?php
-        include_once('footer.php');
+    include_once('footer.php');
     ?>
 </body>
 

@@ -40,10 +40,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 
 <body class="body">
+    <?php
+    include_once('header.php');
+    ?>
     <div class="header-content">
-        <div class="bullet-menu" onclick="main(); return false;">
+        <!-- <div class="bullet-menu" onclick="main(); return false;">
             <i class="bi bi-list"></i>
-        </div>
+        </div> -->
 
         <!-- <div class="modal-box" id="main">
             <div class="bullet-menu" ondclick="close(); return false;">

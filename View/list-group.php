@@ -39,10 +39,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </head>
 
 <body class="body">
+    <?php
+    include_once('header.php');
+    ?>
     <div class="header-content">
-        <div class="bullet-menu">
+        <!-- <div class="bullet-menu">
             <i class="bi bi-list"></i>
-        </div>
+        </div> -->
         <?php
         echo '<div class="title">List of groups</div>';
         // $id = $_GET['program'];

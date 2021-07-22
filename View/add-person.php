@@ -39,16 +39,19 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </head>
 
 <body class="body">
+    <?php
+    include_once('header.php');
+    ?>
     <div class="header-content">
-        <div class="bullet-menu">
+        <!-- <div class="bullet-menu">
             <i class="bi bi-list"></i>
-        </div>
+        </div> -->
         <div class="title program">
             New person
         </div>
     </div>
 
-    <div class="third-part-content">
+    <div class="third-part-content mb-5">
         <div class="container mt-3">
             <span class="title-page-list">
                 <!-- <a href="index.php"><i class="bi bi-arrow-left-short fs-1"></i></a>  -->
@@ -67,12 +70,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     }
                 }
                 ?>
+                <hr class="hr">
             </span>
-            <hr>
+            <div class="top"></div>
         </div>
 
 
-        <form id="uploadForm" action="" method="post" enctype="multipart/form-data" class="container mb-4">
+        <form id="uploadForm" action="" method="post" enctype="multipart/form-data" class="container mb-5">
             <div id="alert_message">
                 <?php
 
@@ -248,12 +252,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     </div>
                 </div>
             </div>
-            <button type="submit" name="submit" class="text-white btn btn-brand">Save person</button>
+            <button type="submit" name="submit" class="text-white mb-5 btn btn-brand">Save person</button>
         </form>
     </div>
 
     <?php
-        include_once('footer.php');
+    include_once('footer.php');
     ?>
 </body>
 

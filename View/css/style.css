@@ -205,6 +205,9 @@ body,
     text-align: left;
     margin-left: 0;
 }
+.navbar{
+    display: none;
+}
 .img-size{
     height: 80px;
     width: 80px;
@@ -436,6 +439,7 @@ body,
         border-radius: 10px;
         padding: 0 50px;
         -webkit-tap-highlight-color: transparent;
+        -webkit-border-before-style: none;
     }
     .link{
         float: none;
@@ -657,6 +661,89 @@ body,
 
 
 @media screen and (max-width: 480px) {
+    .header-content{
+        background-image: linear-gradient(to bottom right, rgb(1, 64, 172), rgb(103, 198, 185));
+        height: auto;
+        width: 100%;
+        color: var(--white);
+        padding: 18px 0;
+        position: unset;
+        margin-top: 80px;
+    }
+    .title{
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-top: 45px;
+        text-transform: uppercase;
+        width: auto;
+    }
+    .bi-search{
+        display: none;
+        /* position: inherit;
+        margin-left: 30px; */
+    }
+    .search-main{
+        -webkit-tap-highlight-color: transparent;
+        -webkit-border-before-style: 0;
+        -webkit-border-before-color: transparent;
+    }
+    .name-and-details, .group-name-and-details{
+        position: inherit;
+    }
+    .link{
+        position: inherit;
+    }
+    .top{
+        border-top: 1px solid var(--gray);
+        padding: 10px 0;
+    }
+    .hr{
+        display: none;
+    }
+    .linked{
+        float: none;
+        text-align: center;
+        margin-left: -40px;
+    }
+    .navbar{
+        display: contents;
+        width: 100%;
+    } 
+    .navbar-items{
+        position: fixed;
+        background-color: var(--white);
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        height: auto;
+        overflow-x: auto;
+        top: 0;
+        width: 100%;
+        padding: 10px 5px;
+    }
+    .navbar ul li{
+        display: inline;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        min-width: 50px;
+        white-space: nowrap;
+        -webkit-tap-highlight-color: transparent;
+        transition: backgroun-color 0.1s ease-in-out;
+        width: 100%;
+    }
+    .header-icon{
+        float: right;
+        font-size: 2rem;
+        color: var(--primary);
+        margin-right: 30px;
+    }
+    .navbar-brand{
+        font-weight: bold;
+        font-size: 2rem;
+        text-transform: uppercase;
+        color: var(--primary);
+        float: left;
+    }
     .fs-5{
         font-size: 1rem;
     }

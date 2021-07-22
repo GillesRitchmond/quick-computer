@@ -44,6 +44,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </head>
 
 <body class="body">
+    <?php
+        include_once('header.php');
+    ?>
 
     <!-- <div class="modal">
         <div class="modal-box">
@@ -65,15 +68,15 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
         </div>
     </div> -->
-    
+
     <div class="header-content">
-        <div class="bullet-menu text-white">
+        <!-- <div class="bullet-menu text-white">
             <a href="../Controller/logout.php" class="text-white nav-link"><i class="bi bi-box-arrow-right"></i></a>
-        </div>
+        </div> -->
         <div class="title">
             Dashboard
         </div>
-        <span class="subtitle">User: 
+        <span class="subtitle">User:
             <?php $nom = $_SESSION["nom"];
             $prenom = $_SESSION["prenom"];
             echo $nom . ' ' . $prenom; ?>
@@ -91,21 +94,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <div class="link">
                 <ul>
                     <?php
-                        if(isset($_SESSION["role"]) && $_SESSION["role"] === 3)
-                        {
-                            echo '<li><a href="add-user.php" class="btn btn-outline-primary">New user</a></li>
+                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 3) {
+                        echo '<li><a href="add-user.php" class="btn btn-outline-primary">New user</a></li>
                             <li><a href="create-program.php" class="btn btn-outline-secondary">New program</a></li>
                             <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
-                        }
-                        elseif(isset($_SESSION["role"]) && $_SESSION["role"] === 2)
-                        {
-                            echo '<li><a href="add-user.php" class="btn btn-outline-primary">New user</a></li>
+                    } elseif (isset($_SESSION["role"]) && $_SESSION["role"] === 2) {
+                        echo '<li><a href="add-user.php" class="btn btn-outline-primary">New user</a></li>
                             <li><a href="create-program.php" class="btn btn-outline-secondary">New program</a></li>';
-                        }
-                        elseif(isset($_SESSION["role"]) && $_SESSION["role"] === 1)
-                        {
-                            echo '<li><a href="report.php" class="col-md btn btn-outline-muted">Report</a></li>';
-                        }
+                    } elseif (isset($_SESSION["role"]) && $_SESSION["role"] === 1) {
+                        echo '<li><a href="report.php" class="col-md btn btn-outline-muted">Report</a></li>';
+                    }
                     ?>
                 </ul>
             </div>
@@ -116,19 +114,23 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <div class="container mt-3">
             <span class="title-page-list">
                 <a>
-                   Programs List
+                    Programs List
                 </a>
                 <hr>
             </span>
             <div class="list-content mt-3 mb-5">
                 <?php
 
-                $query = "SELECT * FROM program, users WHERE users.code_user = program.code_user ORDER BY id_program DESC";
-                $result = $conn->query($query);
+                if (isset($_POST["searchAll"])) {
 
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<a href="program-details.php?program=' . $row["id_program"] . '" class="nav-link">
+                    $search = $_POST["searchAll"];
+
+                    $query = "SELECT * FROM program, users WHERE program_name LIKE '%$search%' AND users.code_user = program.code_user ORDER BY id_program DESC";
+                    $result = $conn->query($query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<a href="program-details.php?program=' . $row["id_program"] . '" class="nav-link">
                             <div class="bg-white">
                                 <div class="img-size">
                                     <img src="../Assets/images/' . $row["image"] . '" class="img-content" alt="">
@@ -144,21 +146,48 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 </div>
                             </div>
                         </a>';
+                        }
+                    }
+                } else {
+
+
+                    $query = "SELECT * FROM program, users WHERE users.code_user = program.code_user ORDER BY id_program DESC";
+                    $result = $conn->query($query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<a href="program-details.php?program=' . $row["id_program"] . '" class="nav-link">
+                            <div class="bg-white">
+                                <div class="img-size">
+                                    <img src="../Assets/images/' . $row["image"] . '" class="img-content" alt="">
+                                </div> 
+                                <div class="name-and-details">
+                                    <div class="name">' . $row["program_name"] . '</div>
+                                    <div class="details">
+                                     Created : ' . $row["date_creation"] . '<br> 
+                                     By : ' . $row["nom"] . ' ' . $row["prenom"] . '</div>
+                                </div>
+                                <div class="more-details">
+                                    <a href="program-details.php?program=' . $row["id_program"] . '"><i class="bi bi-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </a>';
+                        }
                     }
                 }
 
                 ?>
                 <?php
-                    include_once('sidebar.php');
+                include_once('sidebar.php');
                 ?>
             </div>
 
-            
+
         </div>
     </div>
 
     <?php
-        include_once('footer.php');
+    include_once('footer.php');
     ?>
 </body>
 

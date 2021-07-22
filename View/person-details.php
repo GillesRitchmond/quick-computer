@@ -40,10 +40,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </head>
 
 <body class="body">
+    <?php
+    include_once('header.php');
+    ?>
     <div class="header-content">
-        <div class="bullet-menu">
+        <!-- <div class="bullet-menu">
             <i class="bi bi-list"></i>
-        </div>
+        </div> -->
         <div class="title">
             <?php
             $id_person = $_GET["person-details"];
@@ -79,8 +82,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     }
                 }
                 ?>
+                <hr class="hr">
             </span>
-            <hr>
+            <div class="top"></div>
         </div>
 
 
@@ -246,7 +250,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 }
             }
             ?>
-            
+
         </form>
     </div>
 
