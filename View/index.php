@@ -125,8 +125,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 if (isset($_POST["searchAll"])) {
 
                     $search = $_POST["searchAll"];
-
-                    $query = "SELECT * FROM program, users WHERE program_name LIKE '%$search%' AND users.code_user = program.code_user ORDER BY id_program DESC";
+                    $code_entreprise = $_SESSION["code_entreprise"];
+                    $query = "SELECT * FROM entreprise, program, users WHERE entreprise.code_entreprise = '$code_entreprise' AND program.code_entreprise = '$code_entreprise' 
+                    AND users.code_entreprise = '$code_entreprise' AND program_name LIKE '%$search%' AND users.code_user = program.code_user ORDER BY id_program DESC";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -148,11 +149,21 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             </div>
                         </a>';
                         }
+                    }else {
+                        echo '<div class="bg-white">
+                        <div class="group-name-and-details">
+                            <div class="group-name">There is no program for your enterprise...</div>
+                            <div class="group-details">Please create a new program !</div>
+                        </div>
+                    </div>';
                     }
                 } else {
 
 
-                    $query = "SELECT * FROM program, users WHERE users.code_user = program.code_user ORDER BY id_program DESC";
+                    $code_entreprise = $_SESSION["code_entreprise"];
+                    
+                    $query = "SELECT * FROM entreprise, program, users WHERE entreprise.code_entreprise = '$code_entreprise' AND program.code_entreprise = '$code_entreprise' 
+                    AND users.code_entreprise = '$code_entreprise' AND users.code_user = program.code_user ORDER BY id_program DESC";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -174,6 +185,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             </div>
                         </a>';
                         }
+                    }else {
+                        echo '<div class="bg-white">
+                        <div class="group-name-and-details">
+                            <div class="group-name">There is no program for your enterprise...</div>
+                            <div class="group-details">Please create a new program !</div>
+                        </div>
+                    </div>';
                     }
                 }
 

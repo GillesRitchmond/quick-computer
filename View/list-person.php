@@ -179,7 +179,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     // $id = $_GET["group-details"];
                     $code_entreprise = $_SESSION["code_entreprise"];
 
-                    $query = "SELECT * FROM program, groupe, personne WHERE personne.id_program = program.id_program AND personne.id_group = groupe.id_group AND groupe.id_program = program.id_program ORDER BY personne.nom ASC";
+                    $query = "SELECT * FROM entreprise, program, groupe, personne WHERE entreprise.code_entreprise = '$code_entreprise' AND  program.code_entreprise = '$code_entreprise' AND  personne.id_program = program.id_program AND personne.id_group = groupe.id_group AND groupe.id_program = program.id_program ORDER BY personne.nom ASC";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {

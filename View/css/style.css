@@ -187,7 +187,7 @@ body,
     box-shadow: 1px 1px 8px rgba(65, 65, 65, 0.247);
     background-color: var(--white);
     padding: 20px 10px;
-    margin: 0 0 10px 20px;
+    margin: 0 0 20px 20px;
     position: sticky;
     top: 100px;
     float: inline-end;
@@ -260,14 +260,14 @@ body,
 .more-details a{
     font-size: 2rem;
     color: var(--secondary);
-    position: relative;
+    position: inherit;
     float: right;
     margin-top: -50px;
 }
 .group-more-details a{
     font-size: 2rem;
     color: var(--secondary);
-    position: relative;
+    position: inherit;
     float: right;
     margin-top: -50px;
 }
@@ -280,7 +280,7 @@ body,
     width: 100%;
     color: var(--white);
     border: none;
-    border-radius: 20px;
+    /* border-radius: 10px; */
 }
 .btn-brand:hover{
     background-image: linear-gradient(to right, rgb(1, 64, 172), rgb(103, 198, 185));
@@ -488,7 +488,7 @@ body,
     .group-more-details a{
         font-size: 2rem;
         color: var(--secondary);
-        position: relative;
+        position: inherit;
         float: right;
         margin-top: -45px;
     }
@@ -505,7 +505,7 @@ body,
     .more-details a{
         font-size: 2rem;
         color: var(--secondary);
-        position: relative;
+        position: inherit;
         float: right;
         margin-top: -55px;
     }
@@ -622,14 +622,14 @@ body,
     .more-details a{
         font-size: 2rem;
         color: var(--secondary);
-        position: relative;
+        position: inherit;
         float: right;
         margin-top: -50px;
     }
     .group-more-details a{
         font-size: 2rem;
         color: var(--secondary);
-        position: relative;
+        position: inherit;
         float: right;
         margin-top: -45px;
     }
@@ -657,6 +657,9 @@ body,
 }
 .nav__icon{
     font-size: 22px;
+}
+#mylinks{
+    display: none;
 }
 
 
@@ -700,8 +703,11 @@ body,
     .hr{
         display: none;
     }
+    .name, .group-name{
+        max-width: 80%;
+    }
     .more-details a, .group-more-details a{
-        position:inherit;
+        position: inherit;
     }
     .linked{
         float: none;
@@ -731,7 +737,7 @@ body,
         min-width: 50px;
         white-space: nowrap;
         -webkit-tap-highlight-color: transparent;
-        transition: backgroun-color 0.1s ease-in-out;
+        transition: background-color 0.1s ease-in-out;
         width: 100%;
     }
     .header-icon{
@@ -739,6 +745,27 @@ body,
         font-size: 2rem;
         color: var(--primary);
         margin-right: 30px;
+    }
+    #mylinks{
+        display: contents;
+        border-top: 1px solid var(--primary);
+        width: 100%;
+    }
+    #mylinks ul{
+        float: right;
+        /* width: 50%; */
+    }
+    #mylinks ul li{
+        display: inline-flex;
+        float: right;
+        padding: 8px 0;
+    }
+    #mylinks ul li a{
+        color: var(--primary);
+        -webkit-tap-highlight-color: transparent;
+        font-size: 1.2rem;
+        text-align: right;
+        text-transform: uppercase;
     }
     .navbar-brand{
         font-weight: bold;
@@ -794,4 +821,5 @@ body,
     .nav__icon{
         font-size: 22px;
     }
+
 }

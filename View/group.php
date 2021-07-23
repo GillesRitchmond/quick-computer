@@ -140,7 +140,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     $id = $_GET["group-details"];
                     $code_entreprise = $_SESSION["code_entreprise"];
 
-                    $query = "SELECT * FROM personne WHERE nom LIKE '%$search%' OR prenom LIKE '%$search%' AND personne.id_group = $id ORDER BY personne.nom ASC";
+                    // RESULT FROM SEARCH BAR DOESN'T WORKS LIKE IT SUPPOSE TO WORK
+                    // FUTURE BUG : RESULT MUST BE FETCH FOR THE ENTERPRISE THAT THE USER IS LOGIN ON IT
+                    // ACTUAL BUG : RETURN THE NAME THAT YOU MAKE A SEARCH ON IT BUT RETURN IT MANY TIME -> QUERY IS NOT GOOD.-
+                    $query = "SELECT * FROM program, groupe, entreprise, personne WHERE personne.id_program = program.id_program AND program.id_program = groupe.id_program AND program.code_entreprise = '$code_entreprise' AND entreprise.code_entreprise = '$code_entreprise' AND nom LIKE '%$search%' OR prenom LIKE '%$search%' AND personne.id_group = $id AND groupe.id_group = $id ORDER BY personne.nom ASC";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -176,7 +179,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     $id = $_GET["group-details"];
                     $code_entreprise = $_SESSION["code_entreprise"];
 
-                    $query = "SELECT * FROM program, groupe, personne WHERE personne.id_program = program.id_program AND personne.id_group = groupe.id_group AND groupe.id_program = program.id_program AND personne.id_group = $id ORDER BY personne.nom ASC";
+                    $query = "SELECT * FROM entreprise, program, groupe, personne WHERE entreprise.code_entreprise = '$code_entreprise' AND program.code_entreprise = '$code_entreprise' AND personne.id_program = program.id_program AND personne.id_group = groupe.id_group AND groupe.id_program = program.id_program AND personne.id_group = $id ORDER BY personne.nom ASC";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {

@@ -101,7 +101,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <a href="index.php">
                     <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span> Back
                 </a>
-                <hr classs="hr">
+                <hr class="hr">
             </span>
             <div class="list-content mt-3 mb-5">
             <div class="top"></div>
@@ -112,7 +112,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     $id = $_GET["program"];
                     $code_entreprise = $_SESSION["code_entreprise"];
 
-                    $query = "SELECT * FROM program, groupe, users WHERE nom_groupe LIKE '%$search%' AND program.id_program = $id AND groupe.id_program = $id AND users.code_user = groupe.code_user ORDER BY groupe.id_group DESC";
+                    $query = "SELECT * FROM entreprise, program, groupe, users WHERE users.code_entreprise = '$code_entreprise' AND program.code_entreprise = '$code_entreprise' AND entreprise.code_entreprise = '$code_entreprise' ANDnom_groupe LIKE '%$search%' AND program.id_program = $id AND groupe.id_program = $id AND users.code_user = groupe.code_user ORDER BY groupe.id_group DESC";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -143,7 +143,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     $id = $_GET["program"];
                     $code_entreprise = $_SESSION["code_entreprise"];
 
-                    $query = "SELECT * FROM program, groupe, users WHERE program.id_program = $id AND groupe.id_program = $id AND users.code_user = groupe.code_user ORDER BY groupe.id_group DESC";
+                    $query = "SELECT * FROM entreprise, program, groupe, users WHERE users.code_entreprise = '$code_entreprise' AND program.code_entreprise = '$code_entreprise' AND entreprise.code_entreprise = '$code_entreprise' AND program.id_program = $id AND groupe.id_program = $id AND users.code_user = groupe.code_user ORDER BY groupe.id_group DESC";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {
