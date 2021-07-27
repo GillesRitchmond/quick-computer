@@ -4,13 +4,12 @@ include_once('Model/connection.php');
 // Initialize the session
 session_start();
 // Check if the user is already logged in, if yes then redirect him to welcome page
-if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    if (isset($_SESSION["statut"]) === 1) {
-        header("location: View/index.php");
-        exit;
-    }
-}else
-header("location: index.php");
+// if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+//         header("location: View/index.php");
+//         exit;
+// }else
+// header("location: index.php");
+
 
 
 if (isset($_POST["submit"])) {

@@ -109,6 +109,123 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
     </div>
 
+    <?php
+
+
+    // function time_operation($heure_envoie,$heure_reception)
+    // {
+    //     $date1 = strtotime($heure_envoie);
+    //     $date2 = strtotime($heure_reception);
+    //     $date3 = strtotime('000000');
+
+    //    if($date2 == ' '){
+      
+
+    //       $hours = 0;
+    //       $minutes = 0;
+    //       $seconds = 0;
+
+    //       return $days."days ".$hours.":".$minutes;
+
+    //    }else{
+
+          
+
+    //     // Condition if date_reception is null at the time of insertion
+       
+    //     // Formulate the Difference between two dates
+    //     $diff = abs($date2 - $date1);
+
+
+    //     // To get the year divide the resultant date into
+    //     // total seconds in a year (365*60*60*24)
+    //     $years = floor($diff / (365*60*60*24));
+
+
+    //     // To get the month, subtract it with years and
+    //     // divide the resultant date into
+    //     // total seconds in a month (30*60*60*24)
+    //     $months = floor(($diff - $years * 365*60*60*24)
+    //     / (30*60*60*24));
+
+
+    //     // To get the day, subtract it with years and
+    //     // months and divide the resultant date into
+    //     // total seconds in a days (60*60*24)
+    //     $days = floor(($diff - $years * 365*60*60*24 -
+    //     $months*30*60*60*24)/ (60*60*24));
+
+
+    //     // To get the hour, subtract it with years,
+    //     // months & seconds and divide the resultant
+    //     // date into total seconds in a hours (60*60)
+    //     $hours = floor(($diff - $years * 365*60*60*24
+    //     - $months*30*60*60*24 - $days*60*60*24)
+    //     / (60*60));
+
+
+    //     // To get the minutes, subtract it with years,
+    //     // months, seconds and hours and divide the
+    //     // resultant date into total seconds i.e. 60
+    //     $minutes = floor(($diff - $years * 365*60*60*24
+    //     - $months*30*60*60*24 - $days*60*60*24
+    //     - $hours*60*60)/ 60);
+
+
+    //     // To get the minutes, subtract it with years,
+    //     // months, seconds, hours and minutes
+    //     $seconds = floor(($diff - $years * 365*60*60*24
+    //     - $months*30*60*60*24 - $days*60*60*24
+    //     - $hours*60*60 - $minutes*60));
+
+    //     // Print the result
+    //     // if($years==0 && $months==0 && $days==0 && $hours ==0 && $minutes==0 && $seconde ==0)
+    //     // {
+    //     //     return $years."years".$months."months".$days."days".$hours.":".$minutes.":".$seconds;
+    //     // }
+    //     if($years==0 && $months==0 && $days==0)
+    //     {
+    //          if($minutes<10 && $hours>=9)
+    //          {
+    //             return $hours.":0".$minutes;
+    //          }
+    //          elseif($minutes>9 && $hours<10){
+    //             return "0".$hours.":".$minutes;
+    //          }
+    //          elseif($minutes<=9 && $hours<=9){
+    //             return "0".$hours.":0".$minutes;
+    //          }
+    //          else{
+
+    //             return $hours.":".$minutes;
+    //          }
+             
+    //    }
+    //     elseif($years==0 && $months==0)
+    //     {
+    //         return $hours.":".$minutes;
+    //     }
+    //     elseif($years==0)
+    //     {
+    //         return $hours.":".$minutes;
+            
+    //     }        
+    //     else{
+    //         $hours = 'En';
+    //         $minutes = 'Attente';
+
+
+    //         return $hours." ".$minutes;
+    //     }
+
+    //    }
+       
+      
+    // }
+    
+    
+?>
+
     <div class="third-part-content">
         <div class="container mt-3">
             <span class="title-page-list">
