@@ -48,29 +48,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <i class="text-secondary bi bi-list"></i>
                     </a>
                 </li>
-                <!-- <li class="linked bullet-menu" id="close">
-                    <a href="" onclick="close_toggle(); return false" class="header-icon">
-                        <i class="text-secondary bi bi-x"></i>
-                    </a>
-                </li> -->
             </ul>
-            <!-- <div id="mylinks">
-                <ul>
-                    <li><a href="#news">News</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="#about">About</a></li>
-                </ul>
-            </div> -->
         </div>
 
         <div class="navbar-items" id="close">
             <ul>
                 <li class="linked"><a class="navbar-brand">Mina</a></li>
-                <!-- <li class="linked bullet-menu" id="list">
-                    <a href="" onclick="show_toggle(); return false" class="header-icon">
-                        <i class="text-secondary bi bi-list"></i>
-                    </a>
-                </li> -->
                 <li class="linked bullet-menu"  >
                     <a href="" onclick="close_toggle(); return false" class="header-icon">
                         <i class="text-secondary bi bi-x"></i>

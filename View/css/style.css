@@ -205,9 +205,9 @@ body,
     text-align: left;
     margin-left: 0;
 }
-.navbar{
-    display: none;
-}
+/* .navbar{
+    display: contents;
+} */
 .img-size{
     height: 80px;
     width: 80px;
@@ -661,7 +661,66 @@ body,
 #mylinks{
     display: none;
 }
-
+.navbar{
+    display: contents;
+    width: 100%;
+} 
+.navbar-items{
+    position: fixed;
+    background-color: var(--white);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    height: auto;
+    overflow-x: auto;
+    top: 0;
+    width: 100%;
+    padding: 8px 4px;
+}
+.navbar ul li{
+    display: inline;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    min-width: 50px;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.1s ease-in-out;
+    width: 100%;
+}
+.header-icon{
+    float: right;
+    font-size: 2rem;
+    color: var(--primary);
+    margin-right: 30px;
+}
+#mylinks{
+    display: contents;
+    border-top: 1px solid var(--primary);
+    width: 100%;
+}
+#mylinks ul{
+    float: right;
+    /* width: 50%; */
+}
+#mylinks ul li{
+    display: inline-flex;
+    float: right;
+    padding: 8px 0;
+}
+#mylinks ul li a{
+    color: var(--primary);
+    -webkit-tap-highlight-color: transparent;
+    font-size: 1.2rem;
+    text-align: right;
+    text-transform: uppercase;
+}
+.navbar-brand{
+    font-weight: bold;
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: var(--primary);
+    float: left;
+}
 
 @media screen and (max-width: 480px) {
     .header-content{

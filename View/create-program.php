@@ -66,12 +66,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <form id="uploadForm" action="" method="post" enctype="multipart/form-data" class="container mb-5">
             <?php
 
+// date_default_timezone_set('America/Port-au-Prince');
+// $heure_sortie = date('Y-m-d');
+
+// echo $heure_sortie;
 
             if (isset($_POST["submit"])) {
 
                 $nom = $_POST["name"];
                 $description = $_POST["description"];
-                $date_creation = date("d-m-y");
+                date_default_timezone_set('America/Port-au-Prince');
+                $date_creation = date('Y-m-d');
                 $date_expiration = $_POST["date_expiration"];
 
                 $code_entreprise = $_SESSION["code_entreprise"];

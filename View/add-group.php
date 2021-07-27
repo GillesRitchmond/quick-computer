@@ -82,7 +82,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                 $nom = $_POST["name"];
                 $description = $_POST["description"];
-                $date_creation = date("d-m-y");
+                date_default_timezone_set('America/Port-au-Prince');
+                $date_creation = date("Y-m-d");
                 $date_expiration = $_POST["date_expiration"];
                 $id_program = $_GET["program"];
 
