@@ -139,7 +139,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
             if (isset($_SESSION["role"]) && $_SESSION["role"] === 1) {
                 $edit = "readonly";
-                $editText = '<div class="mb-5"><div class="mt-3"></div></div>';
+                $editText = "";
             } else {
                 $edit = "";
                 $editText = '<button type="submit" name="submit" class="mb-5 text-white btn btn-brand"> Save person</button>';
@@ -148,7 +148,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             $id = $_GET["person-details"];
             // $code_entreprise = $_SESSION["code_entreprise"];
 
-            $query = "SELECT * FROM personne, dependant, program, groupe WHERE personne.id_dependant = dependant.id_dependant AND id_person = $id_person AND groupe.id_program = program.id_program AND personne.id_group = groupe.id_group";
+            $query = "SELECT * FROM personne, dependant, program, groupe WHERE personne.id_dependant = dependant.id_dependant OR personne.id_dependant = 0 AND id_person = $id_person AND groupe.id_program = program.id_program AND personne.id_group = groupe.id_group";
             $result = $conn->query($query);
 
             if (mysqli_num_rows($result) > 0) {
