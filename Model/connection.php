@@ -1,21 +1,21 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "quick-computer-db";
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "quick-computer-db";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// $conn = new mysqli($servername, $username, $password, $dbname);
 
-// $servername = 'mysql-36994-0.cloudclusters.net';
-// $dbname   = 'quick_computer_db';
-// $username = 'admin';
-// $password = '4vae6PyH';
-// $dbServerPort = "36994";
-// $charset = 'utf8mb4';
+$servername = 'mysql-36994-0.cloudclusters.net';
+$dbname   = 'quick_computer_db';
+$username = 'admin';
+$password = '4vae6PyH';
+$dbServerPort = "36994";
+$charset = 'utf8mb4';
 
 // Create connection
-// $conn = new mysqli($servername, $username, $password, $dbname, $dbServerPort);
+$conn = new mysqli($servername, $username, $password, $dbname, $dbServerPort);
 
 // Check connection
 if (!$conn) {
