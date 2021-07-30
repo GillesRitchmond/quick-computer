@@ -37,15 +37,22 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- FONTS GOOGLE -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <!-- ANIMATION -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
 
 <body class="body">
     <?php
-        include_once('header.php');
+    include_once('header.php');
     ?>
 
     <!-- <div class="modal">
@@ -126,6 +133,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                     $search = $_POST["searchAll"];
                     $code_entreprise = $_SESSION["code_entreprise"];
+                    
                     $query = "SELECT * FROM entreprise, program, users WHERE entreprise.code_entreprise = '$code_entreprise' AND program.code_entreprise = '$code_entreprise' 
                     AND users.code_entreprise = '$code_entreprise' AND program_name LIKE '%$search%' AND users.code_user = program.code_user ORDER BY id_program DESC";
                     $result = $conn->query($query);
@@ -142,14 +150,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     <div class="details">
                                      Created : ' . $row["date_creation"] . '<br> 
                                      By : ' . $row["nom"] . ' ' . $row["prenom"] . '</div>
-                                </div>
-                                <div class="more-details">
-                                    <a href="program-details.php?program=' . $row["id_program"] . '"><i class="bi bi-chevron-right"></i></a>
-                                </div>
-                            </div>
+                                </div>';
+                                // <div class="more-details">
+                                //     <a href="program-details.php?program=' . $row["id_program"] . '"><i class="bi bi-chevron-right"></i></a>
+                                // </div>
+                           echo '</div>
                         </a>';
                         }
-                    }else {
+                    } else {
                         echo '<div class="bg-white">
                         <div class="group-name-and-details">
                             <div class="group-name">There is no program for your enterprise...</div>
@@ -159,43 +167,122 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     }
                 } else {
 
-
+                    // $more_details = "program-details.php?program=' . $row["id_program"] . '"
                     $code_entreprise = $_SESSION["code_entreprise"];
-                    
+
                     $query = "SELECT * FROM entreprise, program, users WHERE entreprise.code_entreprise = '$code_entreprise' AND program.code_entreprise = '$code_entreprise' 
                     AND users.code_entreprise = '$code_entreprise' AND users.code_user = program.code_user ORDER BY id_program DESC";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<a href="program-details.php?program=' . $row["id_program"] . '" class="nav-link">
-                            <div class="bg-white">
-                                <div class="img-size">
-                                    <img src="../Assets/images/' . $row["image"] . '" class="img-content" alt="">
-                                </div> 
-                                <div class="name-and-details">
-                                    <div class="name">' . $row["program_name"] . '</div>
-                                    <div class="details">
-                                     Created : ' . $row["date_creation"] . '<br> 
-                                     By : ' . $row["nom"] . ' ' . $row["prenom"] . '</div>
-                                </div>
-                                <div class="more-details">
-                                    <a href="program-details.php?program=' . $row["id_program"] . '"><i class="bi bi-chevron-right"></i></a>
-                                </div>
-                            </div>
-                        </a>';
+                            echo '
+                            <div class="bg-white">';
+                                // <div class="bg-white-content">
+                                    echo '<a href="program-details.php?program=' . $row["id_program"] . '" class="nav-link">
+                                        <div class="img-size">
+                                            <img src="../Assets/images/' . $row["image"] . '" class="img-content" alt="">
+                                        </div> 
+                                        <div class="name-and-details">
+                                            <div class="name">' . $row["program_name"] . '</div>
+                                            <div class="details">
+                                            Created : ' . $row["date_creation"] . '<br> 
+                                            By : ' . $row["nom"] . ' ' . $row["prenom"] . '</div>
+                                        </div>
+                                    </a>';
+                                // </div>
+
+                                // <div class="more-details">
+                                //     <a class="bi-left custom-bi-left" >
+                                //         <i class="openUserEditBox bi bi-chevron-left"></i>
+                                //     </a>
+                                // </div>
+
+                                // <div class="userForm">
+                                //     <div class="user-drawer">
+                                //         <div class="user-menu">
+                                //             <div class="col-md">
+                                //                 <a class="bi-left">
+                                //                     <i class="closeUserEditBox bi bi-chevron-right"></i>
+                                //                 </a>
+                                //                 <ul class="ul-action">
+                                //                     <li class="li-item">
+                                //                         <a href="" class="item-action item-action-edit">
+                                //                             <i class="bi bi-pencil-square"></i>
+                                //                         </a>
+                                //                     </li>
+                                //                     <li class="li-item">
+                                //                         <a href="" class="item-action item-action-delete">
+                                //                             <i class="bi bi-trash"></i>
+                                //                         </a>
+                                //                     </li>
+                                //                 </ul>
+                                //             </div>
+                                //         </div>
+                                //     </div>
+                                // </div>
+
+                            echo '</div> ';
                         }
                     }else {
                         echo '<div class="bg-white">
-                        <div class="group-name-and-details">
-                            <div class="group-name">There is no program for your enterprise...</div>
-                            <div class="group-details">Please create a new program !</div>
-                        </div>
-                    </div>';
+                            <div class="group-name-and-details">
+                                <div class="group-name">There is no program for your enterprise...</div>
+                                <div class="group-details">Please create a new program !</div>
+                            </div>
+                        </div>';
                     }
                 }
 
                 ?>
+
+                
+                <!-- <div class="bg-white">
+                    <a href="program-details.php?program='1'" class="nav-link">
+                        <div class="img-size">
+                            <img src="../Assets/images/4567-code-promo-abeille-heureuse@2x.png" class="img-content" alt="">
+                        </div>
+                        <div class="name-and-details">
+                            <div class="name">Bonus Card</div>
+                            <div class="details">
+                                Created : 12/07/2021<br>
+                                By : JohnDoe</div>
+                        </div>
+                    </a>
+                        <div class="more-details">
+                            <a class="bi-left custom-bi-left">
+                                <i class="openUserEditBox bi bi-chevron-left"></i>
+                            </a>
+                        </div>
+
+
+                         <div class="userForm">
+                            <div class="user-drawer">
+                                <div class="user-menu">
+                                    <div class="col-md">
+                                        <a class="bi-left">
+                                            <i class="closeUserEditBox bi bi-chevron-right"></i>
+                                        </a>
+                                        <ul class="ul-action">
+                                            <li class="li-item">
+                                                <a href="" class="item-action item-action-edit">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </a>
+                                            </li>
+                                            <li class="li-item">
+                                                <a href="" class="item-action item-action-delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+
                 <?php
                 include_once('sidebar.php');
                 ?>
@@ -209,5 +296,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     include_once('footer.php');
     ?>
 </body>
+
+<script>
+    $(".userForm").addClass("hide");
+    $('.openUserEditBox').click(function() {
+        $(".userForm").removeClass("hide");
+        $(".userForm").addClass("show");
+    });
+    $('.closeUserEditBox').click(function() {
+        $(".userForm").removeClass("show");
+        $(".userForm").addClass("hide");
+    });
+</script>
 
 </html>

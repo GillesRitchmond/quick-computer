@@ -22,6 +22,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 
     <!-- BOOTSTRAP CSS & JS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -32,9 +33,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- FONTS GOOGLE -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
 
 </head>
 
@@ -93,7 +98,20 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         $id_group = $_GET["group-details"];
                         $id_program = $_GET["program-details"];
                         $id_statut = $_POST["id_statut"];
-
+                        $nom_1 = $_POST["nom_1"];
+                        $nom_2 = $_POST["nom_2"];
+                        $nom_3 = $_POST["nom_3"];
+                        $nom_4 = $_POST["nom_4"];
+                        $nom_5 = $_POST["nom_5"];
+                        $nom_6 = $_POST["nom_6"];
+                        $nom_7 = $_POST["nom_7"];
+                        $nom_8 = $_POST["nom_8"];
+                        $nom_9 = $_POST["nom_9"];
+                        $nom_10 = $_POST["nom_10"];
+                        date_default_timezone_set('America/Port-au-Prince');
+                        $actual_date= date('Y-m-d');
+                        $date_expiration = $_POST["date_exp"];
+                        $id_dependant = 0;
                         // $code_entreprise = $_SESSION["code_entreprise"];
                         // $code_entreprise = "ckhardware.qc";
 
@@ -117,10 +135,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                         if (move_uploaded_file($file_loc, $folder . $final_file)) {
                             $stmt_user = $conn->prepare("INSERT INTO personne (nom, prenom, date_naissance, lieu_naissance, telephone_1, telephone_2, 
-                                        adresse, email, profile_image, id_statut, id_group, id_program)
-                                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                        adresse, email, profile_image, date_exp, creation_date, id_statut, id_dependant, id_group, id_program)
+                                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                             $stmt_user->bind_param(
-                                'sssssssssiii',
+                                'ssssssssssssiii',
                                 $nom,
                                 $prenom,
                                 $date_naissance,
@@ -130,21 +148,60 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 $adresse,
                                 $email,
                                 $final_file,
+                                $date_expiration,
+                                $actual_date,
                                 $id_statut,
+                                $id_dependant,
                                 $id_group,
                                 $id_program
                             );
 
-                            if ($stmt_user->execute()) {
+                            $stmt_dependant = $conn->prepare("INSERT INTO dependant (nom_1, nom_2, nom_3, nom_4, nom_5, nom_6, nom_7, nom_8, nom_9, nom_10)
+                                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                            $stmt_dependant->bind_param(
+                                'ssssssssss',
+                                $nom_1,
+                                $nom_2,
+                                $nom_3,
+                                $nom_4,
+                                $nom_5,
+                                $nom_6,
+                                $nom_7,
+                                $nom_8,
+                                $nom_9,
+                                $nom_10
+                            );
+
+                            if ($stmt_user->execute() && $stmt_dependant->execute()) {
+
+                                if(isset($nom_1) || isset($nom_2) || isset($nom_3) || isset($nom_4) || isset($nom_5) || isset($nom_6) ||
+                                isset($nom_7) || isset($nom_8) || isset($nom_9) || isset($nom_10))
+                                {
+                                    $query = "SELECT dependant.id_dependant as dependant, personne.id_dependant as personne, id_person FROM dependant, personne 
+                                                WHERE personne.id_dependant = 0 ORDER BY dependant.id_dependant DESC, personne.id_person DESC LIMIT 1";
+                                    $result =$conn->query($query);
+
+                                    if (mysqli_num_rows($result) > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            $dependant = $row["dependant"];
+                                            // $personne = $row["personne"];
+                                            $id_person = $row["id_person"];
+
+                                            $stmt = $conn->prepare("UPDATE personne SET personne.id_dependant = ? WHERE id_person = $id_person");
+                                            $stmt->bind_param('i', $dependant);
+                                            $stmt->execute();
+                                        }
+                                    }
+                                }
                                 echo '<div class="alert alert-success" role="alert">
-                                    Enregistrement réussi !
+                                Saved successfully !
                                 </div>';
                             }
                         }
                     } catch (PDOException $e) {
 
                         echo '<div class="alert alert-danger" role="alert">
-                        L\' enregistrement n\'a pas été faite  !
+                        Failed registration  !
                         </div>';
                         echo "Error: " . $e->getMessage();
                     }
@@ -161,7 +218,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" id="exampleFormControlInput1" required>
+                <input type="email" class="form-control" name="email" id="exampleFormControlInput1">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Birth date</label>
@@ -169,7 +226,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Birth place</label>
-                <input type="text" class="form-control" name="lieu" id="exampleFormControlInput1" required>
+                <input type="text" class="form-control" name="lieu" id="exampleFormControlInput1" >
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Adresse</label>
@@ -188,12 +245,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <input type="file" name="fileToUpload" class="form-control-file" required>
             </div>
             <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Expiration date</label>
+                <input type="date" class="form-control" name="date_exp" id="exampleFormControlInput1" required>
+            </div>
+            <div class="mb-3">
 
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="hidden" name="id_statut" value="2" id="flexSwitchCheckChecked">
-                    <input class="form-check-input" type="checkbox" name="id_statut" value="1" id="flexSwitchCheckChecked">
+                    <input class="form-check-input" type="checkbox" name="id_statut" value="1" checked id="flexSwitchCheckChecked">
                     <label class="form-check-label" for="flexCheckDefault">
-                        Enable <span class="details">(Default value : Disable)</span>
+                        Enable <span class="details">(Default : Enable)</span>
                     </label>
                 </div>
 
@@ -216,41 +277,102 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <div class="dependant" id="dependant-list-field">
                 <label class="form-label">Information about dependant(s)</label>
                 <hr>
-                <b>First Dependant</b> <br>
+                <b>Dependant</b> <br>
                 <div class="mb-3" id="first-dependant">
-                    <label for="exampleFormControlInput1" class="form-label">Lastname</label>
-                    <input type="text" class="form-control" name="nom_dependant" id="exampleFormControlInput1">
-                </div>
-                <div class="mb-3" id="first-dependant">
-                    <label for="exampleFormControlInput1" class="form-label">Firstname</label>
-                    <input type="text" class="form-control" name="prenom_dependant" id="exampleFormControlInput1">
+                    <label for="exampleFormControlInput1" class="form-label">Dependant 1</label>
+                    <input type="text" class="form-control" placeholder="Full name" name="nom_1" id="exampleFormControlInput1">
                 </div>
                 <hr>
                 <a href="" onclick="second_dependant(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
+
                 <div class="second-dependant" id="second-dependant">
-                    <b>Second dependant</b> <br>
+                    <!-- <b>Second dependant</b> <br> -->
                     <div class="mb-3" id="second-dependant">
-                        <label for="exampleFormControlInput1" class="form-label">Lastname</label>
-                        <input type="text" class="form-control" name="nom_dependant_2" id="exampleFormControlInput1">
-                    </div>
-                    <div class="mb-3" id="first-dependant">
-                        <label for="exampleFormControlInput1" class="form-label">Firstname</label>
-                        <input type="text" class="form-control" name="prenom_dependant_2" id="exampleFormControlInput1">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 2</label>
+                        <input type="text" class="form-control" placeholder="Full name" name="nom_2" id="exampleFormControlInput1">
                     </div>
                     <hr>
                     <a href="" onclick="third_dependant(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
                 </div>
-                <div class="third-dependant" id="third-dependant">
-                    <b>Third dependant</b> <br>
+
+                <div class="second-dependant" id="third-dependant">
+                    <!-- <b>Second dependant</b> <br> -->
                     <div class="mb-3" id="third-dependant">
-                        <label for="exampleFormControlInput1" class="form-label">Lastname</label>
-                        <input type="text" class="form-control" name="nom_dependant_3" id="exampleFormControlInput1">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 3</label>
+                        <input type="text" class="form-control" placeholder="Full name" name="nom_3" id="exampleFormControlInput1">
                     </div>
-                    <div class="mb-3" id="thid=rd-dependant">
-                        <label for="exampleFormControlInput1" class="form-label">Firstname</label>
-                        <input type="text" class="form-control" name="prenom_dependant_3" id="exampleFormControlInput1">
+                    <hr>
+                    <a href="" onclick="dependant_4(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_4">
+                    <!-- <b>Second dependant</b> <br> -->
+                    <div class="mb-3" id="dependant_4">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 4</label>
+                        <input type="text" class="form-control" placeholder="Full name" name="nom_4" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_5(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_5">
+                    <!-- <b>Second dependant</b> <br> -->
+                    <div class="mb-3" id="dependant_5">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 5</label>
+                        <input type="text" class="form-control" placeholder="Full name" name="nom_5" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_6(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_6">
+                    <!-- <b>Second dependant</b> <br> -->
+                    <div class="mb-3" id="dependant_6">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 6</label>
+                        <input type="text" class="form-control" placeholder="Full name" name="nom_6" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_7(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_7">
+                    <!-- <b>Second dependant</b> <br> -->
+                    <div class="mb-3" id="dependant_7">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 7</label>
+                        <input type="text" class="form-control" placeholder="Full name" name="nom_7" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_8(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_8">
+                    <!-- <b>Second dependant</b> <br> -->
+                    <div class="mb-3" id="dependant_8">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 8</label>
+                        <input type="text" class="form-control" placeholder="Full name" name="nom_8" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_9(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_9">
+                    <!-- <b>Second dependant</b> <br> -->
+                    <div class="mb-3" id="dependant_9">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 9</label>
+                        <input type="text" class="form-control" placeholder="Full name" name="nom_9" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_10(); return false" id="s-more" class="float-end nav-link">Add 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_10">
+                    <!-- <b>Second dependant</b> <br> -->
+                    <div class="mb-3" id="dependant_10">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 10</label>
+                        <input type="text" class="form-control" placeholder="Full name" name="nom_10" id="exampleFormControlInput1">
                     </div>
                 </div>
+                
             </div>
             <button type="submit" name="submit" class="text-white mb-5 btn btn-brand">Save person</button>
         </form>
@@ -268,12 +390,26 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         show(document.getElementById('dependant-list-field'));
         hide(document.getElementById('second-dependant'));
         hide(document.getElementById('third-dependant'));
+        hide(document.getElementById('dependant_4'));
+        hide(document.getElementById('dependant_5'));
+        hide(document.getElementById('dependant_6'));
+        hide(document.getElementById('dependant_7'));
+        hide(document.getElementById('dependant_8'));
+        hide(document.getElementById('dependant_9'));
+        hide(document.getElementById('dependant_10'));
     }
 
     function second_dependant() {
         show(document.getElementById('dependant-list-field'));
         show(document.getElementById('second-dependant'));
         hide(document.getElementById('third-dependant'));
+        hide(document.getElementById('dependant_4'));
+        hide(document.getElementById('dependant_5'));
+        hide(document.getElementById('dependant_6'));
+        hide(document.getElementById('dependant_7'));
+        hide(document.getElementById('dependant_8'));
+        hide(document.getElementById('dependant_9'));
+        hide(document.getElementById('dependant_10'));
 
     }
 
@@ -281,6 +417,104 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         show(document.getElementById('dependant-list-field'));
         show(document.getElementById('second-dependant'));
         show(document.getElementById('third-dependant'));
+        hide(document.getElementById('dependant_4'));
+        hide(document.getElementById('dependant_5'));
+        hide(document.getElementById('dependant_6'));
+        hide(document.getElementById('dependant_7'));
+        hide(document.getElementById('dependant_8'));
+        hide(document.getElementById('dependant_9'));
+        hide(document.getElementById('dependant_10'));
+    }
+    
+    function dependant_4() {
+        show(document.getElementById('dependant-list-field'));
+        show(document.getElementById('second-dependant'));
+        show(document.getElementById('third-dependant'));
+        show(document.getElementById('dependant_4'));
+        hide(document.getElementById('dependant_5'));
+        hide(document.getElementById('dependant_6'));
+        hide(document.getElementById('dependant_7'));
+        hide(document.getElementById('dependant_8'));
+        hide(document.getElementById('dependant_9'));
+        hide(document.getElementById('dependant_10'));
+    }
+
+    function dependant_5() {
+        show(document.getElementById('dependant-list-field'));
+        show(document.getElementById('second-dependant'));
+        show(document.getElementById('third-dependant'));
+        show(document.getElementById('dependant_4'));
+        show(document.getElementById('dependant_5'));
+        hide(document.getElementById('dependant_6'));
+        hide(document.getElementById('dependant_7'));
+        hide(document.getElementById('dependant_8'));
+        hide(document.getElementById('dependant_9'));
+        hide(document.getElementById('dependant_10'));
+    }
+
+    function dependant_6() {
+        show(document.getElementById('dependant-list-field'));
+        show(document.getElementById('second-dependant'));
+        show(document.getElementById('third-dependant'));
+        show(document.getElementById('dependant_4'));
+        show(document.getElementById('dependant_5'));
+        show(document.getElementById('dependant_6'));
+        hide(document.getElementById('dependant_7'));
+        hide(document.getElementById('dependant_8'));
+        hide(document.getElementById('dependant_9'));
+        hide(document.getElementById('dependant_10'));
+    }
+
+    function dependant_7() {
+        show(document.getElementById('dependant-list-field'));
+        show(document.getElementById('second-dependant'));
+        show(document.getElementById('third-dependant'));
+        show(document.getElementById('dependant_4'));
+        show(document.getElementById('dependant_5'));
+        show(document.getElementById('dependant_6'));
+        show(document.getElementById('dependant_7'));
+        hide(document.getElementById('dependant_8'));
+        hide(document.getElementById('dependant_9'));
+        hide(document.getElementById('dependant_10'));
+    }
+
+    function dependant_8() {
+        show(document.getElementById('dependant-list-field'));
+        show(document.getElementById('second-dependant'));
+        show(document.getElementById('third-dependant'));
+        show(document.getElementById('dependant_4'));
+        show(document.getElementById('dependant_5'));
+        show(document.getElementById('dependant_6'));
+        show(document.getElementById('dependant_7'));
+        show(document.getElementById('dependant_8'));
+        hide(document.getElementById('dependant_9'));
+        hide(document.getElementById('dependant_10'));
+    }
+
+    function dependant_9() {
+        show(document.getElementById('dependant-list-field'));
+        show(document.getElementById('second-dependant'));
+        show(document.getElementById('third-dependant'));
+        show(document.getElementById('dependant_4'));
+        show(document.getElementById('dependant_5'));
+        show(document.getElementById('dependant_6'));
+        show(document.getElementById('dependant_7'));
+        show(document.getElementById('dependant_8'));
+        show(document.getElementById('dependant_9'));
+        hide(document.getElementById('dependant_10'));
+    }
+
+    function dependant_10() {
+        show(document.getElementById('dependant-list-field'));
+        show(document.getElementById('second-dependant'));
+        show(document.getElementById('third-dependant'));
+        show(document.getElementById('dependant_4'));
+        show(document.getElementById('dependant_5'));
+        show(document.getElementById('dependant_6'));
+        show(document.getElementById('dependant_7'));
+        show(document.getElementById('dependant_8'));
+        show(document.getElementById('dependant_9'));
+        show(document.getElementById('dependant_10'));
     }
 
     function hide(elements) {

@@ -32,9 +32,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- FONTS GOOGLE -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
 
 </head>
 
@@ -101,6 +105,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <a href="index.php">
                     <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span> Back
                 </a>
+                <a href="<?php echo'edit-program.php?program='.$_GET["program"];?>" class="float-end fs-6">
+                    <span class="align-items"></span> Edit <i class="bi bi-arrow-right-short"></i>
+                </a>
                 <hr class="hr">
             </span>
             <div class="list-content mt-3 mb-5">
@@ -124,11 +131,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     <div class="group-details"> 
                                         <b>Created : </b>' . $row["date_creation"] . ' <br>
                                         <b>By : </b>' . $row["nom"] . ' ' . $row["prenom"] . '</div>
-                                    </div>
-                                    <div class="more-details">
-                                        <a href="group.php?group-details=' . $row["id_group"] . '"><i class="bi bi-chevron-right"></i></a>
-                                    </div>
-                            </div>
+                                    </div>';
+                                    // <div class="more-details">
+                                    //     <a href="group.php?group-details=' . $row["id_group"] . '"><i class="bi bi-chevron-right"></i></a>
+                                    // </div>
+                            echo '</div>
                         </a>';
                         }
                     } else {
@@ -155,11 +162,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     <div class="group-details"> 
                                         <b>Created : </b>' . $row["date_creation"] . ' <br>
                                         <b>By : </b>' . $row["nom"] . ' ' . $row["prenom"] . '</div>
-                                    </div>
-                                    <div class="more-details">
-                                        <a href="group.php?group-details=' . $row["id_group"] . '"><i class="bi bi-chevron-right"></i></a>
-                                    </div>
-                            </div>
+                                    </div>';
+                                    // <div class="more-details">
+                                    //     <a href="group.php?group-details=' . $row["id_group"] . '"><i class="bi bi-chevron-right"></i></a>
+                                    // </div>
+                            echo '</div>
                         </a>';
                         }
                     } else {

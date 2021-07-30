@@ -32,9 +32,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- FONTS GOOGLE -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
 
 </head>
 
@@ -75,7 +79,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <hr>
         </div>
 
-        <form id="uploadForm" action="" method="post" enctype="multipart/form-data" class="container mb-4">
+        <form id="uploadForm" action="" method="post" enctype="multipart/form-data" class="container mb-5">
             <?php
 
             if (isset($_POST["submit"])) {
@@ -96,9 +100,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                 if ($query->execute()) {
                     // echo "File sucessfully upload";
-                    echo '<div class="alert alert-success" role="alert"> Enregistrement réussi ! </div>';
+                    echo '<div class="alert alert-success" role="alert"> Saved successfully ! </div>';
                 } else {
-                    echo '<div class="alert alert-danger" role="alert"> Echec d\'enregistrement ! </div>';
+                    echo '<div class="alert alert-danger" role="alert"> Failed registration ! </div>';
                 }
             }
 
@@ -116,7 +120,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <label for="exampleFormControlTextarea1" class="form-label">Expiration date</label>
                 <input type="date" class="form-control" name="date_expiration" id="exampleFormControlInput1" required>
             </div>
-            <button type="submit" name="submit" class="text-white btn btn-brand">Save group</button>
+            <button type="submit" name="submit" class="text-white btn btn-brand mb-5">Save group</button>
         </form>
     </div>
 

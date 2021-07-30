@@ -32,9 +32,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- FONTS GOOGLE -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
 
 </head>
 
@@ -131,7 +135,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 // }
                 ?>
 
-                <!-- <hr> -->
+                <hr>
             </span>
             <div class="list-content mt-3 mb-5">
 
@@ -159,11 +163,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     <div class="group-name">' . $row["nom"] . ' ' . $row["prenom"] . '<span class="' . $color . '" ></span></div>
                                     <div class="group-details">
                                         Email  : ' . $row["email"] . '</div>
-                                    </div>
-                                    <div class="group-more-details">
-                                        <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>
-                                    </div>
-                            </div>
+                                    </div>';
+                                    // <div class="group-more-details">
+                                    //     <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>
+                                    // </div>
+                            echo '</div>
                         </a>';
                         }
                     } else {
@@ -179,7 +183,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     // $id = $_GET["group-details"];
                     $code_entreprise = $_SESSION["code_entreprise"];
 
-                    $query = "SELECT * FROM entreprise, program, groupe, personne WHERE entreprise.code_entreprise = '$code_entreprise' AND  program.code_entreprise = '$code_entreprise' AND  personne.id_program = program.id_program AND personne.id_group = groupe.id_group AND groupe.id_program = program.id_program ORDER BY personne.nom ASC";
+                    $query = "SELECT * FROM entreprise, program, groupe, personne WHERE entreprise.code_entreprise = '$code_entreprise' 
+                    AND program.code_entreprise = '$code_entreprise' AND  personne.id_program = program.id_program AND 
+                    personne.id_group = groupe.id_group AND groupe.id_program = program.id_program ORDER BY personne.nom ASC";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -195,9 +201,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     <div class="group-name">' . $row["nom"] . ' ' . $row["prenom"] . '<span class="' . $color . '" ></span></div>
                                     <div class="group-details">
                                         Email  : ' . $row["email"] . '</div>
-                                    </div>
-                                    <div class="group-more-details">
-                                        <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>
                                     </div>
                             </div>
                         </a>';

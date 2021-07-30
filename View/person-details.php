@@ -33,9 +33,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <!-- FONTS GOOGLE -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
 
 </head>
 
@@ -131,6 +135,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
             <?php
 
+            // ???
+
             if (isset($_SESSION["role"]) && $_SESSION["role"] === 1) {
                 $edit = "readonly";
                 $editText = "";
@@ -156,8 +162,30 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         $statut = "Isn't activated";
                     }
 
-                    if ($row["id_dependant"] === null) {
-                        echo "<script> hide(document.getElementById('dependant-list-field')); </script>";
+                    // if ($row["id_dependant"] === null) {
+                    //     echo "<script> hide(document.getElementById('dependant-list-field')); </script>";
+                    // }
+
+                    // CALCUL THE DIFFERENCE BETWEEN TWO DATES
+                    // THEN THIS ALGORITHM CHANGE THE STATUT OF THE PERSON
+                    // IF THE EXPIRATION DATE AND THE ACTUAL DATE IS EQUAL TO ZERO (0)
+
+                    date_default_timezone_set('America/Port-au-Prince');
+                    $actual_date= date('Y-m-d');
+                    $date_expiration = $row["date_exp"];
+                    
+                    $date_diff = date_diff(date_create($date_expiration), date_create($actual_date))->format('%a');
+
+                    if($date_diff == 0){
+                        $stmt = $conn->prepare("UPDATE personne SET id_statut = ? WHERE id_person = $id");
+                        $new_statut = 2; 
+                        $stmt->bind_param('i', $new_statut);
+                        $stmt->execute();
+                    }elseif($date_diff > 0){
+                        $stmt = $conn->prepare("UPDATE personne SET id_statut = ? WHERE id_person = $id");
+                        $new_statut = 1; 
+                        $stmt->bind_param('i', $new_statut);
+                        $stmt->execute();
                     }
 
                     echo '
