@@ -28,14 +28,14 @@ if (isset($_POST["submit"])) {
 
         // Check if username is empty
         if (empty(trim($_POST["code_user"]))) {
-            $user_err = "Veuillez insérer un code utilisateur valide.";
+            $user_err = "Your mail is not valid.";
         } else {
             $user = trim($_POST["code_user"]);
         }
 
         // Check if password is empty
         if (empty(trim($_POST["password"]))) {
-            $password_err = "Veuillez insérer un mot de passe valide.";
+            $password_err = "Your password is not valid";
         } else {
             $password = trim($_POST["password"]);
         }
@@ -89,15 +89,15 @@ if (isset($_POST["submit"])) {
                                 // header("location: View/dashboard.php");
                             } else {
                                 // Password is not valid, display a generic error message
-                                $login_err = "Email ou mot de passe est incorrect.";
+                                $login_err = "Email or password is incorrect.";
                             }
                         }
                     } else {
                         // Username doesn't exist, display a generic error message
-                        $login_err = "Email ou mot de passe est incorrect.";
+                        $login_err = "Email or password is incorrect.";
                     }
                 } else {
-                    echo "Oops! Quelques choses ne marche pas. Essayez de vous connecter plus tard.";
+                    echo "Oops! Something went wrong . Please try again later.";
                 }
 
                 // Close statement
@@ -156,27 +156,27 @@ if (isset($_POST["submit"])) {
                 <div class="box">
                     <div class="form-row">
                         <div class="form-card">
-                            <h3>Connectez-vous</h3>
+                            <h3>Mina</h3>
                             <hr>
-                            <p><i>Veuillez insérez votre email et votre mot de passe</i></p>
+                            <p><i></i></p>
                             <div class="mb-4 form-floating">
                                 <input type="text" class="form-control" name="code_user" required>
                                 <label for="floatingInput">Email</label>
                             </div>
                             <div class="mb-4 form-floating">
                                 <input type="password" class="form-control" name="password" required>
-                                <label for="floatingInput">Mot de passe</label>
+                                <label for="floatingInput">Password</label>
                             </div>
                             <div class="col">
-                                <button class="col-12 btn btn-primary" name="submit" type="submit">Se connecter</button>
+                                <button class="col-12 btn btn-primary" name="submit" type="submit">Log In</button>
                             </div>
 
                             <div class="col link mt-2">
                                 <div class="col">
-                                    <a href="#" class="text-muted nav-link">Mot de passe oublier ?</a>
+                                    <!-- <a href="#" class="text-muted nav-link">Forgot password ?</a> -->
                                 </div>
                                 <div class="col">
-                                    <a href="#" class="nav-link">Terms of use. Privacy policy</a>
+                                    <!-- <a href="#" class="nav-link">Terms of use. Privacy policy</a> -->
                                 </div>
                             </div>
                         </div>

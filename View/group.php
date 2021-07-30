@@ -47,22 +47,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     include_once('header.php');
     ?>
     <div class="header-content">
-        <!-- <div class="bullet-menu" onclick="main(); return false;">
-            <i class="bi bi-list"></i>
-        </div> -->
-
-        <!-- <div class="modal-box" id="main">
-            <div class="bullet-menu" ondclick="close(); return false;">
-                <i class="bi bi-list"></i>
-            </div>
-
-            <ul class="main-link">
-                <li class="main-li"><a href="#" class="main-nav-link">Profile</a></li>
-                <li class="main-li"><a href="#" class="main-nav-link">Users List</a></li>
-                <li class="main-li"><a href="#" class="main-nav-link">Settings</a></li>
-                <li class="main-li"><a href="#" class="main-nav-link">Logout</a></li>
-            </ul>
-        </div> -->
 
         <?php
         $id = $_GET['group-details'];
@@ -115,14 +99,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <?php
 
-    
+
     ?>
 
     <div class="third-part-content">
         <div class="container mt-3">
             <span class="title-page-list">
                 <?php
-
+                $role = $_SESSION["role"];
                 $id = $_GET["group-details"];
                 // $code_entreprise = $_SESSION["code_entreprise"];
 
@@ -134,6 +118,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         echo '<a href="program-details.php?program=' . $row["id_program"] . '" class="nav-link">
                         <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
                     </a>';
+
+                        if (isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2) {
+                            echo '<a href="edit-group.php?group=' . $id . '" class="float-end nav-link">
+                                <span class="align-items"></span> Edit <i class="bi bi-arrow-right-short"></i>
+                            </a>';
+                        } else {
+                            echo ' ';
+                        }
                     }
                 }
                 ?>
@@ -169,9 +161,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     <div class="group-details">
                                         Email  : ' . $row["email"] . '</div>
                                     </div>';
-                                    // <div class="group-more-details">
-                                    //     <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>
-                                    // </div>
+                            // <div class="group-more-details">
+                            //     <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>
+                            // </div>
                             echo '</div>
                         </a>';
                         }
@@ -205,9 +197,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     <div class="group-details">
                                         Email  : ' . $row["email"] . '</div>
                                     </div>';
-                                    // <div class="group-more-details">
-                                    //     <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>
-                                    // </div>
+                            // <div class="group-more-details">
+                            //     <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>
+                            // </div>
                             echo '</div>
                         </a>';
                         }

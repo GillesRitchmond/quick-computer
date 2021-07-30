@@ -105,9 +105,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <a href="index.php">
                     <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span> Back
                 </a>
-                <a href="<?php echo'edit-program.php?program='.$_GET["program"];?>" class="float-end fs-6">
-                    <span class="align-items"></span> Edit <i class="bi bi-arrow-right-short"></i>
-                </a>
+                <?php if (isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2) {
+                    echo '<a href="edit-program.php?program='.$_GET["program"].'" class="float-end fs-6">
+                        <span class="align-items"></span> Edit <i class="bi bi-arrow-right-short"></i>
+                    </a>';
+                }else{
+                    echo ' ';
+                }
+                ?>
                 <hr class="hr">
             </span>
             <div class="list-content mt-3 mb-5">

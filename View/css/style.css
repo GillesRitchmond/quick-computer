@@ -426,14 +426,19 @@ body,
 
     .login-page{
         background-color: #FFF;
+        margin: 0 auto;
+        width: 100%;
+        padding: 0 10%;
+        /* max-width: 80%; */
     }
     .login-card{
-        width: 300px;
-        margin: 100px auto;
+        width: 100%;
+        /* max-width: 80%; */
+        margin-top: 30%;
         box-shadow: none;
     }
     .form-card{
-        width: auto;
+        width: 100%;
         padding: 15px;
         text-align: center;
     }
@@ -1313,12 +1318,14 @@ body,
     }
 
     .settings-content{
-        margin-top: 20%;
-        padding: 5%;
+        position: unset ;
+        margin-top: 100px;
+        padding: 10% 5%;
     }
     h2{
         color: var(--primary);
         text-align: center;
+        margin: 0 auto;
     }
     .profile .img-content{
         background-color: var(--secondary);
@@ -1350,14 +1357,14 @@ body,
         font-size: 1.1rem;
     }
     .account-infos ul li .result{
-        color:var(--secondary);
+        color: var(--secondary);
         margin-left: 5%;
         width: auto;
         max-width: 90%;
     }
     .statistic{
         width: 90%;
-        padding: 5%;
+        padding: 3% 5%;
     }
     .bg-blue, .bg-yellow, .bg-green{
         width: auto;
@@ -1430,13 +1437,14 @@ body,
 
 
 .settings-content{
-    margin-top: 10%;
+    position: unset;
+    margin-top: 100px;
     margin-bottom: 0;
     padding: 0 3%;
 }
 h2{
     color: var(--primary);
-    text-align: left;
+    text-align: center;
 }
 .profile .img-content{
     background-color: var(--secondary);
@@ -1444,13 +1452,14 @@ h2{
     height: 100px;
     width: 100px;
     margin-left: 5%;
+    margin: 0 auto;
 }
 .account-infos .user-name{
     font-size: 1.4rem;
     font-weight: bold;
     color: var(--primary);
     margin: 3% 6%;
-    text-align: left;
+    text-align: center;
     width: 100%;
     max-width: 90%;
     padding-bottom: 3%;
@@ -1459,7 +1468,6 @@ h2{
 .account-infos ul{
     display: flexbox;
     margin: 0 auto;
-    text-align: left;
 }
 .account-infos ul li{
     list-style: none;

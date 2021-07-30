@@ -139,7 +139,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
             if (isset($_SESSION["role"]) && $_SESSION["role"] === 1) {
                 $edit = "readonly";
-                $editText = "";
+                $editText = '<div class="mb-5"><div class="mt-3"></div></div>';
             } else {
                 $edit = "";
                 $editText = '<button type="submit" name="submit" class="mb-5 text-white btn btn-brand"> Save person</button>';
@@ -148,7 +148,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             $id = $_GET["person-details"];
             // $code_entreprise = $_SESSION["code_entreprise"];
 
-            $query = "SELECT * FROM personne, program, groupe WHERE id_person = $id_person AND groupe.id_program = program.id_program AND personne.id_group = groupe.id_group";
+            $query = "SELECT * FROM personne, dependant, program, groupe WHERE personne.id_dependant = dependant.id_dependant AND id_person = $id_person AND groupe.id_program = program.id_program AND personne.id_group = groupe.id_group";
             $result = $conn->query($query);
 
             if (mysqli_num_rows($result) > 0) {
@@ -237,46 +237,102 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 </label>
             </div>
 
+
             <div class="dependant" id="dependant-list-field">
                 <label class="form-label">Information about dependant(s)</label>
-            <hr>
-            <b>First Dependant</b> <br>
-                <div class="mb-3" id="first-dependant">
-                    <label for="exampleFormControlInput1" class="form-label">Lastname</label>
-                    <input type="text" class="form-control" name="nom_dependant" id="exampleFormControlInput1" ' . $edit . '>
-                </div>
-                <div class="mb-3"id="first-dependant">
-                    <label for="exampleFormControlInput1" class="form-label">Firstname</label>
-                    <input type="text" class="form-control" name="prenom_dependant" id="exampleFormControlInput1" ' . $edit . ' >
-                </div>
-            <hr>
-            <div class="second-dependant" id="second-dependant">
-                <b>Second dependant</b> <br>
-                    <div class="mb-3" id="second-dependant">
-                        <label for="exampleFormControlInput1" class="form-label">Lastname</label>
-                        <input type="text" class="form-control" name="nom_dependant_2" ' . $edit . ' id="exampleFormControlInput1" >
-                    </div>
-                    <div class="mb-3"id="first-dependant">
-                        <label for="exampleFormControlInput1" class="form-label">Firstname</label>
-                        <input type="text" class="form-control" name="prenom_dependant_2" ' . $edit . ' id="exampleFormControlInput1" >
-                    </div>
                 <hr>
-            </div>
-            <div class="third-dependant" id="third-dependant">
-                <b>Third dependant</b> <br>
-                    <div class="mb-3" id="third-dependant">
-                        <label for="exampleFormControlInput1" class="form-label">Lastname</label>
-                        <input type="text" class="form-control" name="nom_dependant_3" id="exampleFormControlInput1" ' . $edit . ' >
+                <b>Dependant</b> <br>
+                <div class="mb-3" id="first-dependant">
+                    <label for="exampleFormControlInput1" class="form-label">Dependant 1</label>
+                    <input type="text" class="form-control" placeholder="Full name" value="' . $row["nom_1"] . '" name="nom_1" ' . $edit . ' id="exampleFormControlInput1">
+                </div>
+                <hr>
+                <a href="" onclick="second_dependant(); return false" id="s-more" class="float-end nav-link">1 more</a>
+
+                <div class="second-dependant" id="second-dependant">
+                    <div class="mb-3" id="second-dependant">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 2</label>
+                        <input type="text" class="form-control" placeholder="Full name" value="' . $row["nom_2"] . '" name="nom_2" ' . $edit . ' id="exampleFormControlInput1">
                     </div>
-                    <div class="mb-3"id="third-dependant">
-                        <label for="exampleFormControlInput1" class="form-label">Firstname</label>
-                        <input type="text" class="form-control" name="prenom_dependant_3" id="exampleFormControlInput1" ' . $edit . ' >
+                    <hr>
+                    <a href="" onclick="third_dependant(); return false" id="s-more" class="float-end nav-link">1 more</a>
+                </div>
+
+                <div class="second-dependant" id="third-dependant">
+                    <div class="mb-3" id="third-dependant">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 3</label>
+                        <input type="text" class="form-control" value="' . $row["nom_3"] . '" placeholder="Full name" ' . $edit . ' name="nom_3" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_4(); return false" id="s-more" class="float-end nav-link"> 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_4">
+                    <div class="mb-3" id="dependant_4">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 4</label>
+                        <input type="text" class="form-control" ' . $edit . ' placeholder="Full name" value="' . $row["nom_4"] . '" name="nom_4" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_5(); return false" id="s-more" class="float-end nav-link"> 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_5">
+                    <div class="mb-3" id="dependant_5">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 5</label>
+                        <input type="text" class="form-control" ' . $edit . ' placeholder="Full name" value="' . $row["nom_5"] . '" name="nom_5" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_6(); return false" id="s-more" class="float-end nav-link"> 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_6">
+                    <div class="mb-3" id="dependant_6">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 6</label>
+                        <input type="text" class="form-control" ' . $edit . ' placeholder="Full name" name="nom_6" value="' . $row["nom_6"] . '" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_7(); return false" id="s-more" class="float-end nav-link"> 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_7">
+                    <div class="mb-3" id="dependant_7">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 7</label>
+                        <input type="text" class="form-control" ' . $edit . ' placeholder="Full name" value="' . $row["nom_7"] . '" name="nom_7" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_8(); return false" id="s-more" class="float-end nav-link"> 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_8">
+                    <div class="mb-3" id="dependant_8">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 8</label>
+                        <input type="text" class="form-control" ' . $edit . ' placeholder="Full name" value="' . $row["nom_8"] . '" name="nom_8" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_9(); return false" id="s-more" class="float-end nav-link"> 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_9">
+                    <div class="mb-3" id="dependant_9">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 9</label>
+                        <input type="text" class="form-control" ' . $edit . ' placeholder="Full name" name="nom_9" value="' . $row["nom_9"] . '" id="exampleFormControlInput1">
+                    </div>
+                    <hr>
+                    <a href="" onclick="dependant_10(); return false" id="s-more" class="float-end nav-link"> 1 more</a>
+                </div>
+
+                <div class="second-dependant" id="dependant_10">
+                    <div class="mb-3" id="dependant_10">
+                        <label for="exampleFormControlInput1" class="form-label">Dependant 10</label>
+                        <input type="text" class="form-control" ' . $edit . ' placeholder="Full name" value="' . $row["nom_10"] . '" name="nom_10" id="exampleFormControlInput1">
                     </div>
                 </div>
+                
             </div>';
                     echo $editText;
                 }
             }
+            echo  '<div class="mb-5"> </div>';
             ?>
 
         </form>
