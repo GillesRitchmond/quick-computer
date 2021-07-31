@@ -138,7 +138,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                         adresse, email, profile_image, date_exp, creation_date, id_statut, id_dependant, id_group, id_program)
                                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                             $stmt_user->bind_param(
-                                'ssssssssssssiii',
+                                'sssssssssssiiii',
                                 $nom,
                                 $prenom,
                                 $date_naissance,
