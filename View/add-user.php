@@ -141,7 +141,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                     <?php
 
-                    $query = "SELECT * FROM role ORDER BY role_name ASC ";
+                    $query = "SELECT * FROM role WHERE id_role != 4 ORDER BY role_name ASC ";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {

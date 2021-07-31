@@ -61,9 +61,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <span class="title-page-list">
                 <!-- <a href="index.php"><i class="bi bi-arrow-left-short fs-1"></i></a> -->
                 <?php
-                    // echo '<a href="program-details.php?program=' . $row["id_program"] . '" class="nav-link">
-                    //         <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
-                    //     </a>';
+                    echo '<a href="index.php" class="nav-link">
+                            <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
+                        </a>';
                 ?>
             </span>
             <hr>
@@ -116,7 +116,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </div>
 
     <?php
-    include_once('footer.php');
+    // include_once('footer.php');
     ?>
 </body>
 

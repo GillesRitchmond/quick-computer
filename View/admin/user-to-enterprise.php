@@ -172,7 +172,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </div>
 
     <?php
-    include_once('footer.php');
+    // include_once('footer.php');
     ?>
 </body>
 
