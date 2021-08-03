@@ -85,7 +85,8 @@ if (isset($_POST["submit"])) {
                                 
 
                                 // Redirect user to welcome page
-                                if (isset($_SESSION["statut"]) && $_SESSION["statut"] === 1) 
+                                if (isset($_SESSION["statut"]) && $_SESSION["statut"] === 1 &&
+                                isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2 || $_SESSION["role"] === 1) 
                                 {
                                     header("location:  View/index.php"); 
                                 }

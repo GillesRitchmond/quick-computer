@@ -81,7 +81,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ) {
                     
 
                     <?php
-                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 3) {
+                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
                         echo '<thead>
                                 <tr>
                                     <th></th>
