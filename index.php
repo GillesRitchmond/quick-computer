@@ -4,12 +4,19 @@ include_once('Model/connection.php');
 // Initialize the session
 session_start();
 // Check if the user is already logged in, if yes then redirect him to welcome page
-// if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-//         header("location: View/index.php");
-//         exit;
-// }else
-// header("location: index.php");
+if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
+        header("location: View/index.php");
+        exit;
+}else
+header("location: index.php");
 
+
+
+    // To protect MySQL injection (more detail about MySQL injection)
+    // $username = stripslashes($username);
+    // $password = stripslashes($password);
+    // $username = mysql_real_escape_string($username);
+    // $password = mysql_real_escape_string($password);
 
 
 if (isset($_POST["submit"])) {
@@ -82,6 +89,11 @@ if (isset($_POST["submit"])) {
                                 if (isset($_SESSION["statut"]) && $_SESSION["statut"] === 1) 
                                 {
                                     header("location:  View/index.php"); 
+                                }
+                                elseif(isset($_SESSION["statut"]) && $_SESSION["statut"] === 1 &&
+                                    isset($_SESSION["role"]) && $_SESSION["role"] === 4)
+                                {
+                                    header("location:  View/admin/index.php"); 
                                 }
 
 
