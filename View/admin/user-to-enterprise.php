@@ -79,7 +79,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         $role = $_POST["role"];
                         $id_statut = 1;
 
-                        $code_entreprise = $_SESSION["code_entreprise"];
+                        $code_entreprise = $_POST["code_entreprise"];
                         // $code_entreprise = "ckhardware.qc";
 
                         $h_password = password_hash($password, PASSWORD_DEFAULT);

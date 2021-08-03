@@ -79,8 +79,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </ul>
             <div id="mylinks">
                 <ul>
-                    <li><a href="#">Users</a></li>
-                    <li><a href="../Controller/logout.php">Logout</a></li>
+                    <li><a></a></li>
+                    <li><a href="../../Controller/logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
