@@ -197,7 +197,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 $profile = "profile.png";
                                 echo $profile;
                             } else { 
-                                $row["profile_image"];
+                               $profile=  $row["profile_image"];
+                               echo $profile;
                             }
 
                         echo '" class="profile-img-content" alt="">
