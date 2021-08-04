@@ -19,7 +19,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- TITLE -->
-    <title>Report Data</title>
+    <title>Create badge</title>
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -99,13 +99,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </span>
         <div class="top"></div>
     </div>
-    <div class="container table-responsive mt-5">
-        <form action="" method="post">
+
+    <form action="" method="post">
+        <div class="container table-responsive mt-5">
+
             <table id="data-student" class="display nowrap stripe order-column cell-border" style="width:100%">
 
 
                 <?php
                 if (isset($_GET["group-details"])) {
+                    
                     echo '<thead>
                         <tr>
                             <th></th>
@@ -133,7 +136,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     $id_group = $_GET["group-details"];
 
 
-                    $query = "SELECT card_number, personne.nom as personne_nom, personne.prenom as personne_prenom, date_naissance, lieu_naissance,
+                    $query = "SELECT id_person, card_number, personne.nom as personne_nom, personne.prenom as personne_prenom, date_naissance, lieu_naissance,
                     personne.telephone_1 as telephone_1, personne.telephone_2 as telephone_2, personne.adresse as adresse, personne.email as email, 
                     statut_name, program_name, program.image as image, personne.profile_image as profile_image, personne.creation_date as date_creation,
                     personne.date_exp as date_expiration, users.nom as user_nom, users.prenom as user_prenom
@@ -150,8 +153,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo '<tr>
                                 <td>
-                                    <input class="form-check-input" type="hidden" name="toPrint" value="2" id="flexSwitchCheckChecked">
-                                    <input class="form-check-input" type="checkbox" name="toPrint" value="1" id="flexSwitchCheckChecked">
+                                    <input class="form-check-input" type="hidden" name="toPrint" value="0" id="flexSwitchCheckChecked">
+                                    <input class="form-check-input" type="checkbox" name="toPrint" value="'.$row["id_person"].'" id="flexSwitchCheckChecked">
                                 </td>
                                 <td>' . $row['card_number'] . '</td>
                                 <td>' . $row['personne_nom'] . '</td>
@@ -172,26 +175,29 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             </tr>';
                         }
                     }
+                    echo '</tbody>';
                 }
                 ?>
 
-                </tbody>
+
             </table>
 
-            <div class="mt-3 badge-button">
-                <button type="submit" name="group" class="col-md-4 btn btn-primary">Print badge</button>
-            </div>
-        </form>
 
-        <div class="mb-5">
-            <span>
-                <p>
-
-                    <br>
-                    <br>
-                </p>
-            </span>
         </div>
+
+        <div class="mt-3 container badge-button">
+            <button type="submit" name="group" class="col-md-4 btn btn-primary">Print badge</button>
+        </div>
+
+    </form>
+
+    <div class="mb-5">
+        <span>
+            <p>
+                <br>
+                <br>
+            </p>
+        </span>
     </div>
 
 

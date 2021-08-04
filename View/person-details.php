@@ -191,7 +191,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                     echo '
                     <div class="profile-img-size mb-3">
-                        <img src="../Assets/profile/' . $row["profile_image"] . '" class="profile-img-content" alt="">
+                        <img src="../Assets/profile/'; 
+
+                            if(empty($row["profile_image"])){
+                                $profile = "profile.png";
+                                echo $profile;
+                            } else { 
+                                $row["profile_image"];
+                            }
+
+                        echo '" class="profile-img-content" alt="">
                     </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">ID Number</label>

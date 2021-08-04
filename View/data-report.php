@@ -19,7 +19,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- TITLE -->
-    <title>Report Data</title>
+    <title>Mina - Data Report</title>
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -71,7 +71,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         // echo '<div class="title">' . $row["nom_groupe"] . '</div>
         //     <span class="subtitle">Created : ' . $row["date_creation"] . '</span>';
 
-        echo '<div class="title">Create badge</div>';
+        echo '<div class="title">Export data to excel</div>';
         //     }
         // }
         ?>
