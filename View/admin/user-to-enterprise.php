@@ -90,13 +90,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                         if ($stmt_user->execute()) {
                             echo '<div class="alert alert-success" role="alert">
-                            Enregistrement réussi !
+                            Saved successfully !
                         </div>';
                         }
                     } catch (PDOException $e) {
 
                         echo '<div class="alert alert-danger" role="alert">
-                    L\' enregistrement n\'a pas été faite  !
+                    Failed registration !
                     </div>';
                         echo "Error: " . $e->getMessage();
                     }

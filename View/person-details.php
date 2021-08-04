@@ -193,6 +193,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     <div class="profile-img-size mb-3">
                         <img src="../Assets/profile/' . $row["profile_image"] . '" class="profile-img-content" alt="">
                     </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">ID Number</label>
+                    <input type="text" class="form-control" name="card_number" id="exampleFormControlInput1" value="' . $row["card_number"] . '"'.' readonly required>
+                </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Lastname</label>
                 <input type="text" class="form-control" name="nom" id="exampleFormControlInput1" value="' . $row["nom"] . '"' . $edit . ' required>

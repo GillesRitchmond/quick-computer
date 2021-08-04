@@ -83,11 +83,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <div class="choose-action">
                             <ul>
                                 <li>
-                                    <form action="" method="post">
+                                    <form action="data-report.php" method="POST">
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label for="role" class="form-label">Export by program</label>
-                                                <select id="role" name="role" class="form-select" required>
+                                                <select id="role" name="id_program" class="form-select" required>
 
                                                     <?php
                                                     $code_entreprise = $_SESSION["code_entreprise"];
@@ -102,7 +102,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <button type="submit" class="col-md-4 btn btn-outline-primary">Export</button>
+                                            <button type="submit" name="program" class="col-md-4 btn btn-outline-primary">Export</button>
                                         </div>
                                     </form>
                                 </li>
@@ -113,11 +113,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <div class="choose-action">
                             <ul>
                                 <li>
-                                    <form action="" method="post">
+                                    <form action="data-report.php" method="POST">
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label for="role" class="form-label">Export by group</label>
-                                                <select id="role" name="role" class=" form-select" required>
+                                                <select id="role" name="id_group" class=" form-select" required>
 
                                                     <?php
                                                     $nom = $_SESSION["nom"];
@@ -137,7 +137,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <button type="submit" class="col-md-4 btn btn-outline-primary">Export</button>
+                                            <button type="submit" name="group" class="col-md-4 btn btn-outline-primary">Export</button>
                                         </div>
                                     </form>
                                 </li>
@@ -148,11 +148,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         <div class="choose-action">
                             <ul>
                                 <li>
-                                    <form action="" method="post">
+                                    <form action="data-report.php" method="POST">
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label for="role" class="form-label">Export by person</label>
-                                                <select id="role" name="role" class="form-select" required>
+                                                <select id="role" name="id_person" class="form-select" required>
 
                                                     <?php
                                                     $nom = $_SESSION["nom"];
@@ -171,7 +171,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <button type="submit" class="col-md-4 btn btn-outline-primary">Export</button>
+                                            <button type="submit" name="person" class="col-md-4 btn btn-outline-primary">Export</button>
                                         </div>
                                     </form>
                                 </li>

@@ -3,12 +3,11 @@ include_once('../../Model/connection.php');
 session_start();
 // && 
 //     isset($_SESSION["role"]) && $_SESSION["role"] !== 4
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ) {
-    header("location: ../index.php");
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: ../../index.php");
     exit;
 }
 ?>
-
 
 <!Doctype html>
 
@@ -60,31 +59,42 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ) {
 
 <body class="body">
 
-<?php
+    <?php
     include_once('header.php');
-?>
+    ?>
+    <br><br>
     <div class="container mt-5">
-        
+
         <h2>Mina Dashboard</h2>
-        <hr>
+        <hr class="hr">
+        <div class="top"></div>
 
         <div class="admin">
             <ul>
                 <li><a href="add-enterprise.php" class="btn btn-outline-primary">New enterprise</a></li>
                 <li><a href="user-to-enterprise.php" class="btn btn-outline-secondary">New user</a></li>
             </ul>
+            <div class="mt-3">
+                <ul>
+                    <li><a class="nav-link" href="" onclick="loadEnterprises(); return false;">Enterprises |</a></li>
+                    <li><a class="nav-link" href="" onclick="loadPrograms(); return false;">Programs |</a></li>
+                    <li><a class="nav-link" href="" onclick="loadGroups(); return false;">Groups |</a></li>
+                    <li><a class="nav-link" href="" onclick="loadPersons(); return false;">Persons |</a></li>
+                    <li><a class="nav-link" href="" onclick="loadUsers(); return false;">Users</a></li>
+                </ul>
+            </div>
         </div>
 
-        <div class="table-responsive mt-5 mb-5">
+        <div id="loadEnterprise">
+            <div class="table-responsive mt-5 mb-5">
 
-                <table id="data-student" class="display nowrap stripe order-column cell-border" style="width:100%">
-                    
+                <table id="data-enterprise" class="display nowrap stripe order-column cell-border" style="width:100%">
+
 
                     <?php
                     if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
                         echo '<thead>
                                 <tr>
-                                    <th></th>
                                     <th>Code</th>
                                     <th>Enterprise</th>
                                     <th>Creation date</th>
@@ -99,88 +109,338 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true ) {
                         $result = $conn->query($query);
 
                         if (mysqli_num_rows($result) > 0) {
-                            while($row = mysqli_fetch_assoc($result)) {
-                               echo '<tr>
-                                        <td>'.$row["id_ent"].'</td>
-                                        <td>'.$row['code_entreprise'].'</td>
-                                        <td>'.$row['nom_entreprise'].'</td>
-                                        <td>'.$row['date_creation'].'</td>
-                                        <td>'.$row['date_expiration'].'</td>
-                                        <td>'.$row['statut_name'].'</td>
-                                        <td>
-                                                    <div class="row">
-                                                        <div class="col-md-2"><a href="" class="nav-link text-success"><i class="bi bi-eye"></i></a></div>
-                                                        <div class="col-md-2"><a href="" class="nav-link"><i class="bi bi-pencil-square"></i></a></div>
-                                                        <div class="col-md-2"><a href="" class="nav-link text-danger"><i class="bi bi-trash"></i></a></div>
-                                                    </div>
-                                                </td>
-                                    </tr>';
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<tr>
+                            <td>' . $row['code_entreprise'] . '</td>
+                            <td>' . $row['nom_entreprise'] . '</td>
+                            <td>' . $row['date_creation'] . '</td>
+                            <td>' . $row['date_expiration'] . '</td>
+                            <td>' . $row['statut_name'] . '</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-2"><a href="view-enterprise.php?view-entreprise='.$row["id_ent"].'" class="nav-link text-success"><i class="bi bi-eye"></i></a></div>
+                                    <div class="col-md-2"><a href="view-enterprise.php?edit-entreprise='.$row["id_ent"].'" class="nav-link"><i class="bi bi-pencil-square"></i></a></div>
+                                    <div class="col-md-2"><a class="nav-link"></a></div>
+                                </div>
+                            </td>
+                        </tr>';
                             }
                         }
+                        echo '</tbody>';
                     }
-                    // elseif(isset($_SESSION["role"]) && $_SESSION["role"] === 6 && isset($_SESSION["class_id"]) && isset($_SESSION["classroom_id"])){
 
-                    //     echo '<thead>
-                    //     <tr>
-                    //         <th>Code</th>
-                    //         <th>Nom</th>
-                    //         <th>Prénom</th>
-                    //         <th>Classe</th>
-                    //     </tr>
-                    // </thead>
-                    // <tbody>';
-                    //     $id_class = $_SESSION["class_id"];
-                    //     $id_classroom = $_SESSION["classroom_id"];
-                        
-                    //     $query = "SELECT * FROM user, user_infos, class WHERE id_role = 6 AND user.code = user_infos.user_identifiant_code AND 
-                    //                 user_infos.class_id = $id_class AND class.id_class = $id_class AND user_infos.classroom_id = $id_classroom";
-                    //     $result = $conn->query($query);
-
-                    //     if (mysqli_num_rows($result) > 0) {
-                    //         while($row = mysqli_fetch_assoc($result)) {
-                    //            echo '<tr>
-                    //                     <td>'.$row['code'].'</td>
-                    //                     <td>'.$row['lastName'].'</td>
-                    //                     <td>'.$row['firstName'].'</td>
-                    //                     <td>'.$row['class_name'].'</td>
-                    //                 </tr>';
-                    //         }
-                    //     }
-
-                    // }
-                    
                     ?>
-                      
-                    </tbody>
-                    <!-- <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </tfoot> -->
+                </table>
+
+
+            </div>
+        </div>
+
+        <div id="loadProgram">
+            <div class="table-responsive mt-5 mb-5">
+
+                <table id="data-program" class="display nowrap stripe order-column cell-border" style="width:100%">
+
+
+                    <?php
+                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
+                        echo '<thead>
+                                <tr>
+                                    <th>Program</th>
+                                    <th>Enterprise</th>
+                                    <th>Creation date</th>
+                                    <th>Expiration date</th>
+                                </tr>
+                            </thead>
+                        <tbody>';
+
+                        $query = "SELECT program_name, nom_entreprise, program.date_creation as date_creation, program.date_expiration as date_expiration
+                        FROM entreprise, program WHERE entreprise.code_entreprise = program.code_entreprise";
+                        $result = $conn->query($query);
+
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<tr>
+                            <td>' . $row['program_name'] . '</td>
+                            <td>' . $row['nom_entreprise'] . '</td>
+                            <td>' . $row['date_creation'] . '</td>
+                            <td>' . $row['date_expiration'] . '</td>
+                        </tr>';
+                            }
+                        }
+                        echo '</tbody>';
+                    }
+
+                    ?>
+                </table>
+
+
+            </div>
+        </div>
+
+        <div id="loadGroup">
+            <div class="table-responsive mt-5 mb-5">
+
+                <table id="data-group" class="display nowrap stripe order-column cell-border table-s" style="width:100%">
+
+
+                    <?php
+                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
+                        echo '<thead>
+                                <tr>
+                                    <th>Group</th>
+                                    <th>Program</th>
+                                    <th>Enterprise</th>
+                                </tr>
+                            </thead>
+                        <tbody>';
+
+                        $query = "SELECT * FROM groupe, program, entreprise WHERE 
+                            entreprise.code_entreprise = program.code_entreprise AND groupe.id_program = program.id_program";
+                        $result = $conn->query($query);
+
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<tr>
+                            <td>' . $row["nom_groupe"] . '</td>
+                            <td>' . $row["program_name"] . '</td>
+                            <td>' . $row['nom_entreprise'] . '</td>
+                        </tr>';
+                            }
+                        }
+                        echo '</tbody>';
+                    }
+
+                    ?>
+                </table>
+
+
+            </div>
+        </div>
+
+        <div id="loadPerson">
+            <div class="table-responsive mt-5 mb-5">
+
+                <table id="data-person" class="display nowrap stripe order-column cell-border" style="width:100%">
+
+
+                    <?php
+                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
+                        echo '<thead>
+                                <tr>
+                                    <th>ID number</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Group</th>
+                                    <th>Program</th>
+                                    <th>Enterprise</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                        <tbody>';
+
+                        $query = "SELECT * FROM personne, groupe, program, entreprise, statut WHERE
+                                entreprise.code_entreprise = program.code_entreprise AND program.id_program = groupe.id_program
+                                AND program.id_program = personne.id_program AND personne.id_group = groupe.id_group AND statut.id_statut = personne.id_statut";
+                        $result = $conn->query($query);
+
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<tr>
+                            <td>' . $row["card_number"] . '</td>
+                            <td>' . $row['nom'] . '</td>
+                            <td>' . $row['prenom'] . '</td>
+                            <td>' . $row['nom_groupe'] . '</td>
+                            <td>' . $row['program_name'] . '</td>
+                            <td>' . $row["code_entreprise"] . '</td>
+                            <td>' . $row['statut_name'] . '</td>
+                        </tr>';
+                            }
+                        }
+                        echo '</tbody>';
+                    }
+
+                    ?>
+                </table>
+
+
+            </div>
+        </div>
+
+        <div id="loadUser">
+            <div class="table-responsive mt-5 mb-5">
+
+                <table id="data-user" class="display nowrap stripe order-column cell-border" style="width:100%">
+
+
+                    <?php
+                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
+                        echo '<thead>
+                                <tr>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                    <th>Email</th>
+                                    <th>Adress</th>
+                                    <th>Phone 1</th>
+                                    <th>Phone 2</th>
+                                    <th>Role</th>
+                                    <th>Statut</th>
+                                    <th>Enterprise</th>
+                                </tr>
+                            </thead>
+                        <tbody>';
+
+                        $query = "SELECT * FROM users, entreprise, role, statut WHERE entreprise.code_entreprise = users.code_entreprise
+                        AND users.id_role = role.id_role AND users.id_statut = statut.id_statut";
+                        $result = $conn->query($query);
+
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<tr>
+                            <td>' . $row['nom'] . '</td>
+                            <td>' . $row['prenom'] . '</td>
+                            <td>' . $row['email'] . '</td>
+                            <td>' . $row['adresse'] . '</td>
+                            <td>' . $row["telephone_1"] . '</td>
+                            <td>' . $row["telephone_2"] . '</td>
+                            <td>' . $row["role_name"] . '</td>
+                            <td>' . $row['statut_name'] . '</td>
+                            <td>' . $row["nom_entreprise"] . '</td>
+                        </tr>';
+                            }
+                        }
+                        echo '</tbody>';
+                    }
+
+                    ?>
                 </table>
 
 
             </div>
         </div>
     </div>
-    </div>
+    <!-- </div>
+    </div> -->
 
 </body>
 
 <script>
+    show(document.getElementById('loadEnterprise'));
+    hide(document.getElementById('loadProgram'));
+    hide(document.getElementById('loadGroup'));
+    hide(document.getElementById('loadPerson'));
+    hide(document.getElementById('loadUser'));
+
     $(document).ready(function() {
-        $('#data-student').DataTable({
+        $('#data-enterprise').DataTable({
             dom: 'Bfrtip',
             buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
+                'excel',
             ]
         });
     });
+
+    function loadEntreprises() {
+        show(document.getElementById('loadEnterprise'));
+        hide(document.getElementById('loadProgram'));
+        hide(document.getElementById('loadGroup'));
+        hide(document.getElementById('loadPerson'));
+        hide(document.getElementById('loadUser'));
+
+        $(document).ready(function() {
+            $('#data-enterprise').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel',
+                ]
+            });
+        });
+    }
+
+    function loadPrograms() {
+        hide(document.getElementById('loadEnterprise'));
+        show(document.getElementById('loadProgram'));
+        hide(document.getElementById('loadGroup'));
+        hide(document.getElementById('loadPerson'));
+        hide(document.getElementById('loadUser'));
+
+        $(document).ready(function() {
+            $('#data-program').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel',
+                ]
+            });
+        });
+    }
+
+
+    function loadGroups() {
+        hide(document.getElementById('loadEnterprise'));
+        hide(document.getElementById('loadProgram'));
+        show(document.getElementById('loadGroup'));
+        hide(document.getElementById('loadPerson'));
+        hide(document.getElementById('loadUser'));
+
+        $(document).ready(function() {
+            $('#data-group').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                   'excel',
+                ]
+            });
+        });
+    }
+
+    function loadPersons() {
+        hide(document.getElementById('loadEnterprise'));
+        hide(document.getElementById('loadProgram'));
+        hide(document.getElementById('loadGroup'));
+        show(document.getElementById('loadPerson'));
+        hide(document.getElementById('loadUser'));
+
+        $(document).ready(function() {
+            $('#data-person').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel',
+                ]
+            });
+        });
+    }
+
+    function loadUsers() {
+        hide(document.getElementById('loadEnterprise'));
+        hide(document.getElementById('loadProgram'));
+        hide(document.getElementById('loadGroup'));
+        hide(document.getElementById('loadPerson'));
+        show(document.getElementById('loadUser'));
+
+        $(document).ready(function() {
+            $('#data-user').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'excel',
+                ]
+            });
+        });
+    }
+
+
+
+    function hide(elements) {
+        elements = elements.length ? elements : [elements];
+        for (var index = 0; index < elements.length; index++) {
+            elements[index].style.display = 'none';
+        }
+    }
+
+    function show(elements, specifiedDisplay) {
+        elements = elements.length ? elements : [elements];
+        for (var index = 0; index < elements.length; index++) {
+            elements[index].style.display = specifiedDisplay || 'block';
+        }
+    }
 </script>
 
 </html>

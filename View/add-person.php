@@ -98,7 +98,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         $id_group = $_GET["group-details"];
                         $id_program = $_GET["program-details"];
                         $id_statut = $_POST["id_statut"];
-                        $nom_1 = $_POST["nom_1"];
+                        $nom_1 = $_POST["nom_1"]; 
                         $nom_2 = $_POST["nom_2"];
                         $nom_3 = $_POST["nom_3"];
                         $nom_4 = $_POST["nom_4"];
@@ -112,6 +112,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         $actual_date= date('Y-m-d');
                         $date_expiration = $_POST["date_exp"];
                         $id_dependant = 0;
+
+                        $card_number = rand(100000, 999999);
+                        // $card_number = (string)$card;
                         // $code_entreprise = $_SESSION["code_entreprise"];
                         // $code_entreprise = "ckhardware.qc";
 
@@ -137,42 +140,33 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         if(isset($_POST["fileToUpload"]))
                         {
                             if (move_uploaded_file($file_loc, $folder . $final_file)) {
-                                $stmt_user = $conn->prepare("INSERT INTO personne (nom, prenom, date_naissance, lieu_naissance, telephone_1, telephone_2, 
+                                $stmt_user = $conn->prepare("INSERT INTO personne (card_number, nom, prenom, date_naissance, lieu_naissance, telephone_1, telephone_2, 
                                             adresse, email, profile_image, date_exp, creation_date, id_statut, id_dependant, id_group, id_program)
-                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                                 $stmt_user->bind_param(
-                                    'sssssssssssiiii',
-                                    $nom,
-                                    $prenom,
+                                    'ssssssssssssiiii',
+                                    $card_number,
+                                    $nom, $prenom,
                                     $date_naissance,
                                     $lieu_naissance,
-                                    $tel_1,
-                                    $tel_2,
-                                    $adresse,
-                                    $email,
+                                    $tel_1, $tel_2,
+                                    $adresse, $email,
                                     $final_file,
                                     $date_expiration,
                                     $actual_date,
-                                    $id_statut,
-                                    $id_dependant,
-                                    $id_group,
-                                    $id_program
+                                    $id_statut, $id_dependant,
+                                    $id_group, $id_program
                                 );
     
                                 $stmt_dependant = $conn->prepare("INSERT INTO dependant (nom_1, nom_2, nom_3, nom_4, nom_5, nom_6, nom_7, nom_8, nom_9, nom_10)
                                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                                 $stmt_dependant->bind_param(
                                     'ssssssssss',
-                                    $nom_1,
-                                    $nom_2,
-                                    $nom_3,
-                                    $nom_4,
-                                    $nom_5,
-                                    $nom_6,
-                                    $nom_7,
-                                    $nom_8,
-                                    $nom_9,
-                                    $nom_10
+                                    $nom_1, $nom_2,
+                                    $nom_3, $nom_4,
+                                    $nom_5, $nom_6,
+                                    $nom_7, $nom_8,
+                                    $nom_9, $nom_10
                                 );
     
                                 if ($stmt_user->execute() && $stmt_dependant->execute()) {
@@ -197,46 +191,37 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                         }
                                     }
                                     echo '<div class="alert alert-success" role="alert">
-                                    Saved successfully !
+                                        Saved successfully !
                                     </div>';
                                 }
                             }
-                        }else{
-                                $stmt_user = $conn->prepare("INSERT INTO personne (nom, prenom, date_naissance, lieu_naissance, telephone_1, telephone_2, 
+                        }elseif(!isset($_POST["fileToUpload"])){
+                                $stmt_user = $conn->prepare("INSERT INTO personne (card_number, nom, prenom, date_naissance, lieu_naissance, telephone_1, telephone_2, 
                                             adresse, email, date_exp, creation_date, id_statut, id_dependant, id_group, id_program)
-                                            VALUES (?, ?, ?, ?, ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                                 $stmt_user->bind_param(
-                                    'ssssssssssiiii',
-                                    $nom,
-                                    $prenom,
+                                    'sssssssssssiiii',
+                                    $card_number,
+                                    $nom, $prenom,
                                     $date_naissance,
                                     $lieu_naissance,
-                                    $tel_1,
-                                    $tel_2,
-                                    $adresse,
-                                    $email,
+                                    $tel_1, $tel_2,
+                                    $adresse, $email,
                                     $date_expiration,
                                     $actual_date,
-                                    $id_statut,
-                                    $id_dependant,
-                                    $id_group,
-                                    $id_program
+                                    $id_statut, $id_dependant,
+                                    $id_group, $id_program
                                 );
     
                                 $stmt_dependant = $conn->prepare("INSERT INTO dependant (nom_1, nom_2, nom_3, nom_4, nom_5, nom_6, nom_7, nom_8, nom_9, nom_10)
                                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                                 $stmt_dependant->bind_param(
                                     'ssssssssss',
-                                    $nom_1,
-                                    $nom_2,
-                                    $nom_3,
-                                    $nom_4,
-                                    $nom_5,
-                                    $nom_6,
-                                    $nom_7,
-                                    $nom_8,
-                                    $nom_9,
-                                    $nom_10
+                                    $nom_1, $nom_2,
+                                    $nom_3, $nom_4,
+                                    $nom_5, $nom_6,
+                                    $nom_7, $nom_8,
+                                    $nom_9, $nom_10
                                 );
     
                                 if ($stmt_user->execute() && $stmt_dependant->execute()) {
@@ -264,73 +249,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                     Saved successfully !
                                     </div>';
                                 }
+                                
                             }
-                        // }
-                        // if (move_uploaded_file($file_loc, $folder . $final_file)) {
-                        //     $stmt_user = $conn->prepare("INSERT INTO personne (nom, prenom, date_naissance, lieu_naissance, telephone_1, telephone_2, 
-                        //                 adresse, email, profile_image, date_exp, creation_date, id_statut, id_dependant, id_group, id_program)
-                        //                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                        //     $stmt_user->bind_param(
-                        //         'sssssssssssiiii',
-                        //         $nom,
-                        //         $prenom,
-                        //         $date_naissance,
-                        //         $lieu_naissance,
-                        //         $tel_1,
-                        //         $tel_2,
-                        //         $adresse,
-                        //         $email,
-                        //         $final_file,
-                        //         $date_expiration,
-                        //         $actual_date,
-                        //         $id_statut,
-                        //         $id_dependant,
-                        //         $id_group,
-                        //         $id_program
-                        //     );
-
-                        //     $stmt_dependant = $conn->prepare("INSERT INTO dependant (nom_1, nom_2, nom_3, nom_4, nom_5, nom_6, nom_7, nom_8, nom_9, nom_10)
-                        //                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                        //     $stmt_dependant->bind_param(
-                        //         'ssssssssss',
-                        //         $nom_1,
-                        //         $nom_2,
-                        //         $nom_3,
-                        //         $nom_4,
-                        //         $nom_5,
-                        //         $nom_6,
-                        //         $nom_7,
-                        //         $nom_8,
-                        //         $nom_9,
-                        //         $nom_10
-                        //     );
-
-                        //     if ($stmt_user->execute() && $stmt_dependant->execute()) {
-
-                        //         if(!empty(isset($nom_1)) || !empty(isset($nom_2)) || !empty(isset($nom_3)) || !empty(isset($nom_4)) || !empty(isset($nom_5)) || !empty(isset($nom_6)) ||
-                        //         !empty(isset($nom_7)) || !empty(isset($nom_8)) || !empty(isset($nom_9)) || !empty(isset($nom_10)))
-                        //         {
-                        //             $query = "SELECT dependant.id_dependant as dependant, personne.id_dependant as personne, id_person FROM dependant, personne 
-                        //                         WHERE personne.id_dependant = 0 ORDER BY dependant.id_dependant DESC, personne.id_person DESC LIMIT 1";
-                        //             $result =$conn->query($query);
-
-                        //             if (mysqli_num_rows($result) > 0) {
-                        //                 while ($row = mysqli_fetch_assoc($result)) {
-                        //                     $dependant = $row["dependant"];
-                        //                     // $personne = $row["personne"];
-                        //                     $id_person = $row["id_person"];
-
-                        //                     $stmt = $conn->prepare("UPDATE personne SET personne.id_dependant = ? WHERE id_person = $id_person");
-                        //                     $stmt->bind_param('i', $dependant);
-                        //                     $stmt->execute();
-                        //                 }
-                        //             }
-                        //         }
-                        //         echo '<div class="alert alert-success" role="alert">
-                        //         Saved successfully !
-                        //         </div>';
-                        //     }
-                        // }
+                        
                     } catch (PDOException $e) {
 
                         echo '<div class="alert alert-danger" role="alert">
@@ -339,6 +260,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         echo "Error: " . $e->getMessage();
                     }
                 }
+            
                 ?>
             </div>
             <div class="mb-3">
@@ -374,7 +296,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <input type="number" class="form-control" name="tel_2" id="exampleFormControlInput1">
             </div>
             <div class="mb-3 form_field">
-                <label for="fileSelect">Profile picture:</label>
+                <label for="fileSelect">Profile picture:  <span class="details">(Optionnal)</span></label>
                 <input type="file" name="fileToUpload" class="form-control-file">
             </div>
             <div class="mb-3">

@@ -74,11 +74,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
             if (isset($_POST["submit"])) {
                 $nom_entreprise = $_POST["name"];
-                $code_entreprise = $nom_entreprise;
+                $code_entreprise = rand(1000, 100000) . "-" . $nom_entreprise;
                 
-                $date_creation = date("d-m-y");
+                date_default_timezone_set('America/Port-au-Prince');
+                $date_creation = date('Y-m-d');
                 $date_expiration = $_POST["date_expiration"];
                 $id_statut = 1;
+
                 // $id_program = $_GET["program"];
 
                 // $code_entreprise = $_SESSION["code_entreprise"];
@@ -90,10 +92,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                 if ($query->execute()) {
                     // echo "File sucessfully upload";
-                    echo '<div class="alert alert-success" role="alert"> Enregistrement réussi ! </div>';
+                    echo '<div class="alert alert-success" role="alert"> Saved successfully ! </div>';
                     // header('user-to-enterprise.php');
                 } else {
-                    echo '<div class="alert alert-danger" role="alert"> Echec d\'enregistrement ! </div>';
+                    echo '<div class="alert alert-danger" role="alert"> Registration failed ! </div>';
                 }
             }
 

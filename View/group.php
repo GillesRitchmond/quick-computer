@@ -71,10 +71,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 </form>
             </div>
             <div class="link">
-                <ul>
+                <!-- <ul> -->
                     <?php
                     if (isset($_SESSION["role"]) && $_SESSION["role"] === 3 || $_SESSION["role"] === 2) {
-                        echo '<li>';
+                        // echo '<li>';
                         $id = $_GET["group-details"];
                         // $code_entreprise = $_SESSION["code_entreprise"];
 
@@ -83,16 +83,29 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
                         if (mysqli_num_rows($result) > 0) {
                             while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<a href="add-person.php?group-details=' . $row["id_group"] . '&program-details=' . $row['id_program'] . '" class="btn btn-outline-primary">New person</a>';
+                                echo '<ul>
+                                        <li>
+                                            <a href="add-person.php?group-details=' . $row["id_group"] . '&program-details=' . $row['id_program'] . '" class="btn btn-outline-primary">New person</a>
+                                        </li>
+                                        <li>
+                                            <a href="card.php?group-details=' . $row["id_group"] . '" class="btn btn-outline-muted">Badge</a>
+                                        </li>
+                                        <li> 
+                                            <a href="report.php" class="btn btn-outline-muted">Report</a> 
+                                        </li>
+                                    </ul>';
                             }
                         }
-                        echo '</li> <li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
+                        // echo '<ul> <li> <a href="report.php" class="btn btn-outline-muted">Report</a> </li> </ul>';
+                        
                     } elseif (isset($_SESSION["role"]) && $_SESSION["role"] === 1) {
-                        echo '<li><a href="report.php" class="btn btn-outline-muted">Report</a></li>';
+                        echo '<ul>
+                                <li> <a href="report.php" class="btn btn-outline-muted">Report</a> </li>
+                            </ul>';
                     }
 
                     ?>
-                </ul>
+                <!-- </ul> -->
             </div>
         </div>
     </div>
@@ -159,7 +172,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="group-name-and-details">
                                     <div class="group-name">' . $row["nom"] . ' ' . $row["prenom"] . '<span class="' . $color . '" ></span></div>
                                     <div class="group-details">
-                                        Email  : ' . $row["email"] . '</div>
+                                        ID Number  : ' . $row["card_number"] . '</div>
                                     </div>';
                             // <div class="group-more-details">
                             //     <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>
@@ -195,7 +208,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="group-name-and-details">
                                     <div class="group-name">' . $row["nom"] . ' ' . $row["prenom"] . '<span class="' . $color . '" ></span></div>
                                     <div class="group-details">
-                                        Email  : ' . $row["email"] . '</div>
+                                        ID Number  : ' . $row["card_number"] . '</div>
                                     </div>';
                             // <div class="group-more-details">
                             //     <a href="person-details.php?person-details=' . $row["id_person"] . '"><i class="bi bi-chevron-right"></i></a>

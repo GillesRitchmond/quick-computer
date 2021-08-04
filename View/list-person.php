@@ -147,7 +147,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     // $id = $_GET["group-details"];
                     $code_entreprise = $_SESSION["code_entreprise"];
 
-                    $query = "SELECT * FROM personne WHERE nom LIKE '%$search%' OR prenom LIKE '%$search%' ORDER BY personne.nom ASC";
+                    $query = "SELECT * FROM personne WHERE card_number LIKE '$search' OR nom LIKE '%$search%' OR prenom LIKE '%$search%' ORDER BY personne.nom ASC";
                     $result = $conn->query($query);
 
                     if (mysqli_num_rows($result) > 0) {
@@ -200,7 +200,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 <div class="group-name-and-details">
                                     <div class="group-name">' . $row["nom"] . ' ' . $row["prenom"] . '<span class="' . $color . '" ></span></div>
                                     <div class="group-details">
-                                        Email  : ' . $row["email"] . '</div>
+                                        ID Number : ' . $row["card_number"] . '</div>
                                     </div>
                             </div>
                         </a>';

@@ -190,37 +190,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                             By : ' . $row["nom"] . ' ' . $row["prenom"] . '</div>
                                         </div>
                                     </a>';
-                                // </div>
-
-                                // <div class="more-details">
-                                //     <a class="bi-left custom-bi-left" >
-                                //         <i class="openUserEditBox bi bi-chevron-left"></i>
-                                //     </a>
-                                // </div>
-
-                                // <div class="userForm">
-                                //     <div class="user-drawer">
-                                //         <div class="user-menu">
-                                //             <div class="col-md">
-                                //                 <a class="bi-left">
-                                //                     <i class="closeUserEditBox bi bi-chevron-right"></i>
-                                //                 </a>
-                                //                 <ul class="ul-action">
-                                //                     <li class="li-item">
-                                //                         <a href="" class="item-action item-action-edit">
-                                //                             <i class="bi bi-pencil-square"></i>
-                                //                         </a>
-                                //                     </li>
-                                //                     <li class="li-item">
-                                //                         <a href="" class="item-action item-action-delete">
-                                //                             <i class="bi bi-trash"></i>
-                                //                         </a>
-                                //                     </li>
-                                //                 </ul>
-                                //             </div>
-                                //         </div>
-                                //     </div>
-                                // </div>
 
                             echo '</div> ';
                         }
@@ -237,49 +206,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 ?>
 
                 
-                <!-- <div class="bg-white">
-                    <a href="program-details.php?program='1'" class="nav-link">
-                        <div class="img-size">
-                            <img src="../Assets/images/4567-code-promo-abeille-heureuse@2x.png" class="img-content" alt="">
-                        </div>
-                        <div class="name-and-details">
-                            <div class="name">Bonus Card</div>
-                            <div class="details">
-                                Created : 12/07/2021<br>
-                                By : JohnDoe</div>
-                        </div>
-                    </a>
-                        <div class="more-details">
-                            <a class="bi-left custom-bi-left">
-                                <i class="openUserEditBox bi bi-chevron-left"></i>
-                            </a>
-                        </div>
-
-
-                         <div class="userForm">
-                            <div class="user-drawer">
-                                <div class="user-menu">
-                                    <div class="col-md">
-                                        <a class="bi-left">
-                                            <i class="closeUserEditBox bi bi-chevron-right"></i>
-                                        </a>
-                                        <ul class="ul-action">
-                                            <li class="li-item">
-                                                <a href="" class="item-action item-action-edit">
-                                                    <i class="bi bi-pencil-square"></i>
-                                                </a>
-                                            </li>
-                                            <li class="li-item">
-                                                <a href="" class="item-action item-action-delete">
-                                                    <i class="bi bi-trash"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
 
 
 
