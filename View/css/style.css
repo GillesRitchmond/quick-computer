@@ -573,8 +573,8 @@ body,
         max-width: 90%;
     }
     .statistic{
-        width: 100%;
-        padding: 3% 5%;
+        width: auto;
+        padding: 3%;
     }
     .bg-blue, .bg-yellow, .bg-green{
         width: auto;
@@ -596,6 +596,7 @@ body,
     .data_1, .data_2, .data_3{
         color: white;
         margin: 0 auto;
+        width: 100%;
     }
     .data_1 .data-content ul li,
     .data_2 .data-content ul li,
@@ -665,7 +666,7 @@ body,
         font-size: 2rem;
         color: white;
         font-weight: bold;
-        width: 75%;
+        width: 85%;
         margin-left: 5%;
         padding: 5% 0 18% 0 ;
     }
@@ -736,7 +737,7 @@ body,
         font-size: 2rem;
         color: white;
         font-weight: bold;
-        width: 70%;
+        width: 80%;
         margin-left: 5%;
         padding: 5% 0 18% 0 ;
     }
@@ -1353,6 +1354,7 @@ body,
     .navbar{
         display: contents;
         width: 100%;
+        overflow-x: auto;
     } 
     .navbar-items{
         position: fixed;
@@ -1619,8 +1621,8 @@ body,
         max-width: 90%;
     }
     .statistic{
-        width: 100%;
-        padding: 3% 5%;
+        width: auto;
+        padding: 3%;
     }
     .bg-blue, .bg-yellow, .bg-green{
         width: auto;
@@ -1797,13 +1799,13 @@ h2{
     font-size: 1.1rem;
 }
 .account-infos ul li .result{
-    color:var(--secondary);
+    color: var(--secondary);
     margin-left: 3%;
     width: auto;
     max-width: 90%;
 }
 .statistic{
-    width: 90%;
+    width: auto;
     padding: 3%;
 }
 .bg-blue, .bg-yellow, .bg-green{

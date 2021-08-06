@@ -87,7 +87,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <div class="statistic">
         
-        <!-- <div class="top"></div> -->
         <div class="bg-white mb-5">
         <span class="title-page-list">
             <a> Your records </a>
@@ -108,9 +107,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            echo '<li class="data-title">Qty of program created by you :</li>
+            echo '<li class="data-title">Amount of program you have created :</li>
                 <li class="data-qty">' . $row["qty_program"] . '</li>
-                <li class="data-hint">Make report every weeks to control your programs</li>';
+                <li class="data-hint">Report weekly to manage your programs</li>';
         }
     }
     echo '</ul>
@@ -133,9 +132,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            echo '<li class="data-title">Qty of group created by you:</li>
+            echo '<li class="data-title">Amount of group you have created:</li>
                 <li class="data-qty">' . $row["qty_group"] . '</li>
-                <li class="data-hint">Make report to get the an idea about a group</li>';
+                <li class="data-hint">Make reports for better group management</li>';
         }
     }
     echo '</ul>
@@ -159,7 +158,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         while ($row = mysqli_fetch_assoc($result)) {
             echo '<li class="data-title">Qty of person added by the team:</li>
                 <li class="data-qty">'.$row["qty_personne"].'</li>
-                <li class="data-hint">Make report to make a better management of the persons list</li>';
+                <li class="data-hint">Report for better management</li>';
         }
     }
     echo '</ul>

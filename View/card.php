@@ -100,7 +100,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <div class="top"></div>
     </div>
 
-    <form action="" method="post">
+    <form action="print.php" method="GET">
         <div class="container table-responsive mt-5">
 
             <table id="data-student" class="display nowrap stripe order-column cell-border" style="width:100%">
@@ -153,8 +153,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo '<tr>
                                 <td>
-                                    <input class="form-check-input" type="hidden" name="toPrint" value="0" id="flexSwitchCheckChecked">
-                                    <input class="form-check-input" type="checkbox" name="toPrint" value="'.$row["id_person"].'" id="flexSwitchCheckChecked">
+                                    <input class="form-check-input" type="checkbox" name="toPrint[]" multiple value="'.$row["id_person"].'" id="flexSwitchCheckChecked">
                                 </td>
                                 <td>' . $row['card_number'] . '</td>
                                 <td>' . $row['personne_nom'] . '</td>
@@ -182,7 +181,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
 
         <div class="mt-3 container badge-button">
-            <button type="submit" name="group" class="col-md-4 btn btn-primary">Print badge</button>
+            <button type="submit" class="col-md-4 btn btn-primary">Generate badge</button>
         </div>
 
     </form>

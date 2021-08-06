@@ -1,11 +1,11 @@
 <?php
-// include_once('../Model/connection.php');
-// session_start();
+include_once('../Model/connection.php');
+session_start();
 
-// if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-//     header("location: ../index.php");
-//     exit;
-// }
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+    header("location: ../index.php");
+    exit;
+}
 ?>
 
 
@@ -57,77 +57,136 @@
 
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Generate PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+
 </head>
 
 <body>
-    <div class="card">
-        <div class="header">
-            <ul>
-                <li class="float-start">Program</li>
-                <li class="float-end">
-                    <img src="../Assets/profile/ava.jpg" alt="John" class="img-program" style="width:100%">
-                </li>
-            </ul>
-        </div>
-        <img src="../Assets/profile/ava.jpg" alt="John" class="img-content" style="width:100%">
-        <h2>ID : 132342</h2>
-        <a href="#"> Group : Group name</a><br><br>
-        <a href="#">John Doe</a><br>
-        <a href="#">12-01-2000</a><br>
-        <a href="#">P-au-P</a>
-        <hr>
-        <br>
-        CARD GENERATE BY MINA
-        <p> <br> </p>
+
+    <div class="grid m-5">
+        <ul>
+            <?php
+
+            // if (is_array($_GET["toPrint"]) || is_object($_GET["toPrint"])) {
+                foreach((array) $_GET["toPrint"] ?? [] as $selectedPerson){
+                    
+                $id = $selectedPerson;
+                $query = "SELECT * FROM personne, program, groupe WHERE program.id_program = groupe.id_program AND
+                        personne.id_group = groupe.id_group AND personne.id_program = program.id_program AND id_person = '$id'";
+                $result = $conn->query($query);
+
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<li>
+                                <div class="card">
+                                    <div class="header">
+                                        <ul>
+                                            <li class="float-start">'.$row["program_name"].'</li>
+                                            <li class="float-end">
+                                                <img src="../Assets/images/'.$row["image"].'" alt="program" class="img-program" style="width:100%">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <img src="../Assets/profile/';
+                                        if (empty($row["profile_image"])) {
+                                            $profile = "profile.png";
+                                            echo $profile;
+                                        } else {
+                                            $profile =  $row["profile_image"];
+                                            echo $profile;
+                                        }
+                                    echo'" alt="person" class="img-content" style="width:100%">
+                                    
+                                    <div class="more-infos">
+                                        <ul>
+                                            <li><span class="card_number">ID : '.$row["card_number"].'</span></li>
+                                            <li><a> Group : '.$row["nom_groupe"].'</a></li>
+                                            <li><a>'.$row["nom"].' '.$row["prenom"].'</a></li>
+                                            <li><a>'.$row["date_naissance"].'</a></li>
+                                            <li><a>'.$row["lieu_naissance"].'</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="bottom">
+                                        <hr>
+                                        CARD GENERATE BY MINA
+                                        <p> </p>
+                                    </div>
+                                </div>
+
+
+                            </li>';
+                        }
+                    }
+                }
+            // }
+
+            ?>
+        </ul>
     </div>
 
-    <div class="card">
-        <div class="header">
-            <ul>
-                <li class="float-start">Program</li>
-                <li class="float-end">
-                    <img src="../Assets/profile/ava.jpg" alt="John" class="img-program" style="width:100%">
-                </li>
-            </ul>
-        </div>
-        <img src="../Assets/profile/ava.jpg" alt="John" class="img-content" style="width:100%">
-        <h2>ID : 132342</h2>
-        <a href="#"> Group : Group name</a><br><br>
-        <a href="#">John Doe</a><br>
-        <a href="#">12-01-2000</a><br>
-        <a href="#">P-au-P</a>
-        <hr>
-        <br>
-        CARD GENERATE BY MINA
-        <p> <br> </p>
-    </div>
-
-    
 </body>
 
 </html>
 
 
 <script type="text/javascript">
-< embed
-    type = "application/pdf"
-    src = "path_to_pdf_document.pdf"
-    id = "pdfDocument"
-    width = "100%"
-    height = "100%" />
+    
+    // var doc = new jsPDF();
 
-    function printDocument(documentId) {
-        var doc = document.getElementById(documentId);
+    // var elementHandler = {
+    //     '#ignorePDF': function(element, renderer) {
+    //         return true;
+    //     }
+    // };
 
-        //Wait until PDF is ready to print    
-        if (typeof doc.print === 'undefined') {
-            setTimeout(function() {
-                printDocument(documentId);
-            }, 1000);
-        } else {
-            doc.print();
-        }
-    }
+    // var source = window.document.getElementsByTagName("body")[0];
+    
+    // doc.fromHTML(
+    //     source,
+    //     15,
+    //     15, {
+    //         'width': 180,
+    //         'elementHandlers': elementHandler
+    //     });
+
+    // printDoc.autoPrint();
+    // doc.output("dataurlnewwindow");
+
+
+    // var elementHandler = {
+    //     '#ignoreElement': function(element, renderer) {
+    //         return true;
+    //     },
+    //     '#anotherIdToBeIgnored': function(element, renderer) {
+    //         return true;
+    //     }
+    // };
+
+
+
+
+
+    // <embed
+    // type = "application/pdf"
+    // src = "path_to_pdf_document.pdf"
+    // id = "pdfDocument"
+    // width = "100%"
+    // height = "100%" />
+
+    //     function printDocument(documentId) {
+    //         var doc = document.getElementById(documentId);
+
+    //         //Wait until PDF is ready to print    
+    //         if (typeof doc.print === 'undefined') {
+    //             setTimeout(function() {
+    //                 printDocument(documentId);
+    //             }, 1000);
+    //         } else {
+    //             doc.print();
+    //         }
+    //     }
 
 
     // window.print();
