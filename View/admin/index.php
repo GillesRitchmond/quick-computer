@@ -118,8 +118,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             <td>' . $row['statut_name'] . '</td>
                             <td>
                                 <div class="row">
-                                    <div class="col-md-2"><a href="view-enterprise.php?view-entreprise='.$row["id_ent"].'" class="nav-link text-success"><i class="bi bi-eye"></i></a></div>
-                                    <div class="col-md-2"><a href="view-enterprise.php?edit-entreprise='.$row["id_ent"].'" class="nav-link"><i class="bi bi-pencil-square"></i></a></div>
+                                    <div class="col-md-2"><a href="view-enterprise.php?view-entreprise=' . $row["code_entreprise"] . '" class="nav-link text-success"><i class="bi bi-eye"></i></a></div>
+                                    <div class="col-md-2"><a href="view-enterprise.php?edit-entreprise=' . $row["code_entreprise"] . '" class="nav-link"><i class="bi bi-pencil-square"></i></a></div>
                                     <div class="col-md-2"><a class="nav-link"></a></div>
                                 </div>
                             </td>
@@ -321,6 +321,38 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     </div>
     <!-- </div>
     </div> -->
+    <?php
+
+    $query = "SELECT * FROM entreprise, statut WHERE entreprise.statut_id = statut.id_statut";
+    $result = $conn->query($query);
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            // CALCUL THE DIFFERENCE BETWEEN TWO DATES
+            // THEN THIS ALGORITHM CHANGE THE STATUT OF THE PERSON
+            // IF THE EXPIRATION DATE AND THE ACTUAL DATE IS EQUAL TO ZERO (0)
+
+            $code_entreprise = $row["code_entreprise"];
+            date_default_timezone_set('America/Port-au-Prince');
+            $actual_date = date('Y-m-d');
+            $date_expiration = $row["date_expiration"];
+
+            $date_diff = date_diff(date_create($date_expiration), date_create($actual_date))->format('%a');
+
+            if ($date_diff == 0) {
+                $stmt = $conn->prepare("UPDATE entreprise SET statut_id = ? WHERE code_entreprise = '$code_entreprise'");
+                $new_statut = 2;
+                $stmt->bind_param('i', $new_statut);
+                $stmt->execute();
+            } elseif ($date_diff > 0) {
+                $stmt = $conn->prepare("UPDATE entreprise SET statut_id = ? WHERE code_entreprise = '$code_entreprise'");
+                $new_statut = 1;
+                $stmt->bind_param('i', $new_statut);
+                $stmt->execute();
+            }
+        }
+    }
+    ?>
 
 </body>
 
@@ -386,7 +418,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             $('#data-group').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
-                   'excel',
+                    'excel',
                 ]
             });
         });

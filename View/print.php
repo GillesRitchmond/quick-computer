@@ -1,11 +1,11 @@
 <?php
-include_once('../Model/connection.php');
-session_start();
+// include_once('../Model/connection.php');
+// session_start();
 
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: ../index.php");
-    exit;
-}
+// if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+//     header("location: ../index.php");
+//     exit;
+// }
 ?>
 
 
@@ -19,10 +19,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- TITLE -->
-    <title>Create badge</title>
+    <title>Print badge</title>
 
     <!-- STYLE CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/card.css">
 
 
     <!-- BOOTSTRAP CSS & JS -->
@@ -54,68 +54,84 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
+
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-  <div class="wrapper">
-    <div class="header">
-  <ul>
-  <li><a href="index.php">Entry</a></li>
-  <li><a href="view.php">View</a></li>
-  <li><a href="print.php">Print</a></li>
-  </ul>
-  </div><br><br>
-    <?php
-	$query="select * from form ";
-	$result = $conn->query($query);
-	
-    // if (mysqli_num_rows($result) > 0) {
-    //     while ($row = mysqli_fetch_assoc($result)) {?>
-
-      <div class="inner_wrapper">
-
-	    <div class="col1">
-	      <img src="image/<?php echo $result['file']; ?>" />
-	    </div>
-
-	  <div class="col2">
-	    <ul>
-		  <li>Name</li>
-		  <li>Qualification</li>
-		  <li>Company Name</li>
-		  <li>Designation</li> 
-		</ul>
-	  </div>
-
-	  <div class="col3">
-	    <ul>
-		  <li>:</li>
-		  <li>:</li>
-		  <li>:</li>
-		  <li>:</li>
-		</ul>
-	  </div>
-
-	  <div class="col4">
-	    <ul class="info">
-		  <li><?php # ?></li>
-		  <li><?php ?></li>
-		  <li><?php ?></li>
-		  <li><?php  ?></li>
-		</ul>
-	  </div>
-
-	</div>
-
-    <?php
-        //     }
-        // } 
-    ?>
-
-    <div class="back">
-	  <a href="index.php"><button>Back to Index</button></a>
+    <div class="card">
+        <div class="header">
+            <ul>
+                <li class="float-start">Program</li>
+                <li class="float-end">
+                    <img src="../Assets/profile/ava.jpg" alt="John" class="img-program" style="width:100%">
+                </li>
+            </ul>
+        </div>
+        <img src="../Assets/profile/ava.jpg" alt="John" class="img-content" style="width:100%">
+        <h2>ID : 132342</h2>
+        <a href="#"> Group : Group name</a><br><br>
+        <a href="#">John Doe</a><br>
+        <a href="#">12-01-2000</a><br>
+        <a href="#">P-au-P</a>
+        <hr>
+        <br>
+        CARD GENERATE BY MINA
+        <p> <br> </p>
     </div>
 
-  </div>
+    <div class="card">
+        <div class="header">
+            <ul>
+                <li class="float-start">Program</li>
+                <li class="float-end">
+                    <img src="../Assets/profile/ava.jpg" alt="John" class="img-program" style="width:100%">
+                </li>
+            </ul>
+        </div>
+        <img src="../Assets/profile/ava.jpg" alt="John" class="img-content" style="width:100%">
+        <h2>ID : 132342</h2>
+        <a href="#"> Group : Group name</a><br><br>
+        <a href="#">John Doe</a><br>
+        <a href="#">12-01-2000</a><br>
+        <a href="#">P-au-P</a>
+        <hr>
+        <br>
+        CARD GENERATE BY MINA
+        <p> <br> </p>
+    </div>
+
+    
 </body>
+
 </html>
+
+
+<script type="text/javascript">
+< embed
+    type = "application/pdf"
+    src = "path_to_pdf_document.pdf"
+    id = "pdfDocument"
+    width = "100%"
+    height = "100%" />
+
+    function printDocument(documentId) {
+        var doc = document.getElementById(documentId);
+
+        //Wait until PDF is ready to print    
+        if (typeof doc.print === 'undefined') {
+            setTimeout(function() {
+                printDocument(documentId);
+            }, 1000);
+        } else {
+            doc.print();
+        }
+    }
+
+
+    // window.print();
+    // setTimeout(function() {
+    //     window.close()
+    // }, 750)
+</script>

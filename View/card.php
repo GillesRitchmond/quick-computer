@@ -110,27 +110,27 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 if (isset($_GET["group-details"])) {
                     
                     echo '<thead>
-                        <tr>
-                            <th></th>
-                            <th>ID Number</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Birth date</th>
-                            <th>Birth place</th>
-                            <th>Phone 1</th>
-                            <th>Phone 2</th>
-                            <th>Address</th>
-                            <th>Email</th>
-                            <th>Statut</th>
-                            <th>Program</th>
-                            <th>Prog. image</th>
-                            <th>Profile image</th>
-                            <th>Creation date</th>
-                            <th>Exp. date</th>
-                            <th>Created by</th>
-                        </tr>
-                    </thead>
-                <tbody>';
+                            <tr>
+                                <th></th>
+                                <th>ID Number</th>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Birth date</th>
+                                <th>Birth place</th>
+                                <th>Phone 1</th>
+                                <th>Phone 2</th>
+                                <th>Address</th>
+                                <th>Email</th>
+                                <th>Statut</th>
+                                <th>Program</th>
+                                <th>Prog. image</th>
+                                <th>Profile image</th>
+                                <th>Creation date</th>
+                                <th>Exp. date</th>
+                                <th>Created by</th>
+                            </tr>
+                        </thead>
+                    <tbody>';
 
                     $code_entreprise = $_SESSION["code_entreprise"];
                     $id_group = $_GET["group-details"];
@@ -178,11 +178,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                     echo '</tbody>';
                 }
                 ?>
-
-
             </table>
-
-
         </div>
 
         <div class="mt-3 container badge-button">

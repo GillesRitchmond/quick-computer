@@ -7,11 +7,11 @@
 // Create connection
 // $conn = new mysqli($servername, $username, $password, $dbname);
 
-$servername = 'mysql-36994-0.cloudclusters.net';
+$servername = 'mysql-42515-0.cloudclusters.net';
 $dbname   = 'quick_computer_db';
 $username = 'admin';
-$password = '4vae6PyH';
-$dbServerPort = "36994";
+$password = 'Hl62SW6d';
+$dbServerPort = "19457";
 $charset = 'utf8mb4';
 
 // Create connection

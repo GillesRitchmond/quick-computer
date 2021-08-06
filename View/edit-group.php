@@ -102,14 +102,14 @@ if(isset($_POST["delete"]))
                 $nom = $_POST["name"];
                 $description = $_POST["description"];
                 date_default_timezone_set('America/Port-au-Prince');
-                $date_creation = date("Y-m-d");
+                // $date_creation = date("Y-m-d");
                 $date_expiration = $_POST["date_expiration"];
                 // $id_program = $_GET["program"];
 
                 $code_entreprise = $_SESSION["code_entreprise"];
                 $code_user = $_SESSION["code_user"];
 
-                $query = $conn->prepare("UPDATE groupe SET nom_groupe = ?, description = ?,  date_expiration = ? ");
+                $query = $conn->prepare("UPDATE groupe SET nom_groupe = ?, description = ?,  date_expiration = ? WHERE id_group = '$id'");
                 $query->bind_param("sss", $nom, $description, $date_expiration);
 
                 if ($query->execute()) {

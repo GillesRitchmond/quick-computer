@@ -102,7 +102,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <button type="submit" name="program" class="col-md-4 btn btn-outline-primary">Export</button>
+                                            <button type="submit" name="program" class="col-md-4 btn btn-brand">Export by program</button>
                                         </div>
                                     </form>
                                 </li>
@@ -137,7 +137,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <button type="submit" name="group" class="col-md-4 btn btn-outline-primary">Export</button>
+                                            <button type="submit" name="group" class="col-md-4 btn btn-brand">Export by group</button>
                                         </div>
                                     </form>
                                 </li>
@@ -171,7 +171,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <button type="submit" name="person" class="col-md-4 btn btn-outline-primary">Export</button>
+                                            <button type="submit" name="person" class="col-md-4 btn btn-brand">Export by person</button>
                                         </div>
                                     </form>
                                 </li>
@@ -179,9 +179,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         </div>
                     </li>
                     <li>
-                        <form action="" method="post" class="full">
-                            <button type="submit" class="btn btn-brand  col-md">Export all data</button>
-                        </form>
+                        <div class="full">
+                            <span class="btn btn-brand col-md"> </span>
+                        </div>
                     </li>
                 </ul>
             </div>

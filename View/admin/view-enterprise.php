@@ -101,20 +101,15 @@ if(isset($_POST["delete"]) && isset($_GET["view-entreprise"]))
         <form id="uploadForm" action="" method="post" enctype="multipart/form-data" class="container mb-5">
             <?php
 
-            if (isset($_POST["submit"])) {
+            if (isset($_POST["submit"]) || isset($_POST["edit-submit"])) {
+                
                 $nom_entreprise = $_POST["name"];
-                $code_entreprise = $nom_entreprise;
-
-                $date_creation = date("d-m-y");
+                $code_entreprise = $_GET["edit-entreprise"];
                 $date_expiration = $_POST["date_expiration"];
-                // $id_statut = 1;
-                // $id_program = $_GET["program"];
-
-                // $code_entreprise = $_SESSION["code_entreprise"];
-                // $code_user = $_SESSION["code_user"];
-
-                $query = $conn->prepare("UPDATE entreprise SET nom_entreprise = ?, date_expiration = ?, statut_id = ? ");
-                $query->bind_param("ssssi", $code_entreprise, $nom_entreprise, $date_creation, $date_expiration, $id_statut);
+                $id_statut = $_POST["id_statut"];
+                
+                $query = $conn->prepare("UPDATE entreprise SET nom_entreprise = ?, date_expiration = ?, statut_id = ? WHERE code_entreprise = '$code_entreprise'");
+                $query->bind_param("ssi", $nom_entreprise, $date_expiration, $id_statut);
 
                 if ($query->execute()) {
                     // echo "File sucessfully upload";
@@ -134,7 +129,7 @@ if(isset($_POST["delete"]) && isset($_GET["view-entreprise"]))
             if(isset($_GET["view-entreprise"]))
             {
                 $id = $_GET["view-entreprise"];
-                $query = "SELECT * FROM entreprise, statut WHERE entreprise.statut_id = statut.id_statut AND id_ent = '$id'";
+                $query = "SELECT * FROM entreprise, statut WHERE entreprise.statut_id = statut.id_statut AND code_entreprise = '$id'";
                 $result = $conn->query($query);
 
                 if (mysqli_num_rows($result) > 0) {
@@ -175,7 +170,7 @@ if(isset($_POST["delete"]) && isset($_GET["view-entreprise"]))
             }elseif(isset($_GET["edit-entreprise"])){
 
                 $id = $_GET["edit-entreprise"];
-                $query = "SELECT * FROM entreprise, statut WHERE entreprise.statut_id = statut.id_statut AND id_ent = '$id'";
+                $query = "SELECT * FROM entreprise, statut WHERE entreprise.statut_id = statut.id_statut AND code_entreprise = '$id'";
                 $result = $conn->query($query);
 
                 if (mysqli_num_rows($result) > 0) {
@@ -211,7 +206,7 @@ if(isset($_POST["delete"]) && isset($_GET["view-entreprise"]))
                             </label>
                         </div>';
 
-                        echo'<button type="submit" name="submit" class="mt-3 text-white btn btn-brand mb-5">Edit program</button>
+                        echo'<button type="submit" name="edit-submit" class="mt-3 text-white btn btn-brand mb-5">Edit program</button>
                         <button type="submit" name="delete" class="text-white mb-5 btn btn-danger col-md">Delete</button>';
                     }
                 }   

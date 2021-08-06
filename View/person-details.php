@@ -92,12 +92,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
 
 
-        <form action="" method="post" class="container mb-5">
+        <form id="uploadForm" action="" method="post" enctype="multipart/form-data" class="container mb-5">
             <div id="alert_message">
                 <?php
 
                 if (isset($_POST["submit"])) {
                     try {
+
                         $nom = $_POST["nom"];
                         $prenom = $_POST["prenom"];
                         $email = $_POST["email"];
@@ -106,27 +107,109 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         $adresse = $_POST["adresse"];
                         $tel_1 = $_POST["tel_1"];
                         $tel_2 = $_POST["tel_2"];
-                        $id_group = $_GET["group-details"];
-                        $id_program = $_GET["program-details"];
+                        // $id_group = $_GET["group-details"];
+                        // $id_program = $_GET["program-details"];
+                        $id = $_GET["person-details"];
+                        $id_dependant = $_POST["id_dependant"];
 
-                        // $code_entreprise = $_SESSION["code_entreprise"];
-                        // $code_entreprise = "ckhardware.qc";
+                        $nom_1 = $_POST["nom_1"];
+                        $nom_2 = $_POST["nom_2"];
+                        $nom_3 = $_POST["nom_3"];
+                        $nom_4 = $_POST["nom_4"];
+                        $nom_5 = $_POST["nom_5"];
+                        $nom_6 = $_POST["nom_6"];
+                        $nom_7 = $_POST["nom_7"];
+                        $nom_8 = $_POST["nom_8"];
+                        $nom_9 = $_POST["nom_9"];
+                        $nom_10 = $_POST["nom_10"];
+                        $fileToUpload = $_FILES['fileToUpload']['name'];
+                        // $fileToUpload = $_POST["fileToUpload"];
+                        // echo $fileToUpload;
 
-                        // $h_password = password_hash($password, PASSWORD_DEFAULT);
 
-                        $stmt_user = $conn->prepare("UPDATE personne SET nom = ?, prenom = ?, date_naissance = ?, lieu_naissance = ?, telephone_1 = ?, telephone_2 = ?, adresse = ?, email = ?, id_group = ?, id_program = ?");
-                        $stmt_user->bind_param('ssssssssii', $nom, $prenom, $date_naissance, $lieu_naissance, $tel_1, $tel_2, $adresse, $email, $id_group, $id_program);
+                        if (empty($fileToUpload)) {
+                            $stmt_user = $conn->prepare("UPDATE personne SET nom = ?, prenom = ?, date_naissance = ?, lieu_naissance = ?, 
+                                telephone_1 = ?, telephone_2 = ?, adresse = ?, email = ?
+                                WHERE id_person = '$id'");
+                            $stmt_user->bind_param('ssssssss', $nom, $prenom, $date_naissance, $lieu_naissance, $tel_1, $tel_2, $adresse, $email);
 
-                        if ($stmt_user->execute()) {
-                            echo '<div class="alert alert-success" role="alert">
-                            Mise à jour réussi !
-                        </div>';
+                            $stmt_dependant = $conn->prepare("UPDATE dependant SET nom_1 = ?, nom_2 = ?, nom_3 = ?, nom_4 = ?, nom_5 = ?, nom_6 = ?, nom_7 = ?, nom_8 = ?, nom_9 = ?, nom_10 = ?
+                                        WHERE id_dependant = '$id_dependant'");
+                            $stmt_dependant->bind_param(
+                                'ssssssssss',
+                                $nom_1, $nom_2,
+                                $nom_3, $nom_4,
+                                $nom_5, $nom_6,
+                                $nom_7, $nom_8,
+                                $nom_9, $nom_10
+                            );
+
+                            if ($stmt_user->execute() && $stmt_dependant->execute()) {
+                                echo '<div class="alert alert-success" role="alert">
+                                    Update successfully !
+                                </div>';
+                            } else {
+                                echo '<div class="alert alert-danger" role="alert">
+                                    Update failed  !
+                                </div>';
+                                
+                            }
+                        }
+
+                        if ($fileToUpload != null) {
+                            $file_name = $_FILES['fileToUpload']['name'];
+                            $file = rand(1000, 100000) . "-" . $file_name;
+                            $file_loc = $_FILES['fileToUpload']['tmp_name'];
+                            $file_size = $_FILES['fileToUpload']['size'];
+                            $file_type = $_FILES['fileToUpload']['type'];
+                            $folder = "../Assets/profile/";
+
+                            /* new file size in KB */
+                            $new_size = $file_size / 1024;
+                            /* new file size in KB */
+
+                            /* make file name in lower case */
+                            $new_file_name = strtolower($file);
+                            /* make file name in lower case */
+
+                            $final_file = str_replace(' ', '-', $new_file_name);
+
+
+                            // if(isset($_POST["fileToUpload"]))
+                            // {
+                            move_uploaded_file($file_loc, $folder . $final_file);
+
+                            $stmt_user = $conn->prepare("UPDATE personne SET nom = ?, prenom = ?, date_naissance = ?, lieu_naissance = ?, 
+                                telephone_1 = ?, telephone_2 = ?, adresse = ?, email = ?, profile_image = ?
+                                WHERE id_person = $id");
+                            $stmt_user->bind_param('sssssssss', $nom, $prenom, $date_naissance, $lieu_naissance, $tel_1, $tel_2, $adresse, $email, $final_file);
+
+                            $stmt_dependant = $conn->prepare("UPDATE dependant SET nom_1 = ?, nom_2 = ?, nom_3 = ?, nom_4 = ?, nom_5 = ?, nom_6 = ?, nom_7 = ?, nom_8 = ?, nom_9 = ?, nom_10 = ?
+                                        WHERE id_dependant = $id_dependant");
+                            $stmt_dependant->bind_param(
+                                'ssssssssss',
+                                $nom_1, $nom_2,
+                                $nom_3, $nom_4,
+                                $nom_5, $nom_6,
+                                $nom_7, $nom_8,
+                                $nom_9, $nom_10
+                            );
+
+                            if ($stmt_user->execute() && $stmt_dependant->execute()) {
+                                echo '<div class="alert alert-success" role="alert">
+                                    Update successfully !
+                                </div>';
+                            } else {
+                                echo '<div class="alert alert-danger" role="alert">
+                                    Update failed  !
+                                </div>';
+                            }
                         }
                     } catch (PDOException $e) {
 
                         echo '<div class="alert alert-danger" role="alert">
-                    L\' enregistrement n\'a pas été faite  !
-                    </div>';
+                            Update failed !
+                        </div>';
                         echo "Error: " . $e->getMessage();
                     }
                 }
@@ -134,8 +217,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
 
             <?php
-
-            // ???
 
             if (isset($_SESSION["role"]) && $_SESSION["role"] === 1) {
                 $edit = "readonly";
@@ -163,49 +244,45 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         $statut = "Isn't activated";
                     }
 
-                    // if ($row["id_dependant"] === null) {
-                    //     echo "<script> hide(document.getElementById('dependant-list-field')); </script>";
-                    // }
-
                     // CALCUL THE DIFFERENCE BETWEEN TWO DATES
                     // THEN THIS ALGORITHM CHANGE THE STATUT OF THE PERSON
                     // IF THE EXPIRATION DATE AND THE ACTUAL DATE IS EQUAL TO ZERO (0)
 
                     date_default_timezone_set('America/Port-au-Prince');
-                    $actual_date= date('Y-m-d');
+                    $actual_date = date('Y-m-d');
                     $date_expiration = $row["date_exp"];
-                    
+
                     $date_diff = date_diff(date_create($date_expiration), date_create($actual_date))->format('%a');
 
-                    if($date_diff == 0){
+                    if ($date_diff == 0) {
                         $stmt = $conn->prepare("UPDATE personne SET id_statut = ? WHERE id_person = $id");
-                        $new_statut = 2; 
+                        $new_statut = 2;
                         $stmt->bind_param('i', $new_statut);
                         $stmt->execute();
-                    }elseif($date_diff > 0){
+                    } elseif ($date_diff > 0) {
                         $stmt = $conn->prepare("UPDATE personne SET id_statut = ? WHERE id_person = $id");
-                        $new_statut = 1; 
+                        $new_statut = 1;
                         $stmt->bind_param('i', $new_statut);
                         $stmt->execute();
                     }
 
                     echo '
                     <div class="profile-img-size mb-3">
-                        <img src="../Assets/profile/'; 
+                        <img src="../Assets/profile/';
 
-                            if(empty($row["profile_image"])){
-                                $profile = "profile.png";
-                                echo $profile;
-                            } else { 
-                               $profile=  $row["profile_image"];
-                               echo $profile;
-                            }
+                    if (empty($row["profile_image"])) {
+                        $profile = "profile.png";
+                        echo $profile;
+                    } else {
+                        $profile =  $row["profile_image"];
+                        echo $profile;
+                    }
 
-                        echo '" class="profile-img-content" alt="">
+                    echo '" class="profile-img-content" alt="">
                     </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">ID Number</label>
-                    <input type="text" class="form-control" name="card_number" id="exampleFormControlInput1" value="' . $row["card_number"] . '"'.' readonly required>
+                    <input type="text" class="form-control" name="card_number" id="exampleFormControlInput1" value="' . $row["card_number"] . '"' . ' readonly >
                 </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Lastname</label>
@@ -217,7 +294,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" id="exampleFormControlInput1" value="' . $row["email"] . '"' . $edit . '  required>
+                <input type="email" class="form-control" name="email" id="exampleFormControlInput1" value="' . $row["email"] . '"' . $edit . '  >
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Birth date</label>
@@ -225,7 +302,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Birth place</label>
-                <input type="text" class="form-control" name="lieu" id="exampleFormControlInput1" value="' . $row["lieu_naissance"] . '" ' . $edit . ' required>
+                <input type="text" class="form-control" name="lieu" id="exampleFormControlInput1" value="' . $row["lieu_naissance"] . '" ' . $edit . ' >
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Adresse</label>
@@ -259,6 +336,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 <b>Dependant</b> <br>
                 <div class="mb-3" id="first-dependant">
                     <label for="exampleFormControlInput1" class="form-label">Dependant 1</label>
+                    <input type="hidden" class="form-control" name="id_dependant" value="' . $row["id_dependant"] . '">
                     <input type="text" class="form-control" placeholder="Full name" value="' . $row["nom_1"] . '" name="nom_1" ' . $edit . ' id="exampleFormControlInput1">
                 </div>
                 <hr>
@@ -359,28 +437,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 </body>
 
 <script>
-    // hide(document.getElementById('dependant-list-field'));
-
-    // function dependant()
-    // {
-    //     show(document.getElementById('dependant-list-field'));
-    //     hide(document.getElementById('second-dependant'));
-    //     hide(document.getElementById('third-dependant'));
-    // }
-
-    // function second_dependant()
-    // {
-    //     show(document.getElementById('dependant-list-field'));
-    //     show(document.getElementById('second-dependant'));
-    //     hide(document.getElementById('third-dependant'));
-
-    // }
-    // function third_dependant()
-    // {
-    //     show(document.getElementById('dependant-list-field'));
-    //     show(document.getElementById('second-dependant'));
-    //     show(document.getElementById('third-dependant'));
-    // }
 
     function hide(elements) {
         elements = elements.length ? elements : [elements];
