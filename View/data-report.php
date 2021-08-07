@@ -89,6 +89,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </span>
             <div class="top"></div>
         </div>
+        <div class="container bg-white">
     <div class="container table-responsive mt-5">
 
         <table id="data-student" class="display nowrap stripe order-column cell-border" style="width:100%">
@@ -287,6 +288,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </span>
         </div>
     </div>
+        </div>
 
 
 

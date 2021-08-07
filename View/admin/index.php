@@ -63,37 +63,43 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     include_once('header.php');
     ?>
     <br><br>
-    <div class="container mt-5">
+    <div class="mt-5">
 
-        <h2>Mina Dashboard</h2>
-        <hr class="hr">
-        <div class="top"></div>
+        <div class="container">
+            
+            <h2>Mina Dashboard</h2>
+            <hr class="hr">
+            <!-- <div class="top"></div> -->
+            <br>
 
-        <div class="admin">
-            <ul>
-                <li><a href="add-enterprise.php" class="btn btn-outline-primary">New enterprise</a></li>
-                <li><a href="user-to-enterprise.php" class="btn btn-outline-secondary">New user</a></li>
-            </ul>
-            <div class="mt-3">
+            <div class="admin">
                 <ul>
-                    <li><a class="nav-link" href="" onclick="loadEnterprises(); return false;">Enterprises |</a></li>
-                    <li><a class="nav-link" href="" onclick="loadPrograms(); return false;">Programs |</a></li>
-                    <li><a class="nav-link" href="" onclick="loadGroups(); return false;">Groups |</a></li>
-                    <li><a class="nav-link" href="" onclick="loadPersons(); return false;">Persons |</a></li>
-                    <li><a class="nav-link" href="" onclick="loadUsers(); return false;">Users</a></li>
+                    <li><a href="add-enterprise.php" class="btn btn-outline-primary">New enterprise</a></li>
+                    <li><a href="user-to-enterprise.php" class="btn btn-outline-secondary">New user</a></li>
                 </ul>
+                <div class="mt-3">
+                    <ul>
+                        <li><a class="nav-link" href="" onclick="loadEnterprises(); return false;">Enterprises |</a></li>
+                        <li><a class="nav-link" href="" onclick="loadPrograms(); return false;">Programs |</a></li>
+                        <li><a class="nav-link" href="" onclick="loadGroups(); return false;">Groups |</a></li>
+                        <li><a class="nav-link" href="" onclick="loadPersons(); return false;">Persons |</a></li>
+                        <li><a class="nav-link" href="" onclick="loadUsers(); return false;">Users</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div id="loadEnterprise">
-            <div class="table-responsive mt-5 mb-5">
+        <div class="bg-white">
 
-                <table id="data-enterprise" class="display nowrap stripe order-column cell-border" style="width:100%">
+            <div id="loadEnterprise">
+                <div class="table-responsive mt-5 mb-5">
+
+                    <table id="data-enterprise" class="display nowrap stripe order-column cell-border" style="width:100%">
 
 
-                    <?php
-                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
-                        echo '<thead>
+                        <?php
+                        if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
+                            echo '<thead>
                                 <tr>
                                     <th>Code</th>
                                     <th>Enterprise</th>
@@ -105,12 +111,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             </thead>
                         <tbody>';
 
-                        $query = "SELECT * FROM entreprise, statut WHERE entreprise.statut_id = statut.id_statut";
-                        $result = $conn->query($query);
+                            $query = "SELECT * FROM entreprise, statut WHERE entreprise.statut_id = statut.id_statut";
+                            $result = $conn->query($query);
 
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<tr>
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<tr>
                             <td>' . $row['code_entreprise'] . '</td>
                             <td>' . $row['nom_entreprise'] . '</td>
                             <td>' . $row['date_creation'] . '</td>
@@ -124,27 +130,27 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                 </div>
                             </td>
                         </tr>';
+                                }
                             }
+                            echo '</tbody>';
                         }
-                        echo '</tbody>';
-                    }
 
-                    ?>
-                </table>
+                        ?>
+                    </table>
 
 
+                </div>
             </div>
-        </div>
 
-        <div id="loadProgram">
-            <div class="table-responsive mt-5 mb-5">
+            <div id="loadProgram">
+                <div class="table-responsive mt-5 mb-5">
 
-                <table id="data-program" class="display nowrap stripe order-column cell-border" style="width:100%">
+                    <table id="data-program" class="display nowrap stripe order-column cell-border" style="width:100%">
 
 
-                    <?php
-                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
-                        echo '<thead>
+                        <?php
+                        if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
+                            echo '<thead>
                                 <tr>
                                     <th>Program</th>
                                     <th>Enterprise</th>
@@ -154,39 +160,39 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             </thead>
                         <tbody>';
 
-                        $query = "SELECT program_name, nom_entreprise, program.date_creation as date_creation, program.date_expiration as date_expiration
+                            $query = "SELECT program_name, nom_entreprise, program.date_creation as date_creation, program.date_expiration as date_expiration
                         FROM entreprise, program WHERE entreprise.code_entreprise = program.code_entreprise";
-                        $result = $conn->query($query);
+                            $result = $conn->query($query);
 
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<tr>
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<tr>
                             <td>' . $row['program_name'] . '</td>
                             <td>' . $row['nom_entreprise'] . '</td>
                             <td>' . $row['date_creation'] . '</td>
                             <td>' . $row['date_expiration'] . '</td>
                         </tr>';
+                                }
                             }
+                            echo '</tbody>';
                         }
-                        echo '</tbody>';
-                    }
 
-                    ?>
-                </table>
+                        ?>
+                    </table>
 
 
+                </div>
             </div>
-        </div>
 
-        <div id="loadGroup">
-            <div class="table-responsive mt-5 mb-5">
+            <div id="loadGroup">
+                <div class="table-responsive mt-5 mb-5">
 
-                <table id="data-group" class="display nowrap stripe order-column cell-border table-s" style="width:100%">
+                    <table id="data-group" class="display nowrap stripe order-column cell-border table-s" style="width:100%">
 
 
-                    <?php
-                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
-                        echo '<thead>
+                        <?php
+                        if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
+                            echo '<thead>
                                 <tr>
                                     <th>Group</th>
                                     <th>Program</th>
@@ -195,38 +201,38 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             </thead>
                         <tbody>';
 
-                        $query = "SELECT * FROM groupe, program, entreprise WHERE 
+                            $query = "SELECT * FROM groupe, program, entreprise WHERE 
                             entreprise.code_entreprise = program.code_entreprise AND groupe.id_program = program.id_program";
-                        $result = $conn->query($query);
+                            $result = $conn->query($query);
 
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<tr>
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<tr>
                             <td>' . $row["nom_groupe"] . '</td>
                             <td>' . $row["program_name"] . '</td>
                             <td>' . $row['nom_entreprise'] . '</td>
                         </tr>';
+                                }
                             }
+                            echo '</tbody>';
                         }
-                        echo '</tbody>';
-                    }
 
-                    ?>
-                </table>
+                        ?>
+                    </table>
 
 
+                </div>
             </div>
-        </div>
 
-        <div id="loadPerson">
-            <div class="table-responsive mt-5 mb-5">
+            <div id="loadPerson">
+                <div class="table-responsive mt-5 mb-5">
 
-                <table id="data-person" class="display nowrap stripe order-column cell-border" style="width:100%">
+                    <table id="data-person" class="display nowrap stripe order-column cell-border" style="width:100%">
 
 
-                    <?php
-                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
-                        echo '<thead>
+                        <?php
+                        if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
+                            echo '<thead>
                                 <tr>
                                     <th>ID number</th>
                                     <th>Firstname</th>
@@ -239,14 +245,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             </thead>
                         <tbody>';
 
-                        $query = "SELECT * FROM personne, groupe, program, entreprise, statut WHERE
+                            $query = "SELECT * FROM personne, groupe, program, entreprise, statut WHERE
                                 entreprise.code_entreprise = program.code_entreprise AND program.id_program = groupe.id_program
                                 AND program.id_program = personne.id_program AND personne.id_group = groupe.id_group AND statut.id_statut = personne.id_statut";
-                        $result = $conn->query($query);
+                            $result = $conn->query($query);
 
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<tr>
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<tr>
                             <td>' . $row["card_number"] . '</td>
                             <td>' . $row['nom'] . '</td>
                             <td>' . $row['prenom'] . '</td>
@@ -255,27 +261,27 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             <td>' . $row["code_entreprise"] . '</td>
                             <td>' . $row['statut_name'] . '</td>
                         </tr>';
+                                }
                             }
+                            echo '</tbody>';
                         }
-                        echo '</tbody>';
-                    }
 
-                    ?>
-                </table>
+                        ?>
+                    </table>
 
 
+                </div>
             </div>
-        </div>
 
-        <div id="loadUser">
-            <div class="table-responsive mt-5 mb-5">
+            <div id="loadUser">
+                <div class="table-responsive mt-5 mb-5">
 
-                <table id="data-user" class="display nowrap stripe order-column cell-border" style="width:100%">
+                    <table id="data-user" class="display nowrap stripe order-column cell-border" style="width:100%">
 
 
-                    <?php
-                    if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
-                        echo '<thead>
+                        <?php
+                        if (isset($_SESSION["role"]) && $_SESSION["role"] === 4) {
+                            echo '<thead>
                                 <tr>
                                     <th>Firstname</th>
                                     <th>Lastname</th>
@@ -290,13 +296,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             </thead>
                         <tbody>';
 
-                        $query = "SELECT * FROM users, entreprise, role, statut WHERE entreprise.code_entreprise = users.code_entreprise
+                            $query = "SELECT * FROM users, entreprise, role, statut WHERE entreprise.code_entreprise = users.code_entreprise
                         AND users.id_role = role.id_role AND users.id_statut = statut.id_statut";
-                        $result = $conn->query($query);
+                            $result = $conn->query($query);
 
-                        if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<tr>
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<tr>
                             <td>' . $row['nom'] . '</td>
                             <td>' . $row['prenom'] . '</td>
                             <td>' . $row['email'] . '</td>
@@ -307,15 +313,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                             <td>' . $row['statut_name'] . '</td>
                             <td>' . $row["nom_entreprise"] . '</td>
                         </tr>';
+                                }
                             }
+                            echo '</tbody>';
                         }
-                        echo '</tbody>';
-                    }
 
-                    ?>
-                </table>
+                        ?>
+                    </table>
 
 
+                </div>
             </div>
         </div>
     </div>

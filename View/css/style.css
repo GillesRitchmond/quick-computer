@@ -1952,3 +1952,8 @@ h2{
 .ml-1{
     margin-left: 10px;
 }
+.hint{
+    text-align: center;
+    margin: 0 auto;
+    color: var(--secondary)
+}

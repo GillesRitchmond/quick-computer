@@ -102,7 +102,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <button type="submit" name="program" class="col-md-4 btn btn-primary">Export by program</button>
+                                            <button type="submit" name="program" class="col-md-4 btn btn-primary">Export</button>
                                         </div>
                                     </form>
                                 </li>
@@ -137,7 +137,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <button type="submit" name="group" class="col-md-4 btn btn-primary">Export by group</button>
+                                            <button type="submit" name="group" class="col-md-4 btn btn-primary">Export</button>
                                         </div>
                                     </form>
                                 </li>
@@ -171,7 +171,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                                     ?>
                                                 </select>
                                             </div>
-                                            <button type="submit" name="person" class="col-md-4 btn btn-primary">Export by person</button>
+                                            <button type="submit" name="person" class="col-md-4 btn btn-primary">Export</button>
                                         </div>
                                     </form>
                                 </li>

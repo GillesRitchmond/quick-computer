@@ -100,6 +100,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <div class="top"></div>
     </div>
 
+    <div class="container bg-white">
+
+    <div class="hint">Select a person to generate a card</div>
     <form action="print.php" method="GET">
         <div class="container table-responsive mt-5">
 
@@ -153,7 +156,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo '<tr>
                                 <td>
-                                    <input class="form-check-input" type="checkbox" name="toPrint[]" multiple value="'.$row["id_person"].'" id="flexSwitchCheckChecked">
+                                    <input class="form-check-input" type="checkbox" name="toPrint[]" multiple value="'.$row["id_person"].'" required id="flexSwitchCheckChecked">
                                 </td>
                                 <td>' . $row['card_number'] . '</td>
                                 <td>' . $row['personne_nom'] . '</td>
@@ -181,18 +184,18 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
 
         <div class="mt-3 container badge-button">
-            <button type="submit" class="col-md-4 btn btn-primary">Generate badge</button>
+            <button type="submit" class="col-md btn btn-primary">Generate badge</button>
         </div>
 
     </form>
-
+    </div>
     <div class="mb-5">
-        <span>
+        <!-- <span>
             <p>
                 <br>
                 <br>
             </p>
-        </span>
+        </span> -->
     </div>
 
 
