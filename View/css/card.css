@@ -1,9 +1,47 @@
+.btn{
+    background-color: none;
+    padding: 6px 9px;
+    text-decoration: none;
+    padding: 6px 9px;
+    border-radius: 6px;
+}
+.btn-outline-primary{
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+.btn-outline-primary:hover{
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    color: var(--white);
+}
+.mt-5{
+    margin-top: 50px;
+}
 .card {
-    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    position: unset;
     border: 2px solid #000;
-    max-width: 300px;
+    max-width: 480px;
+    max-height: 600px;
     margin: auto;
     text-align: center;
+}
+.width-card{
+    margin-top: 3%;
+}
+.width-card ul li{
+    display: inline-block;
+    margin: 2%;
+}
+.width-card ul .for-img{
+    position: absolute;
+    margin-top: 5%;
+    height: 110px;
+    width: 110px;
+}
+.width-card ul li .for-infos{
+    position: absolute;
+    width: fit-content;
+    margin-right: -90px;
 }
 ul li{
     list-style: none;
@@ -16,20 +54,19 @@ ul li{
 }
 .grid ul li{
     display: inline-block;
-    margin: 3%;
+    margin: 2%;
 }
 .more-infos{
-    width: auto;
+    width: 100%;
     margin-top: -5%;
 }
 .more-infos ul{
-    margin: 5%;
-    margin-left: -5%;
+    margin: 8%;
 }
 .more-infos ul li{
-    width: 100%;
+    width: 70%;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
 }
 .more-infos ul li a{
     font-size: 1rem;
@@ -56,36 +93,34 @@ ul li{
 .float-end{
     float: right;
     margin-right: 30px;
+    width: 30%;
 }
 .float-start{
-    width: 50%;
+    width: auto;
 }
 .card_number{
     margin-bottom: 2px;
     font-size: 1.3rem;
-    font-weight: bold;
 }
 .img-program{
-    /* margin-right: 15px; */
     height: 50px;
     object-fit: contain;
     float: right;
     border: 1px solid #FFF;
-    background-color: white;
 }
 .img-content{
-    margin: 5% 0;
-    width: 50%;
-    height: 200px;
-    object-fit: contain;
-    padding: 0 10%;
+    margin: 5% 0 5% -20%;
+    height: 110px;
+    width: 110px;
+    object-fit: cover;
+    border: 1px solid black;
 }
 .title {
     color: grey !important;
     -webkit-print-color-adjust: exact;
     font-size: 18px;
 }
-a {
+a{
     text-decoration: none;
     font-size: 22px;
     margin-bottom: 7px;
@@ -93,8 +128,65 @@ a {
     -webkit-print-color-adjust: exact;
 }
 .bottom{
-    margin-top: -9%;
+    margin-top: -6%;
     font-weight: lighter;
     color: gray;
     font-size: small;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .img-program{
+        height: 40px;
+        object-fit: contain;
+        float: right;
+        border: 1px solid #FFF;
+    }
+    .card {
+        border: 2px solid #000;
+        max-width: 480px;
+        max-height: 600px;
+        margin-left: -70px;
+        margin-right: -40px;
+        text-align: center;
+    }
+    .width-card ul .for-img{
+        position: absolute;
+        margin-top: 5%;
+        height: 70px;
+        width: 70px;
+    }
+    .width-card ul li .for-infos{
+        position: absolute;
+        width: fit-content;
+        margin-left: -30px;
+    }
+    .img-content{
+        margin: 5% 0 5% -60%;
+        height: 70px;
+        width: 70px;
+        object-fit: cover;
+        border: 1px solid black;
+    }
+    .card_number{
+        margin-bottom: 2px;
+        font-size: 0.9rem;
+    }
+    .more-infos{
+        margin-left: -5%;
+    }
+    .more-infos ul li{
+        width: 80%;
+        margin: 0 auto;
+        text-align: left;
+    }
+    .more-infos ul li a{
+        font-size: 0.8rem;
+    }
+    a{
+        text-decoration: none;
+        font-size: 12px;
+        margin-bottom: 7px;
+        color: black !important;
+        -webkit-print-color-adjust: exact;
+    }
 }

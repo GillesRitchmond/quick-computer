@@ -23,6 +23,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/card.css">
+    
 
 
     <!-- BOOTSTRAP CSS & JS -->
@@ -61,33 +62,46 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <!-- Generate PDF -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script> -->
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script type="text/javascript">
-        $("#btnPrint").live("click", function () {
-            var divContents = $("#dvContainer").html();
-            var printWindow = window.open('', '', 'height=400,width=800');
-            printWindow.document.write('<html><head><title>Print badge</title>');
-            printWindow.document.write('</head><body >');
-            printWindow.document.write(divContents);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
-        });
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>
+    <!-- <script src="pdf.js"></script> -->
+
+    <script src="html2pdf.bundle.min.js"></script>
+
+    <script>
+      function generatePDF() {
+        // Choose the element that our invoice is rendered in.
+        const element = document.getElementById("dvContainer");
+
+        var opt = {
+                margin: 1,
+                filename: 'mina-carte.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape'}
+            };
+        // Choose the element and save the PDF for our user.
+        html2pdf()
+          .from(element)
+          .save();
+      }
     </script>
 
 </head>
 
 <body>
 
-    <!-- <form id="form1">
-        <input type="button" value="Print Div Contents" id="btnPrint" />
-    </form>
-     -->
+<?php
+        include_once('header.php');
+    ?>
+
+    <div class="container mt-5">
+        <button type="submit" id="download" class="btn btn-outline-primary" onclick="generatePDF()">Download card</button>
+    </div>
+    
     <div id="dvContainer" class="grid m-5">
         <ul>
             <?php
-
-            // if (is_array($_GET["toPrint"]) || is_object($_GET["toPrint"])) {
+            
                 foreach((array) $_GET["toPrint"] ?? [] as $selectedPerson){
                     
                 $id = $selectedPerson;
@@ -103,27 +117,36 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                         <ul>
                                             <li class="float-start">'.$row["program_name"].'</li>
                                             <li class="float-end">
-                                                <img src="../Assets/images/'.$row["image"].'" alt="program" class="img-program" style="width:100%">
+                                                <img src="../Assets/images/'.$row["image"].'" alt="program" class="img-program">
                                             </li>
                                         </ul>
                                     </div>
-                                    <img src="../Assets/profile/';
-                                        if (empty($row["profile_image"])) {
-                                            $profile = "profile.png";
-                                            echo $profile;
-                                        } else {
-                                            $profile =  $row["profile_image"];
-                                            echo $profile;
-                                        }
-                                    echo'" alt="person" class="img-content" style="width:100%">
                                     
-                                    <div class="more-infos">
+                                    <div class="width-card">
                                         <ul>
-                                            <li><span class="card_number">ID : '.$row["card_number"].'</span></li>
-                                            <li><a> Group : '.$row["nom_groupe"].'</a></li>
-                                            <li><a>'.$row["nom"].' '.$row["prenom"].'</a></li>
-                                            <li><a>'.$row["date_naissance"].'</a></li>
-                                            <li><a>'.$row["lieu_naissance"].'</a></li>
+                                            <li class="for-img">
+                                                <img src="../Assets/profile/';
+                                                    if (empty($row["profile_image"])) {
+                                                        $profile = "profile.png";
+                                                        echo $profile;
+                                                    } else {
+                                                        $profile =  $row["profile_image"];
+                                                        echo $profile;
+                                                    }
+                                                echo'" alt="person" class="img-content">
+                                            </li>
+                                        
+                                            <li class="for-infos">
+                                                <div class="more-infos">
+                                                    <ul>
+                                                        <li><span class="card_number"><b> ID : </b>'.$row["card_number"].'</span></li>
+                                                        <li><a> <b> Groupe : </b>'.$row["nom_groupe"].'</a></li>
+                                                        <li><a> <b> Nom : </b>'.$row["nom"].' '.$row["prenom"].'</a></li>
+                                                        <li><a> <b> Date de naissance : </b>'.$row["date_naissance"].'</a></li>
+                                                        <li><a> <b> Lieu de naissance : </b>'.$row["lieu_naissance"].'</a></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="bottom">
@@ -144,71 +167,17 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </ul>
     </div>
 
+    <div class="mb-5">
+        <br><br>
+    </div>
+    <?php
+        include_once('footer.php');
+    ?>
 </body>
 
 </html>
 
-
+<!-- 
 <script type="text/javascript">
-    
-    // var doc = new jsPDF();
-
-    // var elementHandler = {
-    //     '#ignorePDF': function(element, renderer) {
-    //         return true;
-    //     }
-    // };
-
-    // var source = window.document.getElementsByTagName("body")[0];
-    
-    // doc.fromHTML(
-    //     source,
-    //     15,
-    //     15, {
-    //         'width': 180,
-    //         'elementHandlers': elementHandler
-    //     });
-
-    // printDoc.autoPrint();
-    // doc.output("dataurlnewwindow");
-
-
-    // var elementHandler = {
-    //     '#ignoreElement': function(element, renderer) {
-    //         return true;
-    //     },
-    //     '#anotherIdToBeIgnored': function(element, renderer) {
-    //         return true;
-    //     }
-    // };
-
-
-
-
-
-    // <embed
-    // type = "application/pdf"
-    // src = "path_to_pdf_document.pdf"
-    // id = "pdfDocument"
-    // width = "100%"
-    // height = "100%" />
-
-    //     function printDocument(documentId) {
-    //         var doc = document.getElementById(documentId);
-
-    //         //Wait until PDF is ready to print    
-    //         if (typeof doc.print === 'undefined') {
-    //             setTimeout(function() {
-    //                 printDocument(documentId);
-    //             }, 1000);
-    //         } else {
-    //             doc.print();
-    //         }
-    //     }
-
-
-    // window.print();
-    // setTimeout(function() {
-    //     window.close()
-    // }, 750)
-</script>
+   
+</script> -->
