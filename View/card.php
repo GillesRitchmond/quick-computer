@@ -175,7 +175,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
 
         <div class="mt-3 container badge-button">
-            <button type="submit" class="col-md btn btn-primary">Generate badge</button>
+            <button type="submit" class="col-md btn btn-primary">Generate card</button>
         </div>
 
     </form>
