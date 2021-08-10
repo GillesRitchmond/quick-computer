@@ -55,31 +55,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     include_once('header.php');
     ?>
 
-    <!-- <div class="modal">
-        <div class="modal-box">
-            <div class="header-section">
-                Menu <hr>
-                <span></span>
-            </div>
-            <div class="middle-section">
-                <ul class="nav-link">
-                    <li class="link"><a href="#">Report</a></li>
-                    <li class="link"><a href="#">Manage users</a></li>
-                    <li class="link"><a href="#">Settings</a></li>
-                    <li class="link"><a href="#">Logout</a></li>
-                </ul>
-
-            </div>
-            <div class="bottom-section">
-
-            </div>
-        </div>
-    </div> -->
-
     <div class="header-content">
-        <!-- <div class="bullet-menu text-white">
-            <a href="../Controller/logout.php" class="text-white nav-link"><i class="bi bi-box-arrow-right"></i></a>
-        </div> -->
         <div class="title">
             Dashboard
         </div>

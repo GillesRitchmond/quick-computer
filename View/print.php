@@ -23,7 +23,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="css/card.css">
-    
+
 
 
     <!-- BOOTSTRAP CSS & JS -->
@@ -68,99 +68,160 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <script src="html2pdf.bundle.min.js"></script>
 
     <script>
-      function generatePDF() {
-        // Choose the element that our invoice is rendered in.
-        const element = document.getElementById("dvContainer");
+        function generatePDF() {
+            // Choose the element that our invoice is rendered in.
+            const element = document.getElementById("dvContainer");
 
-        var opt = {
+            var opt = {
                 margin: 1,
                 filename: 'mina-carte.pdf',
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape'}
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'letter',
+                    orientation: 'landscape'
+                }
             };
-        // Choose the element and save the PDF for our user.
-        html2pdf()
-          .from(element)
-          .save();
-      }
+            // Choose the element and save the PDF for our user.
+            html2pdf()
+                .from(element)
+                .save();
+        }
     </script>
 
 </head>
 
 <body>
 
-<?php
-        include_once('header.php');
+    <?php
+    // include_once('header.php');
     ?>
+    <div class="header-content no-header">
+
+        <?php
+        echo '<div class="title">Card generated</div>';
+        ?>
+    </div>
 
     <div class="container mt-5">
+
+        <span class="title-page-list">
+            <?php
+            if ((array) $_GET["toPrint"]) {
+
+                $id = $_GET["toPrint"];
+
+                if ($id != 0) {
+                    $usersStr = implode(',', $id);
+
+                    $query = "SELECT * FROM personne, program, groupe WHERE program.id_program = groupe.id_program AND
+                        personne.id_group = groupe.id_group AND personne.id_program = program.id_program AND id_person IN ($usersStr) LIMIT 1";
+                    $result = $conn->query($query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<a href="card.php?group-details=' . $row["id_group"] . '" class="nav-link">
+                            <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
+                        </a>';
+                        }
+                    }
+                }elseif($id == 0){
+                    echo '<a href="index.php" class="nav-link">
+                    <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back to the home page
+                </a> <br> <br>';
+
+                echo '<div class="hint">You haven\'t send any data to the server, you will redirected to the home page</div>';
+                }
+            }
+            ?>
+
+            <hr class="hr">
+        </span>
+        <div class="top"></div>
+
         <button type="submit" id="download" class="btn btn-outline-primary" onclick="generatePDF()">Download card</button>
     </div>
-    
+
     <div id="dvContainer" class="grid m-5">
         <ul>
             <?php
-            
-                foreach((array) $_GET["toPrint"] ?? [] as $selectedPerson){
-                    
-                $id = $selectedPerson;
-                $query = "SELECT * FROM personne, program, groupe WHERE program.id_program = groupe.id_program AND
-                        personne.id_group = groupe.id_group AND personne.id_program = program.id_program AND id_person = '$id'";
-                $result = $conn->query($query);
 
-                if (mysqli_num_rows($result) > 0) {
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        echo '<li>
-                                <div class="card">
-                                    <div class="header">
-                                        <ul>
-                                            <li class="float-start">'.$row["program_name"].'</li>
-                                            <li class="float-end">
-                                                <img src="../Assets/images/'.$row["image"].'" alt="program" class="img-program">
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <div class="width-card">
-                                        <ul>
-                                            <li class="for-img">
-                                                <img src="../Assets/profile/';
-                                                    if (empty($row["profile_image"])) {
-                                                        $profile = "profile.png";
-                                                        echo $profile;
-                                                    } else {
-                                                        $profile =  $row["profile_image"];
-                                                        echo $profile;
-                                                    }
-                                                echo'" alt="person" class="img-content">
-                                            </li>
+            // foreach ((array) $_GET["toPrint"] ?? [] as $selectedPerson) {
+
+            // $id = $selectedPerson;
+
+            if ((array) $_GET["toPrint"]) {
+
+                $id = $_GET["toPrint"];
+
+                if ($id != 0) {
+
+                    $usersStr = implode(',', $id);
+                    $query = "SELECT * FROM personne, program, groupe WHERE program.id_program = groupe.id_program AND
+                            personne.id_group = groupe.id_group AND personne.id_program = program.id_program AND id_person IN ($usersStr)";
+                    $result = $conn->query($query);
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<li>
+                                    <div class="card">
+                                        <div class="header">
+                                            <ul>
+                                                <li class="float-start">' . $row["program_name"] . '</li>
+                                                <li class="float-end">
+                                                    <img src="../Assets/images/' . $row["image"] . '" alt="program" class="img-program">
+                                                </li>
+                                            </ul>
+                                        </div>
                                         
-                                            <li class="for-infos">
-                                                <div class="more-infos">
-                                                    <ul>
-                                                        <li><span class="card_number"><b> ID : </b>'.$row["card_number"].'</span></li>
-                                                        <li><a> <b> Groupe : </b>'.$row["nom_groupe"].'</a></li>
-                                                        <li><a> <b> Nom : </b>'.$row["nom"].' '.$row["prenom"].'</a></li>
-                                                        <li><a> <b> Date de naissance : </b>'.$row["date_naissance"].'</a></li>
-                                                        <li><a> <b> Lieu de naissance : </b>'.$row["lieu_naissance"].'</a></li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                        </ul>
+                                        <div class="width-card">
+                                            <ul>
+                                                <li class="for-img">
+                                                    <img src="../Assets/profile/';
+                            if (empty($row["profile_image"])) {
+                                $profile = "profile.png";
+                                echo $profile;
+                            } else {
+                                $profile =  $row["profile_image"];
+                                echo $profile;
+                            }
+                            echo '" alt="person" class="img-content">
+                                                </li>
+                                            
+                                                <li class="for-infos">
+                                                    <div class="more-infos">
+                                                        <ul>
+                                                            <li><span class="card_number"><b> ID : </b>' . $row["card_number"] . '</span></li>
+                                                            <li><a> <b> Groupe : </b>' . $row["nom_groupe"] . '</a></li>
+                                                            <li><a> <b> Nom : </b>' . $row["nom"] . ' ' . $row["prenom"] . '</a></li>
+                                                            <li><a> <b> Date de naissance : </b>' . $row["date_naissance"] . '</a></li>
+                                                            <li><a> <b> Lieu de naissance : </b>' . $row["lieu_naissance"] . '</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="bottom">
+                                            <hr>
+                                            CARD GENERATE BY MINA
+                                            <p> </p>
+                                        </div>
                                     </div>
-                                    <div class="bottom">
-                                        <hr>
-                                        CARD GENERATE BY MINA
-                                        <p> </p>
-                                    </div>
-                                </div>
 
 
-                            </li>';
+                                </li>';
                         }
                     }
+                } else {
+                    echo '<div class="hint">You haven\'t send any data to the server, you will redirected to the home page</div>';
                 }
+            }
             // }
 
             ?>
@@ -171,7 +232,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <br><br>
     </div>
     <?php
-        include_once('footer.php');
+    include_once('footer.php');
     ?>
 </body>
 

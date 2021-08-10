@@ -69,7 +69,12 @@ ul li{
     text-align: left;
 }
 .more-infos ul li a{
-    font-size: 1rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    /* font-size: 22px; */
+    margin-bottom: 7px;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
 }
 .header{
     background-color: #0747AD !important;
@@ -100,7 +105,7 @@ ul li{
 }
 .card_number{
     margin-bottom: 2px;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 .img-program{
     height: 50px;
@@ -115,17 +120,17 @@ ul li{
     object-fit: cover;
     border: 1px solid black;
 }
-.title {
+/* .title {
     color: grey !important;
     -webkit-print-color-adjust: exact;
     font-size: 18px;
-}
-a{
-    text-decoration: none;
-    font-size: 22px;
-    margin-bottom: 7px;
-    color: black !important;
-    -webkit-print-color-adjust: exact;
+} */
+.title{
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-top: 60px;
+    text-transform: uppercase;
+    width: auto;
 }
 .bottom{
     margin-top: -6%;
@@ -133,7 +138,18 @@ a{
     color: gray;
     font-size: small;
 }
-
+.title-page-list a{
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+.hr{
+    display: none;
+}
+.top{
+    border-top: 1px solid var(--gray);
+    padding: 10px 0;
+}
 @media (min-width: 320px) and (max-width: 480px) {
     .img-program{
         height: 40px;
@@ -180,13 +196,55 @@ a{
         text-align: left;
     }
     .more-infos ul li a{
-        font-size: 0.8rem;
-    }
-    a{
+        /* font-size: 0.8rem; */
         text-decoration: none;
         font-size: 12px;
         margin-bottom: 7px;
         color: black !important;
         -webkit-print-color-adjust: exact;
     }
+    .title{
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-top: 45px;
+        text-transform: uppercase;
+        width: auto;
+    }
+    .nav{
+        display: contents;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+        background-color: var(--white);
+        display: flex;
+        overflow-x: auto;
+        padding: 10px 0;
+    }
+    .nav__link{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-grow: 1;
+        min-width: 50px;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 13px;
+        color: var(--gray);
+        text-decoration: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: background-color 0.1s ease-in-out;
+    }
+    .nav__link:hover{
+        background-color: var(--bg-light-gray);
+    }
+    .nav__link--active{
+        color: var(--primary);
+    }
+    .nav__icon{
+        font-size: 22px;
+    }
+
 }

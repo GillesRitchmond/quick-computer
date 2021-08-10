@@ -58,22 +58,12 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 <body class="body">
     <?php
-    include_once('header.php');
+    // include_once('header.php');
     ?>
-    <div class="header-content">
+    <div class="header-content no-header">
 
         <?php
-        // $id = $_GET['group-details'];
-        // $query = "SELECT * FROM users, program, groupe WHERE users.code_user = program.code_user AND groupe.id_program = program.id_program AND id_group = $id LIMIT 1";
-        // $result = $conn->query($query);
-        // if (mysqli_num_rows($result) > 0) {
-        //     while ($row = mysqli_fetch_assoc($result)) {
-        // echo '<div class="title">' . $row["nom_groupe"] . '</div>
-        //     <span class="subtitle">Created : ' . $row["date_creation"] . '</span>';
-
-        echo '<div class="title">Create badge</div>';
-        //     }
-        // }
+            echo '<div class="title">Create card</div>';
         ?>
     </div>
 
@@ -81,19 +71,19 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         <span class="title-page-list">
             <!-- <a href="index.php"><i class="bi bi-arrow-left-short fs-1"></i></a>  -->
             <?php
-            $id = $_GET['group-details'];
-            // $code_entreprise = $_SESSION["code_entreprise"];
+                $id = $_GET['group-details'];
+                // $code_entreprise = $_SESSION["code_entreprise"];
 
-            $query = "SELECT * FROM groupe WHERE id_group = $id";
-            $result = $conn->query($query);
+                $query = "SELECT * FROM groupe WHERE id_group = $id";
+                $result = $conn->query($query);
 
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<a href="group.php?group-details=' . $row["id_group"] . '" class="nav-link">
-                    <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
-                </a>';
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo '<a href="group.php?group-details=' . $row["id_group"] . '" class="nav-link">
+                        <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
+                    </a>';
+                    }
                 }
-            }
             ?>
             <hr class="hr">
         </span>
@@ -103,7 +93,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <div class="container bg-white">
 
     <div class="hint">Select a person to generate a card</div>
-    <form action="print.php" method="GET">
+    <form action="print.php" class="form-table" method="GET">
         <div class="container table-responsive mt-5">
 
             <table id="data-student" class="display nowrap stripe order-column cell-border" style="width:100%">
@@ -156,7 +146,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo '<tr>
                                 <td>
-                                    <input class="form-check-input" type="checkbox" name="toPrint[]" multiple value="'.$row["id_person"].'" required id="flexSwitchCheckChecked">
+                                    <input class="form-check-input" type="hidden" name="toPrint[]" multiple value="0" id="flexSwitchCheckChecked">
+                                    <input class="form-check-input" type="checkbox" name="toPrint[]" multiple value="'.$row["id_person"].'" id="flexSwitchCheckChecked">
                                 </td>
                                 <td>' . $row['card_number'] . '</td>
                                 <td>' . $row['personne_nom'] . '</td>
@@ -188,15 +179,16 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         </div>
 
     </form>
-    </div>
     <div class="mb-5">
-        <!-- <span>
+        <span>
             <p>
                 <br>
                 <br>
             </p>
-        </span> -->
+        </span>
     </div>
+    </div>
+   
 
 
 

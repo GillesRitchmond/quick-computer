@@ -88,7 +88,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                             <a href="add-person.php?group-details=' . $row["id_group"] . '&program-details=' . $row['id_program'] . '" class="btn btn-outline-primary">New person</a>
                                         </li>
                                         <li>
-                                            <a href="card.php?group-details=' . $row["id_group"] . '" class="btn btn-outline-muted">Badge</a>
+                                            <a href="card.php?group-details=' . $row["id_group"] . '" class="btn btn-outline-muted">Card</a>
                                         </li>
                                         <li> 
                                             <a href="report.php" class="btn btn-outline-muted">Report</a> 

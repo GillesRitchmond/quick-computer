@@ -58,9 +58,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 <body class="body">
     <?php
-    include_once('header.php');
+    // include_once('header.php');
     ?>
-    <div class="header-content">
+    <div class="header-content no-header">
 
         <?php
         // $id = $_GET['group-details'];

@@ -35,12 +35,13 @@ body,
     width: 100%;
     color: var(--white);
     padding: 18px 0;
-    margin-top:80px;
+    margin-top: 80px;
     position: unset;
 }
 .navbar{
     display: contents;
     width: 100%;
+    overflow-x: auto;
 }
 .navbar-items{
     position: fixed;
@@ -1078,6 +1079,7 @@ body,
 .navbar{
     display: contents;
     width: 100%;
+    overflow-x: auto;
 } 
 .navbar-items{
     position: fixed;
@@ -1332,9 +1334,6 @@ body,
     .more-details a, .group-more-details a{
         position: inherit;
     }
-    /* .bg-white{
-        padding: 20px 25px 20px 10px;
-    } */
     .bg-white-content{
         width: max-content;
         max-width: 70%;
@@ -1473,8 +1472,6 @@ body,
         margin-top: -370%;
         right: 10%;
         top: 0%;
-        /* background-color: #f2f2f2; */
-        /* border: 1px solid #bbbbbb; */
         max-height: max-content;
     }
 
@@ -1502,22 +1499,6 @@ body,
         height: auto;
         object-fit: contain;
     }
-
-    /* .btn-default {
-        background-color: #fff;
-        padding: 10px;
-        border: 1px solid #bbbbbb;
-        width: 150px;
-    } */
-
-    /* .btn-default:hover {
-        cursor: pointer;
-        box-shadow: inset 0 1px 3px 0 #bbbbbb;
-    }
-
-    .btngroup {
-        text-align: right
-    } */
 
     .userForm {
         position: absolute;
@@ -1956,4 +1937,7 @@ h2{
     text-align: center;
     margin: 0 auto;
     color: var(--secondary)
+}
+.no-header{
+    margin-top: 0;
 }
