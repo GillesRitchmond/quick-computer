@@ -146,7 +146,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo '<tr>
                                 <td>
-                                    <input class="form-check-input" type="hidden" name="toPrint[]" multiple value="0" id="flexSwitchCheckChecked">
                                     <input class="form-check-input" type="checkbox" name="toPrint[]" multiple value="'.$row["id_person"].'" id="flexSwitchCheckChecked">
                                 </td>
                                 <td>' . $row['card_number'] . '</td>

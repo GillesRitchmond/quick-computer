@@ -65,7 +65,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.js"></script>
     <!-- <script src="pdf.js"></script> -->
 
-    <script src="html2pdf.bundle.min.js"></script>
+    <!-- <script src="html2pdf.bundle.min.js"></script> -->
 
     <script>
         function generatePDF() {
@@ -73,7 +73,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             const element = document.getElementById("dvContainer");
 
             var opt = {
-                margin: 1,
+                margin: 0,
                 filename: 'mina-carte.pdf',
                 image: {
                     type: 'jpeg',
@@ -85,13 +85,13 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                 jsPDF: {
                     unit: 'in',
                     format: 'letter',
-                    orientation: 'landscape'
+                    orientation: 'portrait'
                 }
             };
+
             // Choose the element and save the PDF for our user.
-            html2pdf()
-                .from(element)
-                .save();
+            html2pdf().set(opt).from(element).save();
+            // html2pdf().set(opt).from(element).output('blob');
         }
     </script>
 
@@ -113,63 +113,71 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
         <span class="title-page-list">
             <?php
-            if ((array) $_GET["toPrint"]) {
+            if (isset($_GET["toPrint"])) {
+                if ((array) $_GET["toPrint"]) {
 
-                $id = $_GET["toPrint"];
+                    $id = $_GET["toPrint"];
 
-                if ($id != 0) {
-                    $usersStr = implode(',', $id);
+                    if ($id != 0) {
+                        $usersStr = implode(',', $id);
 
-                    $query = "SELECT * FROM personne, program, groupe WHERE program.id_program = groupe.id_program AND
-                        personne.id_group = groupe.id_group AND personne.id_program = program.id_program AND id_person IN ($usersStr) LIMIT 1";
-                    $result = $conn->query($query);
+                        $query = "SELECT * FROM personne, program, groupe WHERE program.id_program = groupe.id_program AND
+                            personne.id_group = groupe.id_group AND personne.id_program = program.id_program AND id_person IN ($usersStr) LIMIT 1";
+                        $result = $conn->query($query);
 
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<a href="card.php?group-details=' . $row["id_group"] . '" class="nav-link">
-                            <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
-                        </a>';
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<a href="card.php?group-details=' . $row["id_group"] . '" class="nav-link">
+                                <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back
+                            </a>';
+                            }
+                            echo '<hr class="hr">
+                            </span>
+                            <div class="top"></div>
+                    
+                            <button type="submit" id="download" class="btn btn-outline-primary" onclick="generatePDF()">Download card</button>
+                        </div>';
                         }
+                    } elseif ($id == 0) {
+                        echo '<a href="index.php" class="nav-link">
+                        <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back to the home page
+                    </a> <br> <br>';
+
+                        echo '<div class="hint">You haven\'t send any data to the server, you will redirected to the home page</div>';
                     }
-                }elseif($id == 0){
-                    echo '<a href="index.php" class="nav-link">
+                }
+            } else {
+                echo '<a href="index.php" class="nav-link">
                     <i class="bi bi-arrow-left-short"></i> <span class="align-items"></span>Back to the home page
                 </a> <br> <br>';
 
                 echo '<div class="hint">You haven\'t send any data to the server, you will redirected to the home page</div>';
-                }
             }
             ?>
-
-            <hr class="hr">
         </span>
-        <div class="top"></div>
 
-        <button type="submit" id="download" class="btn btn-outline-primary" onclick="generatePDF()">Download card</button>
-    </div>
+        <div id="dvContainer" class="grid m-5">
+            <ul>
+                <?php
 
-    <div id="dvContainer" class="grid m-5">
-        <ul>
-            <?php
+                // foreach ((array) $_GET["toPrint"] ?? [] as $selectedPerson) {
 
-            // foreach ((array) $_GET["toPrint"] ?? [] as $selectedPerson) {
+                // $id = $selectedPerson;
+                if (isset($_GET["toPrint"])) {
+                    if ((array) $_GET["toPrint"]) {
 
-            // $id = $selectedPerson;
+                        $id = $_GET["toPrint"];
 
-            if ((array) $_GET["toPrint"]) {
+                        if ($id != 0) {
 
-                $id = $_GET["toPrint"];
+                            $usersStr = implode(',', $id);
+                            $query = "SELECT * FROM personne, program, groupe WHERE program.id_program = groupe.id_program AND
+                                        personne.id_group = groupe.id_group AND personne.id_program = program.id_program AND id_person IN ($usersStr)";
+                            $result = $conn->query($query);
 
-                if ($id != 0) {
-
-                    $usersStr = implode(',', $id);
-                    $query = "SELECT * FROM personne, program, groupe WHERE program.id_program = groupe.id_program AND
-                            personne.id_group = groupe.id_group AND personne.id_program = program.id_program AND id_person IN ($usersStr)";
-                    $result = $conn->query($query);
-
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<li>
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    echo '<li>
                                     <div class="card">
                                         <div class="header">
                                             <ul>
@@ -184,14 +192,14 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
                                             <ul>
                                                 <li class="for-img">
                                                     <img src="../Assets/profile/';
-                            if (empty($row["profile_image"])) {
-                                $profile = "profile.png";
-                                echo $profile;
-                            } else {
-                                $profile =  $row["profile_image"];
-                                echo $profile;
-                            }
-                            echo '" alt="person" class="img-content">
+                                    if (empty($row["profile_image"])) {
+                                        $profile = "profile.png";
+                                        echo $profile;
+                                    } else {
+                                        $profile =  $row["profile_image"];
+                                        echo $profile;
+                                    }
+                                    echo '" alt="person" class="img-content">
                                                 </li>
                                             
                                                 <li class="for-infos">
@@ -216,21 +224,23 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 
 
                                 </li>';
+                                }
+                            }
                         }
                     }
                 } else {
-                    echo '<div class="hint">You haven\'t send any data to the server, you will redirected to the home page</div>';
+                    echo '<div class="hint"> <div class="top"></div> Sorry ! No person was selected</div>';
                 }
-            }
-            // }
 
-            ?>
-        </ul>
+                ?>
+            </ul>
+        </div>
+
+        <div class="mb-5">
+            <br><br>
+        </div>
     </div>
 
-    <div class="mb-5">
-        <br><br>
-    </div>
     <?php
     include_once('footer.php');
     ?>
